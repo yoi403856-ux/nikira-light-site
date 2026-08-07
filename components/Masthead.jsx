@@ -33,7 +33,7 @@ export default function Masthead({ links, locale, city, phone, tel }) {
         <LangToggle onPhoto />
       </div>
 
-      <Link href={withLocale('/', locale)} className={`block text-center ${isHome ? 'pb-10 pt-6' : 'pb-7 pt-1'}`}>
+      <Link href={withLocale('/', locale)} className={`block text-center ${isHome ? 'pb-6 pt-4' : 'pb-7 pt-1'}`}>
         <span
           className={`block font-caps text-glow on-photo ${
             isHome ? 'text-[28px] sm:text-[54px]' : 'text-[24px] sm:text-[34px]'
