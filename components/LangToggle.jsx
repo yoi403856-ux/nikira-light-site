@@ -21,9 +21,11 @@ export default function LangToggle({ className = '', onPhoto = false }) {
   const ruHref = bare
   const enHref = bare === '/' ? '/en' : `/en${bare}`
 
-  const on = onPhoto ? 'text-glow' : 'text-ink'
-  const off = onPhoto ? 'text-glow/50 hover:text-glow/80' : 'text-ink/40 hover:text-ink/70'
-  const sep = onPhoto ? 'text-glow/30' : 'text-ink/25'
+  // на фотографии одной прозрачности мало — на светлом небе белый текст
+  // тонет почти незаметно, поэтому здесь всегда добавлена тень
+  const on = onPhoto ? 'text-glow on-photo-sm' : 'text-ink'
+  const off = onPhoto ? 'text-glow/70 on-photo-sm hover:text-glow' : 'text-ink/40 hover:text-ink/70'
+  const sep = onPhoto ? 'text-glow/40 on-photo-sm' : 'text-ink/25'
 
   return (
     <div className={`flex items-center gap-1 font-caps text-[10.5px] tracking-[0.16em] ${className}`}>

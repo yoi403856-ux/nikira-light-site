@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { ChevronDown } from 'lucide-react'
 import CatRows from '@/components/CatRows'
 import { Eyebrow, Btn, SectionHead, QuoteBand } from '@/components/ui'
 import { getCats, getKittens, getSettings } from '@/lib/api'
@@ -42,7 +43,7 @@ export default async function Home() {
       {/* первый экран: текст слева, вырезанный кот справа, фон открыт.
           Высота подогнана так, чтобы на типичном ноутбучном экране (900-1080px)
           весь блок — включая кнопки и низ фото — помещался без обрезки на сгибе. */}
-      <section className="grid items-center gap-10 px-6 pb-[60px] pt-10 sm:grid-cols-[1.05fr_0.95fr] sm:gap-[70px] sm:px-[70px] sm:pb-20 sm:pt-16">
+      <section className="relative grid items-center gap-10 px-6 pb-[60px] pt-10 sm:grid-cols-[1.05fr_0.95fr] sm:gap-[70px] sm:px-[70px] sm:pb-20 sm:pt-16">
         <div>
           <Eyebrow onPhoto>{d.eyebrow}</Eyebrow>
           <h1 className="mt-6 font-display text-[42px] leading-[1.05] text-glow on-photo sm:text-[60px]">
@@ -88,9 +89,17 @@ export default async function Home() {
             />
           </div>
         )}
+
+        <a
+          href="#after-hero"
+          aria-label={locale === 'en' ? 'Scroll down' : 'Листайте вниз'}
+          className="absolute bottom-3 left-1/2 hidden -translate-x-1/2 animate-bounce text-glow/80 on-photo-sm transition-colors hover:text-glow sm:block"
+        >
+          <ChevronDown size={26} strokeWidth={1.4} />
+        </a>
       </section>
 
-      <div className="panel">
+      <div id="after-hero" className="panel scroll-mt-20">
         <SectionHead num={d.aboutEyebrow} aside={d.aside}>
           {d.aboutH2a}
           <i className="not-italic text-ember">{d.aboutH2b}</i>.
