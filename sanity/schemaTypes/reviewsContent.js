@@ -1,0 +1,19 @@
+const bilingual = (name, title, type = 'string', extra = {}) => [
+  { name, title: `${title}`, type, ...extra },
+  { name: `${name}En`, title: `${title} (English)`, type, ...extra },
+]
+
+export const reviewsContent = {
+  name: 'reviewsContent',
+  title: 'Тексты: Отзывы',
+  type: 'document',
+  fields: [
+    ...bilingual('heroEyebrow', 'Надпись над заголовком'),
+    ...bilingual('heroTitle', 'Заголовок страницы'),
+    ...bilingual('heroLead', 'Подзаголовок', 'text', { rows: 2 }),
+
+    ...bilingual('ctaEyebrow', 'Блок внизу — надпись'),
+    ...bilingual('ctaH2', 'Блок внизу — заголовок'),
+  ],
+  preview: { prepare: () => ({ title: 'Тексты: Отзывы' }) },
+}

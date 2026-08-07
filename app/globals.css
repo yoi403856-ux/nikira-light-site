@@ -1,0 +1,150 @@
+/*
+  Шрифты лежат локально. Раньше они приходили через next/font/google, который
+  скачивает их с fonts.gstatic.com во время СБОРКИ — с российского сервера этот
+  запрос отваливается по таймауту и сборка висит. Теперь файлы в /public/fonts
+  и объявлены в fonts.css, так что сборке сеть до Google не нужна вовсе.
+*/
+@import './fonts.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+
+  /* используется в tailwind.config.js fontFamily (display / caps / sans) */
+  --font-prata: 'Prata', Georgia, serif;
+  --font-tenor: 'Tenor Sans', 'Trebuchet MS', sans-serif;
+  --font-manrope: 'Manrope', system-ui, sans-serif;
+}
+
+/*
+  Глобальный scroll-behavior:smooth убран — от него дёргается колесо мыши:
+  каждый щелчок запускает свою анимацию прокрутки, и они дерутся между собой.
+  Якорным ссылкам плавность добавляется точечно из JS.
+*/
+
+body {
+  margin: 0;
+  background: #FBF3E8;
+  color: #2E2820;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #D9C3A8;
+  color: #2E2820;
+}
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #F2E5D4; }
+::-webkit-scrollbar-thumb { background: #C6B49B; border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: #A9663C; }
+
+@layer components {
+  /* мелкая надпись вразрядку — узнаваемый элемент всего сайта */
+  .eyebrow {
+    @apply font-caps uppercase text-[10.5px] tracking-[0.4em] text-ember;
+  }
+
+  /* та же надпись, но поверх фотографии */
+  .eyebrow-glow {
+    @apply font-caps uppercase text-[10.5px] tracking-[0.4em] text-glowdim;
+    text-shadow: 0 1px 14px rgba(40, 32, 22, 0.55);
+  }
+
+  /* текст поверх фотографии: читаемость держит тень, а не заливка сверху */
+  .on-photo {
+    text-shadow: 0 2px 32px rgba(40, 32, 22, 0.55), 0 1px 4px rgba(40, 32, 22, 0.32);
+  }
+  .on-photo-sm {
+    text-shadow: 0 1px 16px rgba(40, 32, 22, 0.6);
+  }
+
+  /* бумажная панель поверх закреплённого фона */
+  .panel {
+    @apply bg-paper/[0.94] backdrop-blur-[10px] border-t border-ink/[0.08];
+  }
+
+  .link-underline { position: relative; }
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    height: 1px;
+    width: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .link-underline:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+@layer utilities {
+  .grain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    z-index: 2;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .text-balance { text-wrap: balance; }
+  .hairline { border-color: rgba(46, 40, 32, 0.14); }
+
+  /* горизонтальная лента котят внутри помёта */
+  .strip {
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+  .strip::-webkit-scrollbar { height: 6px; }
+  .strip::-webkit-scrollbar-track { background: transparent; }
+  .strip::-webkit-scrollbar-thumb { background: rgba(46, 40, 32, 0.22); }
+
+  /*
+    Высота под закреплённый фон, считается по САМОМУ БОЛЬШОМУ возможному
+    экрану (адресная строка спрятана). С `svh` внизу оставалась щель, когда
+    строка сворачивалась при прокрутке. `100vh` — запасной вариант для
+    браузеров без `lvh`.
+  */
+  .h-screen-stable {
+    height: 100vh;
+    height: 100lvh;
+  }
+}
+
+/*
+  Живое размытие поверх закреплённой фотографии пересчитывается каждый кадр
+  прокрутки. На тач-устройствах это не успевает за резким смахиванием, и
+  панель заметно догоняет с опозданием. Там оставляем тонировку, но убираем
+  само размытие; на десктопе оно остаётся.
+*/
+@media (hover: none) and (pointer: coarse) {
+  .backdrop-blur-sm,
+  .backdrop-blur-md,
+  .backdrop-blur-lg,
+  .backdrop-blur-xl,
+  .backdrop-blur-\[10px\] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

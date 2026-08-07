@@ -1,0 +1,159 @@
+import Link from 'next/link'
+import CatRows from '@/components/CatRows'
+import { Eyebrow, Btn, SectionHead, QuoteBand } from '@/components/ui'
+import { getCats, getKittens, getSettings } from '@/lib/api'
+import { getHomeContent } from '@/lib/content'
+import { getLocale, getDict, hreflangAlternates } from '@/lib/i18n'
+import { withLocale } from '@/lib/locale'
+import { urlForImage, urlForImageCrop } from '@/sanity/image'
+import { resolveContacts } from '@/lib/contacts'
+
+export async function generateMetadata() {
+  const locale = getLocale()
+  // описание берём из того же текста, что виден под заголовком на странице,
+  // чтобы сниппет в поиске не разъезжался с сайтом
+  const d = await getHomeContent(locale)
+  return {
+    title:
+      locale === 'en'
+        ? 'Nikira Light — Maine Coon cattery in Novorossiysk'
+        : 'Nikira Light — питомник мейн-кунов в Новороссийске',
+    description: d.lead,
+    alternates: hreflangAlternates('/', locale),
+  }
+}
+
+export default async function Home() {
+  const locale = getLocale()
+  const dict = getDict()
+  const [cats, kittens, settings, d] = await Promise.all([
+    getCats(),
+    getKittens(),
+    getSettings(),
+    getHomeContent(locale),
+  ])
+  const c = resolveContacts(settings, locale)
+  const heroCat = settings?.heroCat ? urlForImage(settings.heroCat, 900) : null
+  const bandPhoto = cats[0]?.images?.[0] ? urlForImageCrop(cats[0].images[0], 1600, 1000) : null
+  const freeKittens = kittens.filter((k) => k.status === 'available').length
+
+  return (
+    <>
+      {/* первый экран: текст слева, вырезанный кот справа, фон открыт */}
+      <section className="grid items-center gap-10 px-6 pb-[70px] pt-14 sm:grid-cols-[1.05fr_0.95fr] sm:gap-[70px] sm:px-[70px] sm:pb-[130px] sm:pt-[104px]">
+        <div>
+          <Eyebrow onPhoto>{d.eyebrow}</Eyebrow>
+          <h1 className="mt-6 font-display text-[42px] leading-[1.05] text-glow on-photo sm:text-[72px]">
+            {d.title.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+          </h1>
+          <p className="mt-7 max-w-[430px] font-sans text-[18px] font-extralight leading-[1.75] text-glow/90 on-photo-sm sm:text-[20px]">
+            {d.lead}
+          </p>
+          <div className="mt-11 flex flex-col items-start gap-3.5 sm:flex-row">
+            <Btn href={withLocale('/kittens', locale)} onPhoto>
+              {dict.common.watch}
+            </Btn>
+            <Btn href={withLocale('/about', locale)} kind="line" onPhoto>
+              {dict.common.aboutUs}
+            </Btn>
+          </div>
+        </div>
+
+        {heroCat && (
+          <div className="relative flex min-h-[380px] items-end justify-center sm:min-h-[540px]">
+            <span
+              aria-hidden
+              className="absolute bottom-2.5 left-[16%] right-[16%] z-[1] h-8"
+              style={{ background: 'radial-gradient(ellipse at center,rgba(30,22,14,0.42) 0%,rgba(30,22,14,0) 70%)' }}
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={heroCat}
+              alt=""
+              className="relative z-[2] h-auto w-full object-contain"
+              style={{
+                filter:
+                  'drop-shadow(0 24px 34px rgba(30,22,14,0.42)) sepia(0.18) saturate(1.12) brightness(1.03) hue-rotate(-6deg)',
+              }}
+            />
+          </div>
+        )}
+      </section>
+
+      <div className="panel">
+        <SectionHead num={d.aboutEyebrow} aside={d.aside}>
+          {d.aboutH2a}
+          <i className="not-italic text-ember">{d.aboutH2b}</i>.
+        </SectionHead>
+
+        <section className="max-w-[1020px] px-6 pb-[70px] sm:px-[70px] sm:pb-[120px]">
+          <div className="columns-1 gap-16 font-sans text-[16px] font-light leading-[2] text-soft sm:columns-2">
+            {[d.p1, d.p2, d.p3, d.p4].filter(Boolean).map((p, i) => (
+              <p key={i} className="mb-5 break-inside-avoid">
+                {p}
+              </p>
+            ))}
+          </div>
+        </section>
+
+        <section className="flex flex-wrap gap-9 px-6 pb-[70px] sm:gap-[76px] sm:px-[70px] sm:pb-[120px]">
+          {[
+            [c.foundedYear, locale === 'en' ? 'founded' : 'год основания'],
+            [c.registry, locale === 'en' ? 'registration' : 'регистрация'],
+            [cats.length || '—', locale === 'en' ? 'cats' : 'кота и кошки'],
+            [freeKittens || '—', locale === 'en' ? 'kittens available' : 'котят свободно'],
+          ].map(([n, label]) => (
+            <div key={label}>
+              <b className="block font-display text-[38px] font-normal leading-none sm:text-[52px]">{n}</b>
+              <span className="eyebrow mt-3 block">{label}</span>
+            </div>
+          ))}
+        </section>
+      </div>
+
+      {/* разрыв: панель кончается, фон снова открыт во всю высоту */}
+      <div className="h-[30vh] min-h-[170px] sm:h-[44vh] sm:min-h-[260px]" />
+
+      <div className="panel">
+        <div className="flex flex-col items-start justify-between gap-4 px-6 pb-10 pt-16 sm:flex-row sm:items-end sm:px-[70px] sm:pt-24">
+          <div>
+            <Eyebrow>{d.catsEyebrow}</Eyebrow>
+            <h2 className="mt-4 font-display text-[30px] sm:text-[46px]">{d.catsH2}</h2>
+          </div>
+          <Link
+            href={withLocale('/cats', locale)}
+            className="font-caps text-[11px] uppercase tracking-[0.2em] text-soft transition-colors hover:text-ember"
+          >
+            {dict.common.more} →
+          </Link>
+        </div>
+        <CatRows cats={cats.slice(0, 4)} locale={locale} dict={dict} />
+      </div>
+
+      <QuoteBand src={bandPhoto} eyebrow={d.quoteEyebrow}>
+        {d.quote}
+      </QuoteBand>
+
+      <div className="panel">
+        <section className="px-6 py-[70px] sm:px-[70px] sm:py-[110px]">
+          <Eyebrow>{d.ctaEyebrow}</Eyebrow>
+          <h2 className="my-6 max-w-[760px] font-display text-[32px] leading-[1.1] sm:text-[56px]">
+            {d.ctaH2a}
+            <i className="not-italic text-ember">{d.ctaH2b}</i>
+            {d.ctaH2c}
+          </h2>
+          <div className="flex flex-col items-start gap-3.5 sm:flex-row">
+            <Btn href={withLocale('/kittens', locale)}>{dict.common.watch}</Btn>
+            <Btn href={withLocale('/contacts', locale)} kind="line">
+              {dict.common.write}
+            </Btn>
+          </div>
+        </section>
+      </div>
+    </>
+  )
+}
