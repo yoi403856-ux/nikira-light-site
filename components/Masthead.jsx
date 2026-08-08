@@ -39,12 +39,37 @@ export default function Masthead({ links, locale, city, phone, tel }) {
   const isHome = bare === '/'
   const [open, setOpen] = useState(false)
 
-  // закрываем меню при смене страницы и блокируем скролл фона, пока оно открыто
   useEffect(() => setOpen(false), [pathname])
+
+  /*
+    Пока меню открыто, фон не должен прокручиваться: панель приклеена к
+    липкой полосе, и если страница под ней едет, раскрытое меню висит
+    сверху и накрывает контент.
+
+    Блокировка вешается на <html>, а НЕ на <body>: прокручивается именно
+    корневой элемент (см. overflow-x: clip на html в globals.css), и
+    overflow:hidden на body ничего не блокирует.
+
+    Закрытие по скроллу — подстраховка: на части мобильных браузеров
+    (в первую очередь iOS Safari) блокировка через overflow срабатывает
+    не всегда. Порог в 40px нужен, чтобы меню не захлопнулось от
+    микросдвига в момент самой блокировки.
+  */
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : ''
+    if (!open) return
+    const html = document.documentElement
+    const prevOverflow = html.style.overflow
+    html.style.overflow = 'hidden'
+
+    const startY = window.scrollY
+    const onScroll = () => {
+      if (Math.abs(window.scrollY - startY) > 40) setOpen(false)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+
     return () => {
-      document.body.style.overflow = ''
+      html.style.overflow = prevOverflow
+      window.removeEventListener('scroll', onScroll)
     }
   }, [open])
 
@@ -117,7 +142,9 @@ export default function Masthead({ links, locale, city, phone, tel }) {
         </button>
 
         {open && (
-          <div className="absolute inset-x-0 top-full z-30 max-h-[80vh] overflow-y-auto bg-[rgba(30,24,17,0.97)] backdrop-blur-[10px]">
+          // h-screen, а не max-h: панель должна доставать до низа экрана,
+          // иначе снизу остаётся щель и в неё видно контент страницы
+          <div className="absolute inset-x-0 top-full z-30 h-screen overflow-y-auto bg-[rgba(30,24,17,0.97)] backdrop-blur-[10px]">
             <nav className="flex flex-col px-6 py-4">
               {links.map((l) => {
                 const on = l.href === '/' ? bare === '/' : bare.startsWith(l.href)
