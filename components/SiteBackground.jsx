@@ -6,13 +6,20 @@
   Молочной заливки поверх фотографии нет намеренно: она гасила закат и
   превращала снимок в подложку. Читаемость держат тени на самом тексте
   (класс .on-photo в globals.css).
+
+  `inset-x-0 top-0` + `.h-screen-stable` вместо `inset-0`: на мобильных
+  браузерах fixed-элемент, прибитый ещё и к low, ловит скачок при
+  скрытии/появлении адресной строки — сайт «дёргается» и снизу видна
+  полоска непрокрашенной области. Та же проблема и то же лечение, что на
+  Summer Cherry (см. components/SiteBackground.jsx там). translateZ(0) и
+  will-change убирают дополнительное дрожание от перерисовки на скролле.
 */
 export default function SiteBackground({ photoUrl, inner = false }) {
   return (
     <>
       <div
         aria-hidden
-        className="fixed inset-0 -z-20 bg-linen bg-cover bg-no-repeat"
+        className="h-screen-stable fixed inset-x-0 top-0 -z-20 bg-linen bg-cover bg-no-repeat [transform:translateZ(0)] [-webkit-transform:translateZ(0)] [backface-visibility:hidden] [will-change:transform]"
         style={{
           backgroundImage: photoUrl
             ? `url(${photoUrl}), linear-gradient(180deg,#DCC9B4 0%,#EFDCC4 55%,#E6D0B4 100%)`
@@ -22,7 +29,7 @@ export default function SiteBackground({ photoUrl, inner = false }) {
       />
       <div
         aria-hidden
-        className="fixed inset-0 -z-10 pointer-events-none"
+        className="h-screen-stable fixed inset-x-0 top-0 -z-10 pointer-events-none [transform:translateZ(0)] [-webkit-transform:translateZ(0)] [backface-visibility:hidden]"
         style={{
           background: inner
             ? // на внутренних страницах фон открыт только под шапкой,
