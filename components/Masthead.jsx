@@ -95,7 +95,15 @@ export default function Masthead({ links, locale, city, phone, tel }) {
         })}
       </nav>
 
-      {/* мобильный: гамбургер + выпадающая панель, sm и меньше */}
+      {/*
+        Мобильный: гамбургер + выпадающая панель, sm и меньше. Панель —
+        absolute-потомок ЭТОЙ же sticky-полосы (top-full — сразу под ней), а
+        не fixed с зашитым числом пикселей от верха экрана: пока страница не
+        прокручена, sticky ещё не «прилип» и стоит на естественном месте ниже
+        блока с названием — прибитая к 52px от края экрана панель проезжала
+        мимо кнопки. top-full всегда находит полосу там, где она есть на
+        самом деле, прилипла она или нет.
+      */}
       <div className="sticky top-0 z-40 flex items-center justify-between border-y border-glow/20 bg-[rgba(44,36,26,0.46)] px-6 py-3.5 backdrop-blur-[10px] sm:hidden">
         <LangToggle onPhoto />
         <button
@@ -107,34 +115,34 @@ export default function Masthead({ links, locale, city, phone, tel }) {
         >
           {open ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
         </button>
-      </div>
 
-      {open && (
-        <div className="fixed inset-x-0 top-[52px] bottom-0 z-30 overflow-y-auto bg-[rgba(30,24,17,0.97)] backdrop-blur-[10px] sm:hidden">
-          <nav className="flex flex-col px-6 py-4">
-            {links.map((l) => {
-              const on = l.href === '/' ? bare === '/' : bare.startsWith(l.href)
-              return (
-                <Link
-                  key={l.href}
-                  href={withLocale(l.href, locale)}
-                  className={`border-b border-glow/10 py-5 font-display text-[22px] transition-colors ${
-                    on ? 'text-glowdim' : 'text-glow'
-                  }`}
-                >
-                  {l.label}
-                </Link>
-              )
-            })}
-          </nav>
-          <a
-            href={tel}
-            className="block px-6 py-5 font-caps text-[13px] uppercase tracking-[0.2em] text-glow/80"
-          >
-            {phone}
-          </a>
-        </div>
-      )}
+        {open && (
+          <div className="absolute inset-x-0 top-full z-30 max-h-[80vh] overflow-y-auto bg-[rgba(30,24,17,0.97)] backdrop-blur-[10px]">
+            <nav className="flex flex-col px-6 py-4">
+              {links.map((l) => {
+                const on = l.href === '/' ? bare === '/' : bare.startsWith(l.href)
+                return (
+                  <Link
+                    key={l.href}
+                    href={withLocale(l.href, locale)}
+                    className={`border-b border-glow/10 py-5 font-display text-[22px] transition-colors ${
+                      on ? 'text-glowdim' : 'text-glow'
+                    }`}
+                  >
+                    {l.label}
+                  </Link>
+                )
+              })}
+            </nav>
+            <a
+              href={tel}
+              className="block px-6 py-5 font-caps text-[13px] uppercase tracking-[0.2em] text-glow/80"
+            >
+              {phone}
+            </a>
+          </div>
+        )}
+      </div>
     </>
   )
 }
