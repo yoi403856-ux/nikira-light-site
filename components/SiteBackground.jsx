@@ -14,27 +14,36 @@
   Summer Cherry (см. components/SiteBackground.jsx там). translateZ(0) и
   will-change убирают дополнительное дрожание от перерисовки на скролле.
 
-  Лёгкое blur(2px) на самом фото, а не backdrop-blur на панелях сверху: как
-  и на Summer Cherry, живой backdrop-filter над этим фиксированным фоном
-  должен пересчитываться на каждый кадр прокрутки — на слабой видеокарте или
-  при выключенном аппаратном ускорении это не просто тормозит, а иногда не
-  прорисовывается вовсе (панель остаётся пустой/бледной). Размытие один раз
-  здесь — обычный, кэшируемый рендер; .panel и шапка (Masthead) теперь просто
-  полупрозрачные, без backdrop-filter. Радиус совсем небольшой — это фото ещё
-  и hero-задник без панели поверх него, заметный blur там читался как
-  замыленный снимок, а не лёгкая дымка (было 12px, потом 5px, всё ещё много).
+  Резкое фото снизу — а не одно ровное blur(2px) по всей высоте — потому что
+  живой backdrop-filter пересчитывается каждый кадр прокрутки и на слабой
+  видеокарте иногда не прорисовывается вовсе (см. .panel/Masthead ниже,
+  тот же случай, что на Summer Cherry). Прогрессивное размытие к низу здесь
+  собрано из двух статичных, кэшируемых слоёв вместо одного живого эффекта:
+  резкий слой снизу, поверх него — тот же кадр с blur(14px), обрезанный
+  mask-image так, что сверху он прозрачный (виден резкий слой), а к низу
+  полностью непрозрачный (виден размытый). Стык мягкий, но пересчитывать
+  на скролле нечего — оба слоя нарисованы один раз.
 */
 export default function SiteBackground({ photoUrl, inner = false }) {
+  const bgImage = photoUrl
+    ? `url(${photoUrl}), linear-gradient(180deg,#DCC9B4 0%,#EFDCC4 55%,#E6D0B4 100%)`
+    : 'linear-gradient(180deg,#DCC9B4 0%,#EFDCC4 55%,#E6D0B4 100%)'
+
   return (
     <>
       <div
         aria-hidden
-        className="h-screen-stable fixed inset-x-0 top-0 -z-20 bg-linen bg-cover bg-no-repeat [filter:blur(2px)] [transform:translateZ(0)] [-webkit-transform:translateZ(0)] [backface-visibility:hidden] [will-change:transform]"
+        className="h-screen-stable fixed inset-x-0 top-0 -z-20 bg-linen bg-cover bg-no-repeat [transform:translateZ(0)] [-webkit-transform:translateZ(0)] [backface-visibility:hidden] [will-change:transform]"
+        style={{ backgroundImage: bgImage, backgroundPosition: 'center 38%' }}
+      />
+      <div
+        aria-hidden
+        className="h-screen-stable fixed inset-x-0 top-0 z-[-15] bg-linen bg-cover bg-no-repeat [filter:blur(14px)] [transform:translateZ(0)] [-webkit-transform:translateZ(0)] [backface-visibility:hidden]"
         style={{
-          backgroundImage: photoUrl
-            ? `url(${photoUrl}), linear-gradient(180deg,#DCC9B4 0%,#EFDCC4 55%,#E6D0B4 100%)`
-            : 'linear-gradient(180deg,#DCC9B4 0%,#EFDCC4 55%,#E6D0B4 100%)',
+          backgroundImage: bgImage,
           backgroundPosition: 'center 38%',
+          maskImage: 'linear-gradient(to bottom, transparent 0%, transparent 45%, black 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, transparent 45%, black 100%)',
         }}
       />
       <div
