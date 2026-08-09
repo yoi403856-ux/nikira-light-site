@@ -11,7 +11,7 @@ import { withLocale } from '@/lib/locale'
 export default function CatRows({ cats, locale, dict, hrefBase = '/cats' }) {
   if (!cats?.length) {
     return (
-      <p className="px-6 py-16 font-sans text-[16px] font-light text-soft sm:px-[70px]">{dict.common.noCats}</p>
+      <p className="px-6 py-16 text-center font-sans text-[16px] font-light text-soft sm:px-[70px]">{dict.common.noCats}</p>
     )
   }
 

@@ -32,7 +32,7 @@ export default async function ReviewsPage() {
 
       <div className="panel">
         {reviews.length === 0 ? (
-          <p className="px-6 py-16 font-sans text-[16px] font-light text-soft sm:px-[70px]">{dict.common.noReviews}</p>
+          <p className="px-6 py-16 text-center font-sans text-[16px] font-light text-soft sm:px-[70px]">{dict.common.noReviews}</p>
         ) : (
           <section className="px-6 pt-14 sm:columns-2 sm:gap-6 sm:px-[70px] sm:pt-20 lg:columns-3">
             {reviews.map((r) => {
