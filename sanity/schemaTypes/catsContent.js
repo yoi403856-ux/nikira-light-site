@@ -13,7 +13,8 @@ export const catsContent = {
     ...bilingual('heroLead', 'Подзаголовок', 'text', { rows: 2 }),
 
     ...bilingual('docsEyebrow', 'Блок внизу — надпись'),
-    ...bilingual('docsH2', 'Блок внизу — заголовок'),
+    ...bilingual('docsH2a', 'Блок внизу — заголовок, часть 1'),
+    ...bilingual('docsH2b', 'Блок внизу — заголовок, курсив'),
     ...bilingual('docsText', 'Блок внизу — текст', 'text', { rows: 3 }),
   ],
   preview: { prepare: () => ({ title: 'Тексты: Наши коты' }) },

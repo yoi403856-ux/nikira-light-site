@@ -13,7 +13,8 @@ export const reviewsContent = {
     ...bilingual('heroLead', 'Подзаголовок', 'text', { rows: 2 }),
 
     ...bilingual('ctaEyebrow', 'Блок внизу — надпись'),
-    ...bilingual('ctaH2', 'Блок внизу — заголовок'),
+    ...bilingual('ctaH2a', 'Блок внизу — заголовок, часть 1'),
+    ...bilingual('ctaH2b', 'Блок внизу — заголовок, курсив'),
   ],
   preview: { prepare: () => ({ title: 'Тексты: Отзывы' }) },
 }
