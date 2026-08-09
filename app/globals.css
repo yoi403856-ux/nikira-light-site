@@ -79,9 +79,11 @@ body {
 
   /* бумажная панель поверх закреплённого фона. Раньше была ещё border-t —
      на стыке с фотографией неба тонкая тёмная линия читалась как лишняя
-     полоска; смены фона на бумагу и так достаточно, чтобы увидеть границу. */
+     полоска; смены фона на бумагу и так достаточно, чтобы увидеть границу.
+     backdrop-blur убран — размытие теперь запечено в само фото
+     (SiteBackground.jsx), панель просто полупрозрачная. */
   .panel {
-    @apply bg-paper/[0.94] backdrop-blur-[10px];
+    @apply bg-paper/[0.94];
   }
 
   .link-underline { position: relative; }
@@ -135,23 +137,6 @@ body {
   .h-screen-stable {
     height: 100vh;
     height: 100lvh;
-  }
-}
-
-/*
-  Живое размытие поверх закреплённой фотографии пересчитывается каждый кадр
-  прокрутки. На тач-устройствах это не успевает за резким смахиванием, и
-  панель заметно догоняет с опозданием. Там оставляем тонировку, но убираем
-  само размытие; на десктопе оно остаётся.
-*/
-@media (hover: none) and (pointer: coarse) {
-  .backdrop-blur-sm,
-  .backdrop-blur-md,
-  .backdrop-blur-lg,
-  .backdrop-blur-xl,
-  .backdrop-blur-\[10px\] {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
   }
 }
 

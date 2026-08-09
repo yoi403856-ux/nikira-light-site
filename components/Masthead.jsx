@@ -102,8 +102,12 @@ export default function Masthead({ links, locale, city, phone, tel }) {
         </Link>
       </header>
 
-      {/* десктоп: обычная строка, sm+ */}
-      <nav className="sticky top-0 z-40 hidden border-y border-glow/20 bg-[rgba(44,36,26,0.46)] px-[70px] py-4 backdrop-blur-[10px] sm:flex sm:items-center sm:justify-between">
+      {/*
+        десктоп: обычная строка, sm+. backdrop-blur убран (см.
+        SiteBackground.jsx — размытие теперь в самом фото), альфа поднята с
+        0.46 до 0.72, чтобы плашка не читалась слишком прозрачной без него.
+      */}
+      <nav className="sticky top-0 z-40 hidden border-y border-glow/20 bg-[rgba(44,36,26,0.72)] px-[70px] py-4 sm:flex sm:items-center sm:justify-between">
         {links.map((l) => {
           const on = l.href === '/' ? bare === '/' : bare.startsWith(l.href)
           return (
@@ -129,7 +133,7 @@ export default function Masthead({ links, locale, city, phone, tel }) {
         мимо кнопки. top-full всегда находит полосу там, где она есть на
         самом деле, прилипла она или нет.
       */}
-      <div className="sticky top-0 z-40 flex items-center justify-between border-y border-glow/20 bg-[rgba(44,36,26,0.46)] px-6 py-3.5 backdrop-blur-[10px] sm:hidden">
+      <div className="sticky top-0 z-40 flex items-center justify-between border-y border-glow/20 bg-[rgba(44,36,26,0.72)] px-6 py-3.5 sm:hidden">
         <LangToggle onPhoto />
         <button
           type="button"
@@ -144,7 +148,7 @@ export default function Masthead({ links, locale, city, phone, tel }) {
         {open && (
           // h-screen, а не max-h: панель должна доставать до низа экрана,
           // иначе снизу остаётся щель и в неё видно контент страницы
-          <div className="absolute inset-x-0 top-full z-30 h-screen overflow-y-auto bg-[rgba(30,24,17,0.97)] backdrop-blur-[10px]">
+          <div className="absolute inset-x-0 top-full z-30 h-screen overflow-y-auto bg-[rgba(30,24,17,0.97)]">
             <nav className="flex flex-col px-6 py-4">
               {links.map((l) => {
                 const on = l.href === '/' ? bare === '/' : bare.startsWith(l.href)
