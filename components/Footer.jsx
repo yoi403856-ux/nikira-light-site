@@ -1,32 +1,28 @@
 import Link from 'next/link'
+import { Phone, Instagram } from 'lucide-react'
+import { WhatsApp } from './icons'
 import { pick } from '@/lib/dict'
 import { resolveContacts } from '@/lib/contacts'
 import { withLocale } from '@/lib/locale'
 import { getDict } from '@/lib/i18n'
 
 /*
-  Подвал — последнее, что видит посетитель, и для питомника это второй по
-  важности блок после карточки котёнка: отсюда пишут. Поэтому связь вынесена
-  крупными кликабельными строками, а не спрятана в мелкий серый список.
-
-  Цвет текста здесь ink/soft, а не soft везде: на бумажной панели soft почти
-  сливается с фоном, и подвал читался как декоративная сноска.
+  Прежняя версия была бумажной панелью в тон всей остальной страницы — на
+  фоне остальных секций подвал не читался как отдельный, законченный блок.
+  Тёмный сплошной ink здесь не просто акцент: это единственное место на
+  сайте, где фон обрывается и подписывает страницу — как в Summer Cherry,
+  но на своих ember/glow тонах, а не золоте.
 */
 export default function Footer({ settings, locale }) {
   const c = resolveContacts(settings, locale)
   const dict = getDict()
-  const L = dict.contacts.labels
   const blurb = pick(locale, settings?.footerBlurb, settings?.footerBlurbEn)
   const delivery = pick(locale, settings?.delivery, settings?.deliveryEn)
   const year = new Date().getFullYear()
 
-  // только заполненные каналы — пустая строка «Telegram» хуже, чем её отсутствие
-  const channels = [
-    c.whatsapp && { label: 'WhatsApp', href: c.whatsapp, external: true },
-    c.instagram && { label: 'Instagram', href: c.instagram, external: true },
-    c.telegram && { label: 'Telegram', href: c.telegram, external: true },
-    c.vk && { label: L.vk, href: c.vk, external: true },
-    c.email && { label: L.email, href: `mailto:${c.email}`, value: c.email },
+  const socials = [
+    c.whatsapp && { icon: WhatsApp, label: 'WhatsApp', href: c.whatsapp },
+    c.instagram && { icon: Instagram, label: 'Instagram', href: c.instagram },
   ].filter(Boolean)
 
   const nav = [
@@ -38,71 +34,86 @@ export default function Footer({ settings, locale }) {
   ]
 
   return (
-    <footer className="panel border-t border-ink/10">
-      <div className="grid gap-12 px-6 py-14 sm:grid-cols-[1.2fr_1fr_1fr] sm:gap-16 sm:px-[70px] sm:py-20">
-        {/* колонка 1: кто мы */}
-        <div>
-          <p className="font-caps text-[16px] tracking-[0.3em] text-ink">NIKIRA LIGHT</p>
-          <p className="mt-2 font-caps text-[9.5px] uppercase tracking-[0.4em] text-ember">Maine Coon Cattery</p>
-          {blurb && (
-            <p className="mt-6 max-w-[380px] font-sans text-[14px] font-light leading-[1.9] text-soft">{blurb}</p>
-          )}
-          <p className="mt-6 font-sans text-[14px] leading-[1.9] text-ink/70">
-            {c.city}
-            {delivery && <span className="block">{delivery}</span>}
-          </p>
-        </div>
-
-        {/* колонка 2: как написать — крупно и кликабельно */}
-        <div>
-          <p className="eyebrow">{locale === 'en' ? 'Get in touch' : 'Связаться'}</p>
-          <a
-            href={c.tel}
-            className="mt-4 block font-display text-[22px] text-ink transition-colors hover:text-ember"
-          >
-            {c.phone}
-          </a>
-          {/* py-2 вместо голого gap: строка 15px даёт область нажатия всего
-              23px, а пальцу нужно около 44 — отступы добирают высоту, не
-              раздвигая список визуально */}
-          <div className="mt-4 flex flex-col gap-0.5">
-            {channels.map((ch) => (
+    <footer className="relative overflow-hidden bg-ink text-glow">
+      <div className="grain pointer-events-none absolute inset-0" />
+      <div className="relative mx-auto max-w-7xl px-6 py-16 sm:px-[70px] sm:py-20">
+        <div className="grid gap-12 sm:grid-cols-[1.2fr_1fr_1fr] sm:gap-16">
+          <div>
+            <p className="font-caps text-[16px] tracking-[0.3em] text-glow">NIKIRA LIGHT</p>
+            <p className="mt-2 font-caps text-[9.5px] uppercase tracking-[0.4em] text-ember">Maine Coon Cattery</p>
+            {blurb && (
+              <p className="mt-6 max-w-sm font-sans text-[14px] font-light leading-[1.9] text-glowdim/80">{blurb}</p>
+            )}
+            <div className="mt-7 flex gap-3">
+              {socials.map(({ icon: Icon, label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-11 w-11 items-center justify-center border border-glow/25 text-glow/80 transition-colors duration-300 hover:border-ember hover:text-ember"
+                >
+                  <Icon size={18} />
+                </a>
+              ))}
               <a
-                key={ch.label}
-                href={ch.href}
-                target={ch.external ? '_blank' : undefined}
-                rel={ch.external ? 'noreferrer' : undefined}
-                className="group inline-flex w-fit items-center gap-2 py-2 font-sans text-[15px] text-ink/80 transition-colors hover:text-ember"
+                href={c.tel}
+                aria-label={c.phone}
+                className="flex h-11 w-11 items-center justify-center border border-glow/25 text-glow/80 transition-colors duration-300 hover:border-ember hover:text-ember"
               >
-                <span className="h-px w-4 bg-sand transition-all group-hover:w-6 group-hover:bg-ember" />
-                {ch.value || ch.label}
+                <Phone size={18} />
               </a>
-            ))}
+            </div>
+          </div>
+
+          <div>
+            <h4 className="eyebrow-glow">{locale === 'en' ? 'Contact' : 'Контакты'}</h4>
+            <ul className="mt-6 space-y-4 font-sans text-sm tracking-[0.05em] text-glowdim/85">
+              <li>
+                <a href={c.tel} className="flex items-center gap-3 transition-colors hover:text-ember">
+                  <Phone size={16} className="text-ember" /> {c.phone}
+                </a>
+              </li>
+              {c.whatsapp && (
+                <li>
+                  <a href={c.whatsapp} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 transition-colors hover:text-ember">
+                    <WhatsApp size={16} className="text-ember" /> WhatsApp
+                  </a>
+                </li>
+              )}
+              {c.instagram && (
+                <li>
+                  <a href={c.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 transition-colors hover:text-ember">
+                    <Instagram size={16} className="text-ember" /> Instagram
+                  </a>
+                </li>
+              )}
+              <li className="pt-1 text-glowdim/60">
+                {c.city}
+                {delivery && <span className="block">{delivery}</span>}
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="eyebrow-glow">{locale === 'en' ? 'Sections' : 'Разделы'}</h4>
+            <ul className="mt-6 space-y-3 font-sans text-sm tracking-[0.08em] text-glowdim/85">
+              {nav.map((n) => (
+                <li key={n.href}>
+                  <Link href={withLocale(n.href, locale)} className="link-underline transition-colors hover:text-ember">
+                    {n.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        {/* колонка 3: разделы сайта */}
-        <div>
-          <p className="eyebrow">{locale === 'en' ? 'Sections' : 'Разделы'}</p>
-          <nav className="mt-3 flex flex-col gap-0.5">
-            {nav.map((n) => (
-              <Link
-                key={n.href}
-                href={withLocale(n.href, locale)}
-                className="w-fit py-2 font-sans text-[15px] text-ink/80 transition-colors hover:text-ember"
-              >
-                {n.label}
-              </Link>
-            ))}
-          </nav>
+        <div className="mt-14 flex flex-col items-center justify-between gap-3 border-t border-glow/15 pt-7 text-[11px] tracking-[0.2em] text-glowdim/40 sm:flex-row">
+          <span>{c.foundedYear}—{year} · NIKIRA LIGHT</span>
+          <span className="uppercase">{c.registry}</span>
         </div>
-      </div>
-
-      <div className="flex flex-col gap-2 border-t border-ink/10 px-6 py-6 font-caps text-[10px] uppercase tracking-[0.22em] text-soft sm:flex-row sm:justify-between sm:px-[70px]">
-        <span>
-          {c.foundedYear}—{year} · Mainecoon NikiraLight
-        </span>
-        <span>{c.registry}</span>
       </div>
     </footer>
   )
