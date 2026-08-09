@@ -18,5 +18,4 @@ export const structure = (S) =>
       singleton(S, 'kittensContent', 'Тексты: Котята'),
       singleton(S, 'catsContent', 'Тексты: Наши коты'),
       singleton(S, 'reviewsContent', 'Тексты: Отзывы'),
-      singleton(S, 'contactsContent', 'Тексты: Контакты'),
     ])

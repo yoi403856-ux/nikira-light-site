@@ -7,11 +7,10 @@ import { aboutContent } from './schemaTypes/aboutContent'
 import { kittensContent } from './schemaTypes/kittensContent'
 import { catsContent } from './schemaTypes/catsContent'
 import { reviewsContent } from './schemaTypes/reviewsContent'
-import { contactsContent } from './schemaTypes/contactsContent'
 
 export const schema = {
   types: [
     cat, kitten, review, siteSettings,
-    homeContent, aboutContent, kittensContent, catsContent, reviewsContent, contactsContent,
+    homeContent, aboutContent, kittensContent, catsContent, reviewsContent,
   ],
 }

@@ -102,7 +102,7 @@ export default async function KittenPage({ params }) {
 
             {k.status !== 'sold' && (
               <div className="mt-9">
-                <Btn href={withLocale('/contacts', locale)}>{dict.common.askKittens}</Btn>
+                <Btn href="#footer">{dict.common.askKittens}</Btn>
               </div>
             )}
           </div>

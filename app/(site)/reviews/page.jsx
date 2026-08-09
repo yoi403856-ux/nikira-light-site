@@ -2,7 +2,6 @@ import { PageHead, Eyebrow, Btn } from '@/components/ui'
 import { getReviews } from '@/lib/api'
 import { getReviewsContent } from '@/lib/content'
 import { getLocale, getDict, hreflangAlternates } from '@/lib/i18n'
-import { withLocale } from '@/lib/locale'
 import { urlForImage } from '@/sanity/image'
 import { pick, dateLocale } from '@/lib/dict'
 
@@ -78,7 +77,7 @@ export default async function ReviewsPage() {
             {d.ctaH2a}
             <i className="not-italic text-ember">{d.ctaH2b}</i>.
           </h2>
-          <Btn href={withLocale('/contacts', locale)} kind="line">
+          <Btn href="#footer" kind="line">
             {dict.common.write}
           </Btn>
         </section>

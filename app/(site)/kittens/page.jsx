@@ -3,7 +3,6 @@ import { PageHead, Eyebrow, Btn } from '@/components/ui'
 import { getKittens } from '@/lib/api'
 import { getKittensContent } from '@/lib/content'
 import { getLocale, getDict, hreflangAlternates } from '@/lib/i18n'
-import { withLocale } from '@/lib/locale'
 
 export async function generateMetadata() {
   const locale = getLocale()
@@ -33,7 +32,7 @@ export default async function KittensPage() {
             {d.waitH2a}
             <i className="not-italic text-ember">{d.waitH2b}</i>.
           </h2>
-          <Btn href={withLocale('/contacts', locale)}>{d.waitCta}</Btn>
+          <Btn href="#footer">{d.waitCta}</Btn>
         </section>
       </div>
     </>

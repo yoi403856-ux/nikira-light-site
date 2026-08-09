@@ -27,9 +27,6 @@ export const homeContent = {
     ...bilingual('p3', 'Манифест — абзац 3', 'text', { rows: 3 }),
     ...bilingual('p4', 'Манифест — абзац 4', 'text', { rows: 3 }),
 
-    ...bilingual('midQuoteEyebrow', 'Цитата на фото между блоками — надпись'),
-    ...bilingual('midQuote', 'Цитата на фото между блоками — текст', 'text', { rows: 2 }),
-
     ...bilingual('catsEyebrow', 'Коты — номер раздела'),
     ...bilingual('catsH2', 'Коты — заголовок'),
 

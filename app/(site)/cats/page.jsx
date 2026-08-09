@@ -3,7 +3,6 @@ import { PageHead, Eyebrow, Btn } from '@/components/ui'
 import { getCats } from '@/lib/api'
 import { getCatsContent } from '@/lib/content'
 import { getLocale, getDict, hreflangAlternates } from '@/lib/i18n'
-import { withLocale } from '@/lib/locale'
 
 export async function generateMetadata() {
   const locale = getLocale()
@@ -57,7 +56,7 @@ export default async function CatsPage() {
             <i className="not-italic text-ember">{d.docsH2b}</i>.
           </h2>
           <p className="mb-9 max-w-[620px] font-sans text-[16px] font-light leading-[1.95] text-soft">{d.docsText}</p>
-          <Btn href={withLocale('/contacts', locale)} kind="line">
+          <Btn href="#footer" kind="line">
             {dict.common.write}
           </Btn>
         </section>

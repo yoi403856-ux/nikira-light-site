@@ -99,7 +99,7 @@ export default async function CatPage({ params }) {
             )}
 
             <div className="mt-9">
-              <Btn href={withLocale('/contacts', locale)}>{dict.common.askKittens}</Btn>
+              <Btn href="#footer">{dict.common.askKittens}</Btn>
             </div>
           </div>
         </div>

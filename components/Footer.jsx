@@ -28,16 +28,16 @@ export default function Footer({ settings, locale }) {
     c.instagram && { icon: Instagram, label: 'Instagram', href: c.instagram },
   ].filter(Boolean)
 
+  // без "Контакты" — ссылка на неё вела бы из подвала в самого себя
   const nav = [
     { href: '/about', label: dict.nav.about },
     { href: '/kittens', label: dict.nav.kittens },
     { href: '/cats', label: dict.nav.cats },
     { href: '/reviews', label: dict.nav.reviews },
-    { href: '/contacts', label: dict.nav.contacts },
   ]
 
   return (
-    <footer className="relative overflow-hidden bg-ink text-glow">
+    <footer id="footer" className="relative overflow-hidden bg-ink text-glow">
       <div className="grain pointer-events-none absolute inset-0" />
       <div className="relative mx-auto max-w-2xl px-6 py-16 text-center sm:py-24">
         <p className="font-caps text-[9.5px] uppercase tracking-[0.5em] text-ember">Maine Coon Cattery</p>

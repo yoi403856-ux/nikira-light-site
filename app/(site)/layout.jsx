@@ -15,7 +15,9 @@ const NAV = [
   { href: '/kittens', key: 'kittens', settingsKey: 'navKittens' },
   { href: '/cats', key: 'cats', settingsKey: 'navCats' },
   { href: '/reviews', key: 'reviews', settingsKey: 'navReviews' },
-  { href: '/contacts', key: 'contacts', settingsKey: 'navContacts' },
+  // якорь на подвал, а не отдельная страница — подвал есть на каждой
+  // странице, так что ссылка работает откуда угодно без перехода
+  { href: '#footer', key: 'contacts', settingsKey: 'navContacts' },
 ]
 
 // og:image действует на всех страницах сайта, если страница не переопределит

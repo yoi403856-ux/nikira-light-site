@@ -18,7 +18,7 @@ function entries(path) {
 export default async function sitemap() {
   const [kittenSlugs, catSlugs] = await Promise.all([getKittenSlugs(), getCatSlugs()])
 
-  const staticPaths = ['/', '/about', '/kittens', '/cats', '/reviews', '/contacts']
+  const staticPaths = ['/', '/about', '/kittens', '/cats', '/reviews']
   const kittenPaths = kittenSlugs.map((slug) => `/kittens/${slug}`)
   const catPaths = catSlugs.map((slug) => `/cats/${slug}`)
 
