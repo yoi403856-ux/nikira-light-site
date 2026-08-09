@@ -5,16 +5,20 @@ export function Eyebrow({ children, onPhoto = false, className = '' }) {
 }
 
 /*
-  Заголовок внутренней страницы: номер раздела, крупное имя и подзаголовок,
-  прижатые влево и лежащие прямо на фотографии. Центрированного блока с
-  подложкой здесь нет намеренно — именно так открываются страницы у соседнего
-  питомника, и повторять его не хочется.
+  Заголовок внутренней страницы: крупное имя и подзаголовок, прижатые влево
+  и лежащие прямо на фотографии. Центрированного блока с подложкой здесь нет
+  намеренно — именно так открываются страницы у соседнего питомника, и
+  повторять его не хочется.
+
+  Номер раздела ("01", "02"...) раньше показывался над заголовком — без
+  подписи рядом голая цифра читалась как случайный обрывок текста, а не как
+  осознанный элемент разметки. Проп num оставлен у вызовов (heroEyebrow),
+  просто больше не выводится.
 */
-export function PageHead({ num, title, lead, className = '' }) {
+export function PageHead({ title, lead, className = '' }) {
   return (
     <section className={`max-w-[900px] px-6 pb-16 pt-16 sm:px-[70px] sm:pb-24 sm:pt-28 ${className}`}>
-      {num && <span className="font-display text-[15px] text-glowdim on-photo-sm">{num}</span>}
-      <h1 className="mt-5 font-display text-[36px] leading-[1.06] text-glow on-photo sm:text-[64px]">{title}</h1>
+      <h1 className="font-display text-[36px] leading-[1.06] text-glow on-photo sm:text-[64px]">{title}</h1>
       {lead && (
         <p className="mt-6 max-w-[520px] font-sans text-[17px] font-extralight leading-[1.75] text-glow/90 on-photo-sm sm:text-[19px]">
           {lead}
