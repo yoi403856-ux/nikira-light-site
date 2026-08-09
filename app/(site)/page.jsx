@@ -130,8 +130,21 @@ export default async function Home() {
         </section>
       </div>
 
-      {/* разрыв: панель кончается, фон снова открыт во всю высоту */}
-      <div className="h-[30vh] min-h-[170px] sm:h-[44vh] sm:min-h-[260px]" />
+      {/*
+        Разрыв между панелями: раньше здесь была пустая полоса, только фон
+        без ничего — с фиксированным фото без своего размытия это читалось
+        как случайная дыра в вёрстке, а не как задуманный "выход к фону".
+        Теперь на этом же месте короткая цитата поверх фото, тем же приёмом,
+        что и в hero (on-photo текст).
+      */}
+      <section className="flex h-[30vh] min-h-[170px] items-center justify-center px-6 text-center sm:h-[44vh] sm:min-h-[260px]">
+        <div className="max-w-[560px]">
+          <p className="eyebrow-glow">{d.midQuoteEyebrow}</p>
+          <p className="mt-4 font-display text-[20px] italic leading-[1.4] text-glow on-photo sm:text-[28px]">
+            {d.midQuote}
+          </p>
+        </div>
+      </section>
 
       <div className="panel">
         <div className="flex flex-col items-start justify-between gap-4 px-6 pb-10 pt-16 sm:flex-row sm:items-end sm:px-[70px] sm:pt-24">
