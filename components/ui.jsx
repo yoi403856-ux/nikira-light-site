@@ -6,7 +6,8 @@ export function Eyebrow({ children, onPhoto = false, className = '' }) {
 
 /*
   Заголовок внутренней страницы: крупное имя и подзаголовок, лежащие прямо
-  на фотографии. Центрировано — левое прижатие туда-обратно не прижилось.
+  на фотографии. Прижат влево — центр не подошёл на живом фото с деревом
+  справа, текст оказывался поверх веток.
 
   Номер раздела ("01", "02"...) раньше показывался над заголовком — без
   подписи рядом голая цифра читалась как случайный обрывок текста, а не как
@@ -15,10 +16,10 @@ export function Eyebrow({ children, onPhoto = false, className = '' }) {
 */
 export function PageHead({ title, lead, className = '' }) {
   return (
-    <section className={`mx-auto max-w-[700px] px-6 pb-16 pt-16 text-center sm:px-[70px] sm:pb-24 sm:pt-28 ${className}`}>
+    <section className={`max-w-[900px] px-6 pb-16 pt-16 sm:px-[70px] sm:pb-24 sm:pt-28 ${className}`}>
       <h1 className="font-display text-[36px] leading-[1.06] text-glow on-photo sm:text-[64px]">{title}</h1>
       {lead && (
-        <p className="mx-auto mt-6 max-w-[520px] font-sans text-[17px] font-extralight leading-[1.75] text-glow/90 on-photo-sm sm:text-[19px]">
+        <p className="mt-6 max-w-[520px] font-sans text-[17px] font-extralight leading-[1.75] text-glow/90 on-photo-sm sm:text-[19px]">
           {lead}
         </p>
       )}
