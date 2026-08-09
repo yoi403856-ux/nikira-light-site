@@ -71,9 +71,9 @@ export default async function ReviewsPage() {
           </section>
         )}
 
-        <section className="px-6 py-[70px] sm:px-[70px] sm:py-[110px]">
+        <section className="px-6 py-[70px] text-center sm:px-[70px] sm:py-[110px]">
           <Eyebrow>{d.ctaEyebrow}</Eyebrow>
-          <h2 className="my-6 max-w-[760px] font-display text-[32px] leading-[1.1] sm:text-[56px]">
+          <h2 className="mx-auto my-6 max-w-[760px] font-display text-[32px] leading-[1.1] sm:text-[56px]">
             {d.ctaH2a}
             <i className="not-italic text-ember">{d.ctaH2b}</i>.
           </h2>

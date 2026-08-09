@@ -49,13 +49,13 @@ export default async function CatsPage() {
 
         {cats.length === 0 && <CatRows cats={[]} locale={locale} dict={dict} />}
 
-        <section className="px-6 py-[70px] sm:px-[70px] sm:py-[110px]">
+        <section className="px-6 py-[70px] text-center sm:px-[70px] sm:py-[110px]">
           <Eyebrow>{d.docsEyebrow}</Eyebrow>
-          <h2 className="my-6 max-w-[760px] font-display text-[32px] leading-[1.1] sm:text-[56px]">
+          <h2 className="mx-auto my-6 max-w-[760px] font-display text-[32px] leading-[1.1] sm:text-[56px]">
             {d.docsH2a}
             <i className="not-italic text-ember">{d.docsH2b}</i>.
           </h2>
-          <p className="mb-9 max-w-[620px] font-sans text-[16px] font-light leading-[1.95] text-soft">{d.docsText}</p>
+          <p className="mx-auto mb-9 max-w-[620px] font-sans text-[16px] font-light leading-[1.95] text-soft">{d.docsText}</p>
           <Btn href="#footer" kind="line">
             {dict.common.write}
           </Btn>

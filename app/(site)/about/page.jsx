@@ -83,7 +83,7 @@ export default async function AboutPage() {
       </QuoteBand>
 
       <div className="panel">
-        <section className="flex flex-col items-start gap-3.5 px-6 py-[70px] sm:flex-row sm:px-[70px] sm:py-[110px]">
+        <section className="flex flex-col items-center justify-center gap-3.5 px-6 py-[70px] sm:flex-row sm:px-[70px] sm:py-[110px]">
           <Btn href={withLocale('/cats', locale)}>{dict.nav.cats}</Btn>
           <Btn href={withLocale('/kittens', locale)} kind="line">
             {dict.nav.kittens}
