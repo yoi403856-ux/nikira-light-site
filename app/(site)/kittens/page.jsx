@@ -30,11 +30,11 @@ export default async function KittensPage() {
           className={`border-ink/[0.14] px-6 text-center sm:px-[70px] ${
             kittens.length
               ? 'border-t py-16 sm:py-24'
-              : 'py-16 sm:py-24'
+              : 'py-10 sm:py-16'
           }`}
         >
           {!kittens.length && (
-            <p className="mx-auto mb-10 max-w-[440px] font-sans text-[16px] font-light leading-[1.75] text-soft">
+            <p className="mx-auto mb-6 max-w-[440px] font-sans text-[16px] font-light leading-[1.75] text-soft">
               {dict.common.noKittens}
             </p>
           )}
