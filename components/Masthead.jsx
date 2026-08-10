@@ -168,7 +168,7 @@ export default function Masthead({ links, locale, city, phone, tel }) {
         SiteBackground.jsx — размытие теперь в самом фото), альфа поднята с
         0.46 до 0.72, чтобы плашка не читалась слишком прозрачной без него.
       */}
-      <nav className="sticky top-0 z-40 hidden border-y border-glow/20 bg-[rgba(44,36,26,0.94)] px-[70px] py-4 sm:flex sm:items-center sm:justify-between">
+      <nav className="sticky top-0 z-40 hidden border-y border-glow/20 bg-[rgba(44,36,26,0.94)] px-[70px] py-4 sm:flex sm:items-center sm:justify-center sm:gap-x-14">
         {links.map((l) => {
           const on = l.href === '/' ? bare === '/' : bare.startsWith(l.href)
           return (
