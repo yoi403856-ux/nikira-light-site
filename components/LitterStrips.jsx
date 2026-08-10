@@ -4,10 +4,11 @@ import { pick, sexLabel, kittenStatusLabel, freeOf, dateLocale } from '@/lib/dic
 import { withLocale } from '@/lib/locale'
 
 /*
-  Котята сгруппированы по помётам, внутри помёта идут горизонтальной лентой.
-  Так покупателю сразу видно, кто от кого и когда родился, — плоский список
-  котят этого не показывает. Кличка и статус лежат прямо на кадре, поэтому
-  под ним хватает одной строки, а не таблицы характеристик.
+  Котята сгруппированы по помётам, внутри помёта — плиткой (тот же приём,
+  что у котов в CatRows). Так покупателю сразу видно, кто от кого и когда
+  родился, — плоский список котят этого не показывает. Кличка и статус
+  лежат прямо на кадре, поэтому под ним хватает одной строки, а не таблицы
+  характеристик.
 */
 function groupByLitter(kittens) {
   const map = new Map()
@@ -88,18 +89,14 @@ export default function LitterStrips({ kittens, locale, dict }) {
               )}
             </div>
 
-            <div className="strip flex gap-5 overflow-x-auto pb-9">
+            <div className="grid grid-cols-2 gap-5 pb-9 sm:grid-cols-3 sm:gap-8 lg:grid-cols-4">
               {list.map((k) => {
                 const src = k.images?.[0] ? urlForImageCrop(k.images[0], 612, 816) : null
                 const s = kittenStatusLabel(locale, k.status, k.born)
                 const name = pick(locale, k.name, k.nameEn)
                 const color = pick(locale, k.color, k.colorEn) || k.ems
                 return (
-                  <Link
-                    key={k._id}
-                    href={withLocale(`/kittens/${k.slug}`, locale)}
-                    className="group w-[240px] flex-none snap-start sm:w-[306px]"
-                  >
+                  <Link key={k._id} href={withLocale(`/kittens/${k.slug}`, locale)} className="group">
                     <div className="relative aspect-[3/4] overflow-hidden bg-linen">
                       {src && (
                         // eslint-disable-next-line @next/next/no-img-element

@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import { ChevronDown } from 'lucide-react'
 import CatRows from '@/components/CatRows'
+import ReviewsStrip from '@/components/ReviewsStrip'
 import { Eyebrow, Btn, SectionHead, QuoteBand, Contain } from '@/components/ui'
-import { getCats, getKittens, getSettings } from '@/lib/api'
+import { getCats, getKittens, getReviews, getSettings } from '@/lib/api'
 import { getHomeContent } from '@/lib/content'
 import { getLocale, getDict, hreflangAlternates } from '@/lib/i18n'
 import { withLocale } from '@/lib/locale'
@@ -27,9 +28,10 @@ export async function generateMetadata() {
 export default async function Home() {
   const locale = getLocale()
   const dict = getDict()
-  const [cats, kittens, settings, d] = await Promise.all([
+  const [cats, kittens, reviews, settings, d] = await Promise.all([
     getCats(),
     getKittens(),
+    getReviews(),
     getSettings(),
     getHomeContent(locale),
   ])
@@ -174,6 +176,26 @@ export default async function Home() {
       <QuoteBand src={bandPhoto} eyebrow={d.quoteEyebrow}>
         {d.quote}
       </QuoteBand>
+
+      {reviews.length > 0 && (
+        <div id="reviews" className="panel scroll-mt-20">
+          <Contain>
+            <div className="flex flex-col items-start justify-between gap-4 px-6 pb-10 pt-16 sm:flex-row sm:items-end sm:px-[70px] sm:pt-24">
+              <div>
+                <Eyebrow>{d.reviewsEyebrow}</Eyebrow>
+                <h2 className="mt-4 font-display text-[30px] sm:text-[46px]">{d.reviewsH2}</h2>
+              </div>
+              <Link
+                href={withLocale('/reviews', locale)}
+                className="font-caps text-[11px] uppercase tracking-[0.2em] text-soft transition-colors hover:text-ember"
+              >
+                {dict.common.more} →
+              </Link>
+            </div>
+            <ReviewsStrip reviews={reviews} locale={locale} dict={dict} />
+          </Contain>
+        </div>
+      )}
 
       <div className="panel">
         <Contain>
