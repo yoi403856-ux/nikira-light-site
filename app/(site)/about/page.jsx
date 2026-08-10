@@ -1,4 +1,4 @@
-import { PageHead, SectionHead, QuoteBand, Btn, Eyebrow } from '@/components/ui'
+import { PageHead, SectionHead, QuoteBand, Btn, Eyebrow, Contain } from '@/components/ui'
 import { getSettings, getCats } from '@/lib/api'
 import { getAboutContent } from '@/lib/content'
 import { getLocale, getDict, hreflangAlternates } from '@/lib/i18n'
@@ -48,7 +48,7 @@ export default async function AboutPage() {
       <PageHead num={d.heroEyebrow} title={d.heroTitle} lead={d.heroLead} />
 
       <div className="panel">
-        <div className="mx-auto max-w-[1160px]">
+        <Contain>
           <SectionHead num={d.storyEyebrow} aside={d.aside}>
             {d.storyH2a}
             <i className="not-italic text-ember">{d.storyH2b}</i>.
@@ -99,7 +99,7 @@ export default async function AboutPage() {
                 </div>
               ))}
           </section>
-        </div>
+        </Contain>
       </div>
 
       <QuoteBand src={bandPhoto} eyebrow={d.quoteEyebrow}>
@@ -107,12 +107,14 @@ export default async function AboutPage() {
       </QuoteBand>
 
       <div className="panel">
-        <section className="flex flex-col items-center justify-center gap-3.5 px-6 py-[70px] sm:flex-row sm:px-[70px] sm:py-[110px]">
-          <Btn href={withLocale('/cats', locale)}>{dict.nav.cats}</Btn>
-          <Btn href={withLocale('/kittens', locale)} kind="line">
-            {dict.nav.kittens}
-          </Btn>
-        </section>
+        <Contain>
+          <section className="flex flex-col items-center justify-center gap-3.5 px-6 py-[70px] sm:flex-row sm:px-[70px] sm:py-[110px]">
+            <Btn href={withLocale('/cats', locale)}>{dict.nav.cats}</Btn>
+            <Btn href={withLocale('/kittens', locale)} kind="line">
+              {dict.nav.kittens}
+            </Btn>
+          </section>
+        </Contain>
       </div>
     </>
   )

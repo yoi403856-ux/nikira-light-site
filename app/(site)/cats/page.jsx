@@ -1,5 +1,5 @@
 import CatRows from '@/components/CatRows'
-import { PageHead, Eyebrow, Btn } from '@/components/ui'
+import { PageHead, Eyebrow, Btn, Contain } from '@/components/ui'
 import { getCats } from '@/lib/api'
 import { getCatsContent } from '@/lib/content'
 import { getLocale, getDict, hreflangAlternates } from '@/lib/i18n'
@@ -29,37 +29,39 @@ export default async function CatsPage() {
       <PageHead num={d.heroEyebrow} title={d.heroTitle} lead={d.heroLead} />
 
       <div className="panel">
-        {males.length > 0 && (
-          <>
-            <h2 className="px-6 pb-6 pt-14 font-display text-[26px] sm:px-[70px] sm:pt-20 sm:text-[34px]">
-              {dict.cats.filterMale}
+        <Contain>
+          {males.length > 0 && (
+            <>
+              <h2 className="px-6 pb-6 pt-14 font-display text-[26px] sm:px-[70px] sm:pt-20 sm:text-[34px]">
+                {dict.cats.filterMale}
+              </h2>
+              <CatRows cats={males} locale={locale} dict={dict} />
+            </>
+          )}
+
+          {females.length > 0 && (
+            <>
+              <h2 className="px-6 pb-6 pt-14 font-display text-[26px] sm:px-[70px] sm:pt-20 sm:text-[34px]">
+                {dict.cats.filterFemale}
+              </h2>
+              <CatRows cats={females} locale={locale} dict={dict} />
+            </>
+          )}
+
+          {cats.length === 0 && <CatRows cats={[]} locale={locale} dict={dict} />}
+
+          <section className="px-6 py-[70px] text-center sm:px-[70px] sm:py-[110px]">
+            <Eyebrow>{d.docsEyebrow}</Eyebrow>
+            <h2 className="mx-auto my-6 max-w-[760px] font-display text-[32px] leading-[1.1] sm:text-[56px]">
+              {d.docsH2a}
+              <i className="not-italic text-ember">{d.docsH2b}</i>.
             </h2>
-            <CatRows cats={males} locale={locale} dict={dict} />
-          </>
-        )}
-
-        {females.length > 0 && (
-          <>
-            <h2 className="px-6 pb-6 pt-14 font-display text-[26px] sm:px-[70px] sm:pt-20 sm:text-[34px]">
-              {dict.cats.filterFemale}
-            </h2>
-            <CatRows cats={females} locale={locale} dict={dict} />
-          </>
-        )}
-
-        {cats.length === 0 && <CatRows cats={[]} locale={locale} dict={dict} />}
-
-        <section className="px-6 py-[70px] text-center sm:px-[70px] sm:py-[110px]">
-          <Eyebrow>{d.docsEyebrow}</Eyebrow>
-          <h2 className="mx-auto my-6 max-w-[760px] font-display text-[32px] leading-[1.1] sm:text-[56px]">
-            {d.docsH2a}
-            <i className="not-italic text-ember">{d.docsH2b}</i>.
-          </h2>
-          <p className="mx-auto mb-9 max-w-[620px] font-sans text-[16px] font-light leading-[1.95] text-soft">{d.docsText}</p>
-          <Btn href="#footer" kind="line">
-            {dict.common.write}
-          </Btn>
-        </section>
+            <p className="mx-auto mb-9 max-w-[620px] font-sans text-[16px] font-light leading-[1.95] text-soft">{d.docsText}</p>
+            <Btn href="#footer" kind="line">
+              {dict.common.write}
+            </Btn>
+          </section>
+        </Contain>
       </div>
     </>
   )

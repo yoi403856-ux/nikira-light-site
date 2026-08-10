@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { ChevronDown } from 'lucide-react'
 import CatRows from '@/components/CatRows'
-import { Eyebrow, Btn, SectionHead, QuoteBand } from '@/components/ui'
+import { Eyebrow, Btn, SectionHead, QuoteBand, Contain } from '@/components/ui'
 import { getCats, getKittens, getSettings } from '@/lib/api'
 import { getHomeContent } from '@/lib/content'
 import { getLocale, getDict, hreflangAlternates } from '@/lib/i18n'
@@ -104,7 +104,7 @@ export default async function Home() {
       </section>
 
       <div id="after-hero" className="panel scroll-mt-20">
-        <div className="mx-auto max-w-[1160px]">
+        <Contain>
           <SectionHead num={d.aboutEyebrow} aside={d.aside}>
             {d.aboutH2a}
             <i className="not-italic text-ember">{d.aboutH2b}</i>.
@@ -133,23 +133,25 @@ export default async function Home() {
               ))}
             </div>
           </section>
-        </div>
+        </Contain>
       </div>
 
       <div className="panel">
-        <div className="flex flex-col items-start justify-between gap-4 px-6 pb-10 pt-16 sm:flex-row sm:items-end sm:px-[70px] sm:pt-24">
-          <div>
-            <Eyebrow>{d.catsEyebrow}</Eyebrow>
-            <h2 className="mt-4 font-display text-[30px] sm:text-[46px]">{d.catsH2}</h2>
+        <Contain>
+          <div className="flex flex-col items-start justify-between gap-4 px-6 pb-10 pt-16 sm:flex-row sm:items-end sm:px-[70px] sm:pt-24">
+            <div>
+              <Eyebrow>{d.catsEyebrow}</Eyebrow>
+              <h2 className="mt-4 font-display text-[30px] sm:text-[46px]">{d.catsH2}</h2>
+            </div>
+            <Link
+              href={withLocale('/cats', locale)}
+              className="font-caps text-[11px] uppercase tracking-[0.2em] text-soft transition-colors hover:text-ember"
+            >
+              {dict.common.more} →
+            </Link>
           </div>
-          <Link
-            href={withLocale('/cats', locale)}
-            className="font-caps text-[11px] uppercase tracking-[0.2em] text-soft transition-colors hover:text-ember"
-          >
-            {dict.common.more} →
-          </Link>
-        </div>
-        <CatRows cats={cats.slice(0, 4)} locale={locale} dict={dict} />
+          <CatRows cats={cats.slice(0, 4)} locale={locale} dict={dict} />
+        </Contain>
       </div>
 
       <QuoteBand src={bandPhoto} eyebrow={d.quoteEyebrow}>
@@ -157,20 +159,22 @@ export default async function Home() {
       </QuoteBand>
 
       <div className="panel">
-        <section className="px-6 py-[70px] text-center sm:px-[70px] sm:py-[110px]">
-          <Eyebrow>{d.ctaEyebrow}</Eyebrow>
-          <h2 className="mx-auto my-6 max-w-[760px] font-display text-[32px] leading-[1.1] sm:text-[56px]">
-            {d.ctaH2a}
-            <i className="not-italic text-ember">{d.ctaH2b}</i>
-            {d.ctaH2c}
-          </h2>
-          <div className="flex flex-col items-center gap-3.5 sm:flex-row sm:justify-center">
-            <Btn href={withLocale('/kittens', locale)}>{dict.common.watch}</Btn>
-            <Btn href="#footer" kind="line">
-              {dict.common.write}
-            </Btn>
-          </div>
-        </section>
+        <Contain>
+          <section className="px-6 py-[70px] text-center sm:px-[70px] sm:py-[110px]">
+            <Eyebrow>{d.ctaEyebrow}</Eyebrow>
+            <h2 className="mx-auto my-6 max-w-[760px] font-display text-[32px] leading-[1.1] sm:text-[56px]">
+              {d.ctaH2a}
+              <i className="not-italic text-ember">{d.ctaH2b}</i>
+              {d.ctaH2c}
+            </h2>
+            <div className="flex flex-col items-center gap-3.5 sm:flex-row sm:justify-center">
+              <Btn href={withLocale('/kittens', locale)}>{dict.common.watch}</Btn>
+              <Btn href="#footer" kind="line">
+                {dict.common.write}
+              </Btn>
+            </div>
+          </section>
+        </Contain>
       </div>
     </>
   )

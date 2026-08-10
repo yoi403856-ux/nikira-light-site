@@ -1,5 +1,5 @@
 import LitterStrips from '@/components/LitterStrips'
-import { PageHead, Eyebrow, Btn } from '@/components/ui'
+import { PageHead, Eyebrow, Btn, Contain } from '@/components/ui'
 import { getKittens } from '@/lib/api'
 import { getKittensContent } from '@/lib/content'
 import { getLocale, getDict, hreflangAlternates } from '@/lib/i18n'
@@ -29,22 +29,24 @@ export default async function KittensPage() {
       <PageHead num={d.heroEyebrow} title={d.heroTitle} lead={d.heroLead} />
 
       <div className="panel">
-        <LitterStrips kittens={kittens} locale={locale} dict={dict} />
+        <Contain>
+          <LitterStrips kittens={kittens} locale={locale} dict={dict} />
 
-        <section
-          className={`border-ink/[0.14] px-6 text-center sm:px-[70px] ${
-            kittens.length
-              ? 'border-t py-16 sm:py-24'
-              : 'py-10 sm:py-16'
-          }`}
-        >
-          <Eyebrow>{kittens.length ? d.waitEyebrow : emptyEyebrow}</Eyebrow>
-          <h2 className="mx-auto my-6 max-w-[760px] font-display text-[32px] leading-[1.1] sm:text-[56px]">
-            {d.waitH2a}
-            <i className="not-italic text-ember">{d.waitH2b}</i>.
-          </h2>
-          <Btn href="#footer">{d.waitCta}</Btn>
-        </section>
+          <section
+            className={`border-ink/[0.14] px-6 text-center sm:px-[70px] ${
+              kittens.length
+                ? 'border-t py-16 sm:py-24'
+                : 'py-10 sm:py-16'
+            }`}
+          >
+            <Eyebrow>{kittens.length ? d.waitEyebrow : emptyEyebrow}</Eyebrow>
+            <h2 className="mx-auto my-6 max-w-[760px] font-display text-[32px] leading-[1.1] sm:text-[56px]">
+              {d.waitH2a}
+              <i className="not-italic text-ember">{d.waitH2b}</i>.
+            </h2>
+            <Btn href="#footer">{d.waitCta}</Btn>
+          </section>
+        </Contain>
       </div>
     </>
   )
