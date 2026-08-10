@@ -23,11 +23,13 @@ export default async function AboutPage() {
   const [settings, cats, d] = await Promise.all([getSettings(), getCats(), getAboutContent(locale)])
   const c = resolveContacts(settings, locale)
   const delivery = pick(locale, settings?.delivery, settings?.deliveryEn)
-  const bandPhoto = settings?.aboutPhoto
-    ? urlForImageCrop(settings.aboutPhoto, 1600, 1000)
-    : cats[1]?.images?.[0]
-      ? urlForImageCrop(cats[1].images[0], 1600, 1000)
-      : null
+  const bandPhoto = settings?.background
+    ? urlForImageCrop(settings.background, 1600, 1000)
+    : settings?.aboutPhoto
+      ? urlForImageCrop(settings.aboutPhoto, 1600, 1000)
+      : cats[1]?.images?.[0]
+        ? urlForImageCrop(cats[1].images[0], 1600, 1000)
+        : null
 
   return (
     <>

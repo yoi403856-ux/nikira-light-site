@@ -35,7 +35,11 @@ export default async function Home() {
   ])
   const c = resolveContacts(settings, locale)
   const heroCat = settings?.heroCat ? urlForImage(settings.heroCat, 900) : null
-  const bandPhoto = cats[0]?.images?.[0] ? urlForImageCrop(cats[0].images[0], 1600, 1000) : null
+  const bandPhoto = settings?.background
+    ? urlForImageCrop(settings.background, 1600, 1000)
+    : cats[0]?.images?.[0]
+      ? urlForImageCrop(cats[0].images[0], 1600, 1000)
+      : null
   const freeKittens = kittens.filter((k) => k.status === 'available').length
 
   return (
