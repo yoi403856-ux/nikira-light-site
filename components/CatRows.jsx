@@ -4,9 +4,11 @@ import { pick, sexLabel } from '@/lib/dict'
 import { withLocale } from '@/lib/locale'
 
 /*
-  Коты списком строк, а не плиткой карточек: крупная кличка, окрас и
-  маленький кадр справа, который расцветает при наведении. Плитка — то, чем
-  устроен соседний сайт, и по ней родство считывается мгновенно.
+  Плитка карточек — тот же приём, что у котят в LitterStrips: фото на всю
+  карточку, кличка поверх на градиенте, факты строкой под кадром. Раньше
+  коты шли списком строк с фото в узкой колонке сбоку — сознательно
+  отличались от Summer Cherry, но список зажимал фото и смотрелся бедно.
+  Единый язык с котятами оказался важнее непохожести.
 */
 export default function CatRows({ cats, locale, dict, hrefBase = '/cats' }) {
   if (!cats?.length) {
@@ -16,37 +18,32 @@ export default function CatRows({ cats, locale, dict, hrefBase = '/cats' }) {
   }
 
   return (
-    <section className="border-t border-ink/[0.14]">
+    <section className="grid grid-cols-2 gap-5 px-6 pb-2 pt-8 sm:grid-cols-3 sm:gap-8 sm:px-[70px] sm:pt-10 lg:grid-cols-4">
       {cats.map((c) => {
-        // Портретный кроп (3:4), а не широкая узкая полоска: почти все фото
-        // котов сами портретные (кадр выше, чем шире), и щель 150×88 просто
-        // не могла вместить морду ни при какой точке фокуса — приходилось
-        // видеть либо лоб, либо подбородок. Кадр стал заметно крупнее и
-        // выше, вместе с ним и вся строка списка.
-        const src = c.images?.[0] ? urlForImageCrop(c.images[0], 420, 560) : null
+        const src = c.images?.[0] ? urlForImageCrop(c.images[0], 460, 613) : null
         const call = pick(locale, c.call, c.callEn) || c.name
         const color = pick(locale, c.color, c.colorEn)
         const facts = [sexLabel(locale, c.sex), color || c.ems].filter(Boolean).join(' · ')
         return (
-          <Link
-            key={c._id}
-            href={withLocale(`${hrefBase}/${c.slug}`, locale)}
-            className="group grid grid-cols-[1fr_96px] items-center gap-4 border-b border-l-2 border-ink/[0.14] px-6 py-5 transition-colors duration-300 hover:border-l-ember sm:grid-cols-[1fr_260px_170px] sm:gap-8 sm:px-[70px] sm:py-7"
-          >
-            <span className="font-display text-[24px] leading-[1.1] sm:text-[40px]">{call}</span>
-            <span className="hidden font-sans text-[14px] font-light text-soft sm:block">{facts}</span>
-            <span className="aspect-[3/4] w-full overflow-hidden">
-              {src ? (
+          <Link key={c._id} href={withLocale(`${hrefBase}/${c.slug}`, locale)} className="group">
+            <div className="relative aspect-[3/4] overflow-hidden bg-linen">
+              {src && (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={src}
-                  alt=""
-                  className="h-full w-full object-cover grayscale-[0.4] transition-[filter,transform] duration-300 group-hover:scale-105 group-hover:grayscale-0"
+                  alt={call}
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                 />
-              ) : (
-                <span className="block h-full w-full bg-linen" />
               )}
-            </span>
+              <span
+                className="pointer-events-none absolute inset-0"
+                style={{ background: 'linear-gradient(180deg,rgba(30,24,16,0) 46%,rgba(30,24,16,0.72) 100%)' }}
+              />
+              <span className="absolute bottom-3.5 left-3.5 z-[2] font-display text-[22px] text-paper sm:bottom-4 sm:left-[18px] sm:text-[30px]">
+                {call}
+              </span>
+            </div>
+            <p className="mt-3.5 font-sans text-[13px] font-light text-soft">{facts}</p>
           </Link>
         )
       })}
