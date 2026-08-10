@@ -36,48 +36,50 @@ export default async function AboutPage() {
       <PageHead num={d.heroEyebrow} title={d.heroTitle} lead={d.heroLead} />
 
       <div className="panel">
-        <SectionHead num={d.storyEyebrow} aside={d.aside}>
-          {d.storyH2a}
-          <i className="not-italic text-ember">{d.storyH2b}</i>.
-        </SectionHead>
+        <div className="mx-auto max-w-[1440px]">
+          <SectionHead num={d.storyEyebrow} aside={d.aside}>
+            {d.storyH2a}
+            <i className="not-italic text-ember">{d.storyH2b}</i>.
+          </SectionHead>
 
-        <section className="max-w-[1020px] px-6 pb-[70px] sm:px-[70px] sm:pb-[120px]">
-          <div className="columns-1 gap-16 font-sans text-[16px] font-light leading-[2] text-soft sm:columns-2">
-            {[d.p1, d.p2, d.p3, d.p4].filter(Boolean).map((p, i) => (
-              <p key={i} className="mb-5 break-inside-avoid">
-                {p}
-              </p>
-            ))}
-          </div>
-        </section>
+          <section className="max-w-[1020px] px-6 pb-[70px] sm:px-[70px] sm:pb-[120px]">
+            <div className="columns-1 gap-16 font-sans text-[16px] font-light leading-[2] text-soft sm:columns-2">
+              {[d.p1, d.p2, d.p3, d.p4].filter(Boolean).map((p, i) => (
+                <p key={i} className="mb-5 break-inside-avoid">
+                  {p}
+                </p>
+              ))}
+            </div>
+          </section>
 
-        <section className="px-6 pb-[70px] sm:px-[70px] sm:pb-[120px]">
-          <Eyebrow>{d.featuresEyebrow}</Eyebrow>
-          <div className="mt-8 grid gap-px border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-4">
-            {d.features.map((v, i) => (
-              <div key={i} className="h-full bg-paper p-7 transition-colors duration-300 hover:bg-linen">
-                <h3 className="font-display text-[22px]">{v.t}</h3>
-                <p className="mt-3 font-sans text-[14px] font-light leading-relaxed text-soft">{v.d}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+          <section className="px-6 pb-[70px] sm:px-[70px] sm:pb-[120px]">
+            <Eyebrow>{d.featuresEyebrow}</Eyebrow>
+            <div className="mt-8 grid gap-px border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-4">
+              {d.features.map((v, i) => (
+                <div key={i} className="h-full bg-paper p-7 transition-colors duration-300 hover:bg-linen">
+                  <h3 className="font-display text-[22px]">{v.t}</h3>
+                  <p className="mt-3 font-sans text-[14px] font-light leading-relaxed text-soft">{v.d}</p>
+                </div>
+              ))}
+            </div>
+          </section>
 
-        <section className="flex flex-wrap gap-9 px-6 pb-[70px] sm:gap-[76px] sm:px-[70px] sm:pb-[120px]">
-          {[
-            [c.foundedYear, locale === 'en' ? 'founded' : 'год основания'],
-            [c.registry, locale === 'en' ? 'registration' : 'регистрация'],
-            [c.city, locale === 'en' ? 'where we are' : 'где мы'],
-            [delivery, locale === 'en' ? 'delivery' : 'доставка'],
-          ]
-            .filter(([n]) => n)
-            .map(([n, label]) => (
-              <div key={label} className="max-w-[260px]">
-                <b className="block font-display text-[26px] font-normal leading-tight sm:text-[34px]">{n}</b>
-                <span className="eyebrow mt-3 block">{label}</span>
-              </div>
-            ))}
-        </section>
+          <section className="flex flex-wrap gap-9 px-6 pb-12 sm:gap-[76px] sm:px-[70px] sm:pb-16">
+            {[
+              [c.foundedYear, locale === 'en' ? 'founded' : 'год основания'],
+              [c.registry, locale === 'en' ? 'registration' : 'регистрация'],
+              [c.city, locale === 'en' ? 'where we are' : 'где мы'],
+              [delivery, locale === 'en' ? 'delivery' : 'доставка'],
+            ]
+              .filter(([n]) => n)
+              .map(([n, label]) => (
+                <div key={label} className="max-w-[260px]">
+                  <b className="block font-display text-[26px] font-normal leading-tight sm:text-[34px]">{n}</b>
+                  <span className="eyebrow mt-3 block">{label}</span>
+                </div>
+              ))}
+          </section>
+        </div>
       </div>
 
       <QuoteBand src={bandPhoto} eyebrow={d.quoteEyebrow}>
