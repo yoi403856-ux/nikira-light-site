@@ -1,3 +1,4 @@
+import { Play } from 'lucide-react'
 import { PageHead, Eyebrow, Btn, Contain } from '@/components/ui'
 import { getReviews } from '@/lib/api'
 import { getReviewsContent } from '@/lib/content'
@@ -49,9 +50,12 @@ export default async function ReviewsPage() {
                         href={r.video}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex aspect-video items-center justify-center bg-ink/[0.06] font-caps text-[11px] uppercase tracking-[0.22em] text-soft transition-colors hover:text-ember"
+                        className="group/video relative flex aspect-video items-center justify-center overflow-hidden bg-ink"
                       >
-                        {dict.common.video} →
+                        <span className="grain pointer-events-none absolute inset-0 opacity-40" />
+                        <span className="relative z-[1] flex h-14 w-14 items-center justify-center rounded-full bg-glow/90 text-ink transition-transform duration-300 group-hover/video:scale-110">
+                          <Play size={22} fill="currentColor" strokeWidth={0} className="ml-0.5" />
+                        </span>
                       </a>
                     ) : src ? (
                       // eslint-disable-next-line @next/next/no-img-element
