@@ -16,9 +16,7 @@ export function Eyebrow({ children, onPhoto = false, className = '' }) {
 */
 export function PageHead({ title, lead, className = '' }) {
   return (
-    <section
-      className={`px-6 pb-16 pt-16 backdrop-blur-md bg-ink/[0.16] sm:px-[70px] sm:pb-24 sm:pt-28 ${className}`}
-    >
+    <section className={`px-6 pb-16 pt-16 sm:px-[70px] sm:pb-24 sm:pt-28 ${className}`}>
       <h1 className="max-w-[900px] font-display text-[36px] leading-[1.06] text-glow on-photo sm:text-[64px]">
         {title}
       </h1>
