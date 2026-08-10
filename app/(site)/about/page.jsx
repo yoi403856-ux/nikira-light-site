@@ -31,24 +31,44 @@ export default async function AboutPage() {
         ? urlForImageCrop(cats[1].images[0], 1600, 1000)
         : null
 
+  // Якорь-фото рядом с текстом истории питомника — раньше справа от текста
+  // висела только короткая цитата-врезка, и колонка читалась пустой.
+  // aboutPhoto теперь свободен для этого (для QuoteBand он используется
+  // только как запасной вариант, если не задан основной фон сайта).
+  const storyPhoto = settings?.aboutPhoto
+    ? urlForImageCrop(settings.aboutPhoto, 700, 933)
+    : cats[1]?.images?.[0]
+      ? urlForImageCrop(cats[1].images[0], 700, 933)
+      : cats[0]?.images?.[0]
+        ? urlForImageCrop(cats[0].images[0], 700, 933)
+        : null
+
   return (
     <>
       <PageHead num={d.heroEyebrow} title={d.heroTitle} lead={d.heroLead} />
 
       <div className="panel">
-        <div className="mx-auto max-w-[1440px]">
+        <div className="mx-auto max-w-[1160px]">
           <SectionHead num={d.storyEyebrow} aside={d.aside}>
             {d.storyH2a}
             <i className="not-italic text-ember">{d.storyH2b}</i>.
           </SectionHead>
 
-          <section className="max-w-[1020px] px-6 pb-[70px] sm:px-[70px] sm:pb-[120px]">
-            <div className="columns-1 gap-16 font-sans text-[16px] font-light leading-[2] text-soft sm:columns-2">
-              {[d.p1, d.p2, d.p3, d.p4].filter(Boolean).map((p, i) => (
-                <p key={i} className="mb-5 break-inside-avoid">
-                  {p}
-                </p>
-              ))}
+          <section className="px-6 pb-[70px] sm:px-[70px] sm:pb-[120px]">
+            <div className="grid gap-10 sm:grid-cols-[1fr_380px] sm:items-start sm:gap-16">
+              <div className="max-w-[620px] font-sans text-[16px] font-light leading-[2] text-soft">
+                {[d.p1, d.p2, d.p3, d.p4].filter(Boolean).map((p, i) => (
+                  <p key={i} className="mb-5">
+                    {p}
+                  </p>
+                ))}
+              </div>
+              {storyPhoto && (
+                <div className="aspect-[3/4] overflow-hidden bg-linen">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={storyPhoto} alt="" className="h-full w-full object-cover" />
+                </div>
+              )}
             </div>
           </section>
 

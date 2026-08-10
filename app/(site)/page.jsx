@@ -104,14 +104,14 @@ export default async function Home() {
       </section>
 
       <div id="after-hero" className="panel scroll-mt-20">
-        <div className="mx-auto max-w-[1440px]">
+        <div className="mx-auto max-w-[1160px]">
           <SectionHead num={d.aboutEyebrow} aside={d.aside}>
             {d.aboutH2a}
             <i className="not-italic text-ember">{d.aboutH2b}</i>.
           </SectionHead>
 
-          <section className="grid gap-10 px-6 pb-12 sm:grid-cols-[1fr_300px] sm:gap-16 sm:px-[70px] sm:pb-16">
-            <div className="max-w-[920px] columns-1 gap-16 font-sans text-[16px] font-light leading-[2] text-soft sm:columns-2">
+          <section className="grid gap-10 px-6 pb-12 sm:grid-cols-[1fr_260px] sm:gap-16 sm:px-[70px] sm:pb-16">
+            <div className="max-w-[640px] font-sans text-[16px] font-light leading-[2] text-soft">
               {[d.p1, d.p2, d.p3, d.p4].filter(Boolean).map((p, i) => (
                 <p key={i} className="mb-5 break-inside-avoid">
                   {p}
