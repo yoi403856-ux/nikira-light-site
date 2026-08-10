@@ -18,7 +18,13 @@ export default function CatRows({ cats, locale, dict, hrefBase = '/cats' }) {
   return (
     <section className="border-t border-ink/[0.14]">
       {cats.map((c) => {
-        const src = c.images?.[0] ? urlForImageCrop(c.images[0], 300, 300) : null
+        // Кроп заказан сразу под пропорции кадра в вёрстке (150×88, ~1.7:1),
+        // а не квадратом: квадратный кроп + object-cover в узкой широкой
+        // рамке резали друг друга — фото уже обрезано по квадрату вокруг
+        // морды кота, а затем CSS дообрезал квадрат по высоте и срезал саму
+        // морду, оставляя только грудь. Один кроп нужной формы — Sanity сама
+        // центрирует его по хотспоту, а не CSS вслепую по центру квадрата.
+        const src = c.images?.[0] ? urlForImageCrop(c.images[0], 600, 352) : null
         const call = pick(locale, c.call, c.callEn) || c.name
         const color = pick(locale, c.color, c.colorEn)
         const facts = [sexLabel(locale, c.sex), color || c.ems].filter(Boolean).join(' · ')
