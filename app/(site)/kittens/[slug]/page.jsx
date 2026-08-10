@@ -1,9 +1,7 @@
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { PageHead, Eyebrow, Btn, Contain } from '@/components/ui'
+import { PageHead, Btn, Contain } from '@/components/ui'
 import { getKitten } from '@/lib/api'
 import { getLocale, getDict, hreflangAlternates } from '@/lib/i18n'
-import { withLocale } from '@/lib/locale'
 import { urlForImageCrop } from '@/sanity/image'
 import { pick, sexLabel, kindLabel, kittenStatusLabel, dateLocale } from '@/lib/dict'
 
@@ -45,11 +43,6 @@ export default async function KittenPage({ params }) {
     ['', kindLabel(locale, k.kind)],
     [dict.common.polydactyl, k.polydactyl ? (locale === 'en' ? 'yes' : 'да') : null],
   ].filter(([, v]) => v)
-
-  const parents = [
-    { role: dict.common.mother, p: k.mother },
-    { role: dict.common.father, p: k.father },
-  ].filter((x) => x.p)
 
   return (
     <>
@@ -108,38 +101,6 @@ export default async function KittenPage({ params }) {
               )}
             </div>
           </div>
-
-          {parents.length > 0 && (
-            <section className="px-6 pb-16 sm:px-[70px] sm:pb-24">
-              <Eyebrow>{dict.common.parents}</Eyebrow>
-              <div className="mt-6 grid gap-5 sm:grid-cols-2">
-                {parents.map(({ role, p }) => {
-                  const src = p.images?.[0] ? urlForImageCrop(p.images[0], 200, 200) : null
-                  const pName = pick(locale, p.call, p.callEn) || p.name
-                  const pColor = pick(locale, p.color, p.colorEn) || p.ems
-                  return (
-                    <Link
-                      key={p._id}
-                      href={withLocale(`/cats/${p.slug}`, locale)}
-                      className="group flex items-center gap-5 border border-ink/10 bg-linen/40 p-4 transition-colors hover:border-ember/40"
-                    >
-                      <span className="h-20 w-20 shrink-0 overflow-hidden sm:h-24 sm:w-24">
-                        {src && (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img src={src} alt={pName} className="h-full w-full object-cover" />
-                        )}
-                      </span>
-                      <span>
-                        <span className="eyebrow block">{role}</span>
-                        <span className="mt-1 block font-display text-[22px]">{pName}</span>
-                        <span className="mt-1 block font-sans text-[13px] text-soft">{pColor}</span>
-                      </span>
-                    </Link>
-                  )
-                })}
-              </div>
-            </section>
-          )}
         </Contain>
       </div>
     </>

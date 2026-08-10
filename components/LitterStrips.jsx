@@ -35,25 +35,57 @@ export default function LitterStrips({ kittens, locale, dict }) {
       {groups.map(([litter, list]) => {
         const born = fmt(list.find((k) => k.born)?.born)
         const free = list.filter((k) => k.status === 'available').length
-        const parents = [list[0]?.mother, list[0]?.father]
-          .filter(Boolean)
-          .map((p) => pick(locale, p.call, p.callEn) || p.name)
-          .join(' и ')
+        // Родители общие на весь помёт — показываем их один раз здесь, а не
+        // на странице каждого котёнка по отдельности (так было раньше, и
+        // это буквально то же решение, что на Summer Cherry — карточки
+        // родителей продублированы в каждом котёнке одного помёта).
+        const parents = [
+          { role: dict.common.mother, p: list[0]?.mother },
+          { role: dict.common.father, p: list[0]?.father },
+        ].filter((x) => x.p)
         return (
           <section key={litter} className="border-t border-ink/[0.14] px-6 pb-2 pt-11 first:border-t-0 sm:px-[70px] sm:pt-[70px]">
-            <div className="mb-8 flex flex-wrap items-baseline justify-between gap-6">
-              <h2 className="font-display text-[28px] leading-none sm:text-[42px]">
-                {litter === '—' ? dict.common.litter : `${dict.common.litter} ${litter}`}
-              </h2>
-              <p className="font-sans text-[14px] font-light text-soft">
-                {[
-                  born && `${dict.common.born.toLowerCase()} ${born}`,
-                  parents,
-                  free ? freeOf(locale, free, list.length) : dict.common.allPlaced,
-                ]
-                  .filter(Boolean)
-                  .join(' · ')}
-              </p>
+            <div className="mb-8 flex flex-wrap items-end justify-between gap-8 sm:gap-12">
+              <div>
+                <h2 className="font-display text-[28px] leading-none sm:text-[42px]">
+                  {litter === '—' ? dict.common.litter : `${dict.common.litter} ${litter}`}
+                </h2>
+                <p className="mt-3 font-sans text-[14px] font-light text-soft">
+                  {[
+                    born && `${dict.common.born.toLowerCase()} ${born}`,
+                    free ? freeOf(locale, free, list.length) : dict.common.allPlaced,
+                  ]
+                    .filter(Boolean)
+                    .join(' · ')}
+                </p>
+              </div>
+
+              {parents.length > 0 && (
+                <div className="flex flex-wrap gap-3">
+                  {parents.map(({ role, p }) => {
+                    const pSrc = p.images?.[0] ? urlForImageCrop(p.images[0], 160, 160) : null
+                    const pName = pick(locale, p.call, p.callEn) || p.name
+                    return (
+                      <Link
+                        key={p._id}
+                        href={withLocale(`/cats/${p.slug}`, locale)}
+                        className="group flex items-center gap-3 border border-ink/10 bg-linen/40 p-3 transition-colors hover:border-ember/40"
+                      >
+                        <span className="h-14 w-14 shrink-0 overflow-hidden sm:h-16 sm:w-16">
+                          {pSrc && (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img src={pSrc} alt={pName} className="h-full w-full object-cover" />
+                          )}
+                        </span>
+                        <span>
+                          <span className="eyebrow block text-[9px]">{role}</span>
+                          <span className="mt-0.5 block font-display text-[17px] sm:text-[19px]">{pName}</span>
+                        </span>
+                      </Link>
+                    )
+                  })}
+                </div>
+              )}
             </div>
 
             <div className="strip flex gap-5 overflow-x-auto pb-9">
