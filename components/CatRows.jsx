@@ -31,7 +31,7 @@ export default function CatRows({ cats, locale, dict, hrefBase = '/cats' }) {
           <Link
             key={c._id}
             href={withLocale(`${hrefBase}/${c.slug}`, locale)}
-            className="group grid grid-cols-[1fr_96px] items-center gap-4 border-b border-ink/[0.14] px-6 py-5 transition-colors duration-300 hover:bg-linen/85 sm:grid-cols-[1fr_260px_170px] sm:gap-8 sm:px-[70px] sm:py-7"
+            className="group grid grid-cols-[1fr_96px] items-center gap-4 border-b border-l-2 border-ink/[0.14] px-6 py-5 transition-colors duration-300 hover:border-l-ember sm:grid-cols-[1fr_260px_170px] sm:gap-8 sm:px-[70px] sm:py-7"
           >
             <span className="font-display text-[24px] leading-[1.1] sm:text-[40px]">{call}</span>
             <span className="hidden font-sans text-[14px] font-light text-soft sm:block">{facts}</span>
@@ -41,7 +41,7 @@ export default function CatRows({ cats, locale, dict, hrefBase = '/cats' }) {
                 <img
                   src={src}
                   alt=""
-                  className="h-full w-full object-cover grayscale-[0.4] transition-[filter] duration-300 group-hover:grayscale-0"
+                  className="h-full w-full object-cover grayscale-[0.4] transition-[filter,transform] duration-300 group-hover:scale-105 group-hover:grayscale-0"
                 />
               ) : (
                 <span className="block h-full w-full bg-linen" />
