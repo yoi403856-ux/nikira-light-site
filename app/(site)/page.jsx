@@ -45,9 +45,11 @@ export default async function Home() {
   return (
     <>
       {/* первый экран: текст слева, вырезанный кот справа, фон открыт.
-          Высота подогнана так, чтобы на типичном ноутбучном экране (900-1080px)
-          весь блок — включая кнопки и низ фото — помещался без обрезки на сгибе. */}
-      <section className="relative px-6 pb-[60px] pt-10 sm:px-[70px] sm:pb-20 sm:pt-16">
+          min-h тянет блок до низа экрана (100vh минус примерная высота шапки),
+          чтобы под ним не проглядывала бумажная панель следующей секции на
+          типичных ноутбучных высотах (900-1080px). max-h страхует от того,
+          чтобы на низких экранах блок не растянуло выше контента. */}
+      <section className="relative flex min-h-0 flex-col justify-center px-6 pb-[60px] pt-10 sm:min-h-[calc(100vh-240px)] sm:px-[70px] sm:pb-20 sm:pt-16">
         <Contain>
           <div className="grid items-center gap-10 sm:grid-cols-[1.05fr_0.95fr] sm:gap-[70px]">
             <div>
