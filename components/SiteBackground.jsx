@@ -34,14 +34,14 @@ export default function SiteBackground({ photoUrl, inner = false }) {
       <div
         aria-hidden
         className="h-screen-stable fixed inset-x-0 top-0 -z-20 bg-linen bg-cover bg-no-repeat [transform:translateZ(0)] [-webkit-transform:translateZ(0)] [backface-visibility:hidden] [will-change:transform]"
-        style={{ backgroundImage: bgImage, backgroundPosition: 'center 38%' }}
+        style={{ backgroundImage: bgImage, backgroundPosition: '38% 38%' }}
       />
       <div
         aria-hidden
         className="h-screen-stable fixed inset-x-0 top-0 z-[-15] bg-linen bg-cover bg-no-repeat [filter:blur(14px)] [transform:translateZ(0)] [-webkit-transform:translateZ(0)] [backface-visibility:hidden]"
         style={{
           backgroundImage: bgImage,
-          backgroundPosition: 'center 38%',
+          backgroundPosition: '38% 38%',
           maskImage: 'linear-gradient(to bottom, transparent 0%, transparent 45%, black 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, transparent 45%, black 100%)',
         }}

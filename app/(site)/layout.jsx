@@ -34,7 +34,7 @@ export default async function SiteLayout({ children }) {
   const locale = getLocale()
   const dict = getDict()
   const c = resolveContacts(settings, locale)
-  const background = settings?.background ? urlForImage(settings.background, 2400) : null
+  const background = settings?.background ? urlForImage(settings.background, 3200) : null
 
   const links = NAV.map((l) => ({
     href: l.href,
