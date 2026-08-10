@@ -137,11 +137,8 @@ export default function Masthead({ links, locale, city, phone, tel }) {
   return (
     <>
       <header>
-        <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-5 font-caps text-[10.5px] uppercase tracking-[0.22em] text-glow/80 on-photo-sm sm:px-[70px]">
+        <div className="flex flex-wrap items-center justify-center gap-3 px-6 py-5 font-caps text-[10.5px] uppercase tracking-[0.22em] text-glow/80 on-photo-sm sm:gap-x-10 sm:px-[70px]">
           <span>{city}</span>
-          <a href={tel} className="hidden transition-colors hover:text-glow sm:block">
-            {phone}
-          </a>
           <LangToggle onPhoto className="hidden sm:flex" />
         </div>
 

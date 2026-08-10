@@ -47,52 +47,56 @@ export default async function Home() {
       {/* первый экран: текст слева, вырезанный кот справа, фон открыт.
           Высота подогнана так, чтобы на типичном ноутбучном экране (900-1080px)
           весь блок — включая кнопки и низ фото — помещался без обрезки на сгибе. */}
-      <section className="relative grid items-center gap-10 px-6 pb-[60px] pt-10 sm:grid-cols-[1.05fr_0.95fr] sm:gap-[70px] sm:px-[70px] sm:pb-20 sm:pt-16">
-        <div>
-          <Eyebrow onPhoto>{d.eyebrow}</Eyebrow>
-          <h1 className="mt-6 font-display text-[42px] leading-[1.05] text-glow on-photo sm:text-[60px]">
-            {d.title.map((line) => (
-              <span key={line} className="block">
-                {line}
-              </span>
-            ))}
-          </h1>
-          <p className="mt-7 max-w-[430px] font-sans text-[18px] font-extralight leading-[1.75] text-glow/90 on-photo-sm sm:text-[20px]">
-            {d.lead}
-          </p>
-          <div className="mt-11 flex flex-col items-start gap-3.5 sm:flex-row">
-            <Btn href={withLocale('/kittens', locale)} onPhoto>
-              {dict.common.watch}
-            </Btn>
-            <Btn href={withLocale('/about', locale)} kind="line" onPhoto>
-              {dict.common.aboutUs}
-            </Btn>
-          </div>
-        </div>
+      <section className="relative px-6 pb-[60px] pt-10 sm:px-[70px] sm:pb-20 sm:pt-16">
+        <Contain>
+          <div className="grid items-center gap-10 sm:grid-cols-[1.05fr_0.95fr] sm:gap-[70px]">
+            <div>
+              <Eyebrow onPhoto>{d.eyebrow}</Eyebrow>
+              <h1 className="mt-6 font-display text-[42px] leading-[1.05] text-glow on-photo sm:text-[60px]">
+                {d.title.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+              </h1>
+              <p className="mt-7 max-w-[430px] font-sans text-[18px] font-extralight leading-[1.75] text-glow/90 on-photo-sm sm:text-[20px]">
+                {d.lead}
+              </p>
+              <div className="mt-11 flex flex-col items-start gap-3.5 sm:flex-row">
+                <Btn href={withLocale('/kittens', locale)} onPhoto>
+                  {dict.common.watch}
+                </Btn>
+                <Btn href={withLocale('/about', locale)} kind="line" onPhoto>
+                  {dict.common.aboutUs}
+                </Btn>
+              </div>
+            </div>
 
-        {heroCat && (
-          // фото кота портретное (шире, чем колонка на широких экранах, если
-          // тянуть по ширине): без ограничения по высоте оно раздувало весь
-          // первый экран за пределы виду. Высота ограничена вьюпортом, ширина
-          // подстраивается сама через object-contain.
-          <div className="relative flex h-[46vh] max-h-[440px] min-h-[280px] items-end justify-center sm:h-[52vh] sm:max-h-[560px]">
-            <span
-              aria-hidden
-              className="absolute bottom-2.5 left-[16%] right-[16%] z-[1] h-8"
-              style={{ background: 'radial-gradient(ellipse at center,rgba(30,22,14,0.42) 0%,rgba(30,22,14,0) 70%)' }}
-            />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={heroCat}
-              alt=""
-              className="relative z-[2] h-full w-auto max-w-full object-contain"
-              style={{
-                filter:
-                  'drop-shadow(0 24px 34px rgba(30,22,14,0.42)) sepia(0.18) saturate(1.12) brightness(1.03) hue-rotate(-6deg)',
-              }}
-            />
+            {heroCat && (
+              // фото кота портретное (шире, чем колонка на широких экранах, если
+              // тянуть по ширине): без ограничения по высоте оно раздувало весь
+              // первый экран за пределы виду. Высота ограничена вьюпортом, ширина
+              // подстраивается сама через object-contain.
+              <div className="relative flex h-[46vh] max-h-[440px] min-h-[280px] items-end justify-center sm:h-[52vh] sm:max-h-[560px]">
+                <span
+                  aria-hidden
+                  className="absolute bottom-2.5 left-[16%] right-[16%] z-[1] h-8"
+                  style={{ background: 'radial-gradient(ellipse at center,rgba(30,22,14,0.42) 0%,rgba(30,22,14,0) 70%)' }}
+                />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={heroCat}
+                  alt=""
+                  className="relative z-[2] h-full w-auto max-w-full object-contain"
+                  style={{
+                    filter:
+                      'drop-shadow(0 24px 34px rgba(30,22,14,0.42)) sepia(0.18) saturate(1.12) brightness(1.03) hue-rotate(-6deg)',
+                  }}
+                />
+              </div>
+            )}
           </div>
-        )}
+        </Contain>
 
         <a
           href="#after-hero"
