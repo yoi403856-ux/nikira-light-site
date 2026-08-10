@@ -24,11 +24,7 @@ function groupByLitter(kittens) {
 }
 
 export default function LitterStrips({ kittens, locale, dict }) {
-  if (!kittens?.length) {
-    return (
-      <p className="px-6 py-16 text-center font-sans text-[16px] font-light text-soft sm:px-[70px]">{dict.common.noKittens}</p>
-    )
-  }
+  if (!kittens?.length) return null
 
   const groups = groupByLitter(kittens)
   const fmt = (iso) =>

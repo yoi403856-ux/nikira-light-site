@@ -31,9 +31,7 @@ export default async function ReviewsPage() {
       <PageHead num={d.heroEyebrow} title={d.heroTitle} lead={d.heroLead} />
 
       <div className="panel">
-        {reviews.length === 0 ? (
-          <p className="px-6 py-16 text-center font-sans text-[16px] font-light text-soft sm:px-[70px]">{dict.common.noReviews}</p>
-        ) : (
+        {reviews.length > 0 && (
           <section className="px-6 pt-14 sm:columns-2 sm:gap-6 sm:px-[70px] sm:pt-20 lg:columns-3">
             {reviews.map((r) => {
               const text = pick(locale, r.text, r.textEn)
@@ -71,7 +69,16 @@ export default async function ReviewsPage() {
           </section>
         )}
 
-        <section className="px-6 py-[70px] text-center sm:px-[70px] sm:py-[110px]">
+        <section
+          className={`border-ink/[0.14] px-6 text-center sm:px-[70px] ${
+            reviews.length ? 'border-t py-16 sm:py-24' : 'py-16 sm:py-24'
+          }`}
+        >
+          {!reviews.length && (
+            <p className="mx-auto mb-10 max-w-[440px] font-sans text-[16px] font-light leading-[1.75] text-soft">
+              {dict.common.noReviews}
+            </p>
+          )}
           <Eyebrow>{d.ctaEyebrow}</Eyebrow>
           <h2 className="mx-auto my-6 max-w-[760px] font-display text-[32px] leading-[1.1] sm:text-[56px]">
             {d.ctaH2a}

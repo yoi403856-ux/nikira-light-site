@@ -26,7 +26,18 @@ export default async function KittensPage() {
       <div className="panel">
         <LitterStrips kittens={kittens} locale={locale} dict={dict} />
 
-        <section className="px-6 py-[70px] text-center sm:px-[70px] sm:py-[110px]">
+        <section
+          className={`border-ink/[0.14] px-6 text-center sm:px-[70px] ${
+            kittens.length
+              ? 'border-t py-16 sm:py-24'
+              : 'py-16 sm:py-24'
+          }`}
+        >
+          {!kittens.length && (
+            <p className="mx-auto mb-10 max-w-[440px] font-sans text-[16px] font-light leading-[1.75] text-soft">
+              {dict.common.noKittens}
+            </p>
+          )}
           <Eyebrow>{d.waitEyebrow}</Eyebrow>
           <h2 className="mx-auto my-6 max-w-[760px] font-display text-[32px] leading-[1.1] sm:text-[56px]">
             {d.waitH2a}
