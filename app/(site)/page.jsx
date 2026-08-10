@@ -104,34 +104,36 @@ export default async function Home() {
       </section>
 
       <div id="after-hero" className="panel scroll-mt-20">
-        <SectionHead num={d.aboutEyebrow} aside={d.aside}>
-          {d.aboutH2a}
-          <i className="not-italic text-ember">{d.aboutH2b}</i>.
-        </SectionHead>
+        <div className="mx-auto max-w-[1440px]">
+          <SectionHead num={d.aboutEyebrow} aside={d.aside}>
+            {d.aboutH2a}
+            <i className="not-italic text-ember">{d.aboutH2b}</i>.
+          </SectionHead>
 
-        <section className="grid gap-10 px-6 pb-[70px] sm:grid-cols-[1fr_300px] sm:gap-16 sm:px-[70px] sm:pb-[120px]">
-          <div className="max-w-[820px] columns-1 gap-16 font-sans text-[16px] font-light leading-[2] text-soft sm:columns-2">
-            {[d.p1, d.p2, d.p3, d.p4].filter(Boolean).map((p, i) => (
-              <p key={i} className="mb-5 break-inside-avoid">
-                {p}
-              </p>
-            ))}
-          </div>
+          <section className="grid gap-10 px-6 pb-[70px] sm:grid-cols-[1fr_300px] sm:gap-16 sm:px-[70px] sm:pb-[120px]">
+            <div className="max-w-[920px] columns-1 gap-16 font-sans text-[16px] font-light leading-[2] text-soft sm:columns-2">
+              {[d.p1, d.p2, d.p3, d.p4].filter(Boolean).map((p, i) => (
+                <p key={i} className="mb-5 break-inside-avoid">
+                  {p}
+                </p>
+              ))}
+            </div>
 
-          <div className="grid grid-cols-2 gap-6 border-sand sm:flex sm:flex-col sm:gap-10 sm:border-l-2 sm:pl-6">
-            {[
-              [c.foundedYear, locale === 'en' ? 'founded' : 'год основания'],
-              [c.registry, locale === 'en' ? 'registration' : 'регистрация'],
-              [cats.length || '—', locale === 'en' ? 'cats' : 'кота и кошки'],
-              [freeKittens || '—', locale === 'en' ? 'kittens available' : 'котят свободно'],
-            ].map(([n, label]) => (
-              <div key={label}>
-                <b className="block font-display text-[38px] font-normal leading-none sm:text-[44px]">{n}</b>
-                <span className="eyebrow mt-3 block">{label}</span>
-              </div>
-            ))}
-          </div>
-        </section>
+            <div className="grid grid-cols-2 gap-6 border-sand sm:flex sm:flex-col sm:gap-10 sm:border-l-2 sm:pl-6">
+              {[
+                [c.foundedYear, locale === 'en' ? 'founded' : 'год основания'],
+                [c.registry, locale === 'en' ? 'registration' : 'регистрация'],
+                [cats.length || '—', locale === 'en' ? 'cats' : 'кота и кошки'],
+                [freeKittens || '—', locale === 'en' ? 'kittens available' : 'котят свободно'],
+              ].map(([n, label]) => (
+                <div key={label}>
+                  <b className="block font-display text-[38px] font-normal leading-none sm:text-[44px]">{n}</b>
+                  <span className="eyebrow mt-3 block">{label}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
       </div>
 
       <div className="panel">
