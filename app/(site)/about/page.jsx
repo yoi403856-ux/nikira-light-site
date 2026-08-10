@@ -53,7 +53,7 @@ export default async function AboutPage() {
           <Eyebrow>{d.featuresEyebrow}</Eyebrow>
           <div className="mt-8 grid gap-px border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-4">
             {d.features.map((v, i) => (
-              <div key={i} className="h-full bg-paper p-7">
+              <div key={i} className="h-full bg-paper p-7 transition-colors duration-300 hover:bg-linen">
                 <h3 className="font-display text-[22px]">{v.t}</h3>
                 <p className="mt-3 font-sans text-[14px] font-light leading-relaxed text-soft">{v.d}</p>
               </div>
