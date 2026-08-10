@@ -76,7 +76,7 @@ export default function Masthead({ links, locale, city, phone, tel }) {
   return (
     <>
       <header>
-        <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-5 font-caps text-[10.5px] uppercase tracking-[0.22em] text-glow/80 on-photo-sm sm:px-[70px]">
+        <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-5 font-caps text-[10.5px] uppercase tracking-[0.22em] text-glow/80 on-photo-sm backdrop-blur-md bg-ink/[0.12] sm:px-[70px]">
           <span>{city}</span>
           <a href={tel} className="hidden transition-colors hover:text-glow sm:block">
             {phone}
@@ -85,19 +85,21 @@ export default function Masthead({ links, locale, city, phone, tel }) {
         </div>
 
         <Link href={withLocale('/', locale)} className={`block text-center ${isHome ? 'pb-6 pt-4' : 'pb-7 pt-1'}`}>
-          <span
-            className={`block font-caps text-glow on-photo ${
-              isHome ? 'text-[28px] sm:text-[54px]' : 'text-[24px] sm:text-[34px]'
-            }`}
-            style={{ letterSpacing: '0.4em', textIndent: '0.4em' }}
-          >
-            NIKIRA LIGHT
-          </span>
-          <span
-            className="mt-4 block font-caps text-[9px] text-glowdim on-photo-sm sm:text-[10px]"
-            style={{ letterSpacing: '0.62em', textIndent: '0.62em' }}
-          >
-            MAINE COON CATTERY
+          <span className="inline-block backdrop-blur-md bg-ink/[0.18] px-8 py-4 sm:px-14 sm:py-5">
+            <span
+              className={`block font-caps text-glow on-photo ${
+                isHome ? 'text-[28px] sm:text-[54px]' : 'text-[24px] sm:text-[34px]'
+              }`}
+              style={{ letterSpacing: '0.4em', textIndent: '0.4em' }}
+            >
+              NIKIRA LIGHT
+            </span>
+            <span
+              className="mt-4 block font-caps text-[9px] text-glowdim on-photo-sm sm:text-[10px]"
+              style={{ letterSpacing: '0.62em', textIndent: '0.62em' }}
+            >
+              MAINE COON CATTERY
+            </span>
           </span>
         </Link>
       </header>
