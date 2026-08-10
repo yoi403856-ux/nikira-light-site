@@ -44,7 +44,7 @@ export default async function Home() {
           Высота подогнана так, чтобы на типичном ноутбучном экране (900-1080px)
           весь блок — включая кнопки и низ фото — помещался без обрезки на сгибе. */}
       <section className="relative grid items-center gap-10 px-6 pb-[60px] pt-10 sm:grid-cols-[1.05fr_0.95fr] sm:gap-[70px] sm:px-[70px] sm:pb-20 sm:pt-16">
-        <div className="backdrop-blur-md bg-ink/[0.14] px-5 py-6 sm:px-8 sm:py-8">
+        <div>
           <Eyebrow onPhoto>{d.eyebrow}</Eyebrow>
           <h1 className="mt-6 font-display text-[42px] leading-[1.05] text-glow on-photo sm:text-[60px]">
             {d.title.map((line) => (

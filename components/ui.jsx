@@ -17,9 +17,11 @@ export function Eyebrow({ children, onPhoto = false, className = '' }) {
 export function PageHead({ title, lead, className = '' }) {
   return (
     <section
-      className={`max-w-[900px] px-6 pb-16 pt-16 backdrop-blur-md bg-ink/[0.16] sm:px-[70px] sm:pb-24 sm:pt-28 ${className}`}
+      className={`px-6 pb-16 pt-16 backdrop-blur-md bg-ink/[0.16] sm:px-[70px] sm:pb-24 sm:pt-28 ${className}`}
     >
-      <h1 className="font-display text-[36px] leading-[1.06] text-glow on-photo sm:text-[64px]">{title}</h1>
+      <h1 className="max-w-[900px] font-display text-[36px] leading-[1.06] text-glow on-photo sm:text-[64px]">
+        {title}
+      </h1>
       {lead && (
         <p className="mt-6 max-w-[520px] font-sans text-[17px] font-extralight leading-[1.75] text-glow/90 on-photo-sm sm:text-[19px]">
           {lead}
