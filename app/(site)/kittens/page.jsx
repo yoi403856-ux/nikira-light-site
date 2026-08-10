@@ -19,6 +19,11 @@ export default async function KittensPage() {
   const dict = getDict()
   const [kittens, d] = await Promise.all([getKittens(), getKittensContent(locale)])
 
+  // "Не нашли своего" (d.waitEyebrow) написано для случая, когда список не
+  // пуст, просто среди котят нет подходящего. При нулевом списке эта фраза
+  // не подходит по смыслу — подменяем её на прямую констатацию.
+  const emptyEyebrow = locale === 'en' ? 'No kittens right now' : 'Свободных котят сейчас нет'
+
   return (
     <>
       <PageHead num={d.heroEyebrow} title={d.heroTitle} lead={d.heroLead} />
@@ -33,12 +38,7 @@ export default async function KittensPage() {
               : 'py-10 sm:py-16'
           }`}
         >
-          {!kittens.length && (
-            <p className="mx-auto mb-6 max-w-[440px] font-sans text-[16px] font-light leading-[1.75] text-soft">
-              {dict.common.noKittens}
-            </p>
-          )}
-          <Eyebrow>{d.waitEyebrow}</Eyebrow>
+          <Eyebrow>{kittens.length ? d.waitEyebrow : emptyEyebrow}</Eyebrow>
           <h2 className="mx-auto my-6 max-w-[760px] font-display text-[32px] leading-[1.1] sm:text-[56px]">
             {d.waitH2a}
             <i className="not-italic text-ember">{d.waitH2b}</i>.

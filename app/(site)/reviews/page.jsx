@@ -74,11 +74,6 @@ export default async function ReviewsPage() {
             reviews.length ? 'border-t py-16 sm:py-24' : 'py-10 sm:py-16'
           }`}
         >
-          {!reviews.length && (
-            <p className="mx-auto mb-6 max-w-[440px] font-sans text-[16px] font-light leading-[1.75] text-soft">
-              {dict.common.noReviews}
-            </p>
-          )}
           <Eyebrow>{d.ctaEyebrow}</Eyebrow>
           <h2 className="mx-auto my-6 max-w-[760px] font-display text-[32px] leading-[1.1] sm:text-[56px]">
             {d.ctaH2a}
