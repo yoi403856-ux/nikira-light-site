@@ -72,13 +72,30 @@ export function QuoteBand({ src, eyebrow, children }) {
   return (
     <section className="relative flex h-[56vh] items-center justify-center overflow-hidden text-center sm:h-[68vh]">
       {src && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={src}
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover"
-          style={{ filter: 'saturate(0.78) brightness(0.8)' }}
-        />
+        <>
+          {/*
+            Кадр (1600×1000) заметно уже, чем сама полоса на широких экранах,
+            и object-cover тянет края фото туда, где в исходнике плоская
+            стена/плед за котом — без подложки это читалось как обрыв
+            фотографии. Размытая увеличенная копия того же кадра под ней
+            (тот же приём, что в SiteBackground.jsx) убирает жёсткую границу.
+          */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={src}
+            alt=""
+            aria-hidden
+            className="absolute inset-0 h-full w-full scale-110 object-cover"
+            style={{ filter: 'blur(40px) saturate(0.78) brightness(0.7)' }}
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={src}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ filter: 'saturate(0.78) brightness(0.8)' }}
+          />
+        </>
       )}
       <div
         className="absolute inset-0"
