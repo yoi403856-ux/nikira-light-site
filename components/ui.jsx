@@ -87,21 +87,35 @@ export function QuoteBand({ src, eyebrow, children }) {
             стена/плед за котом — без подложки это читалось как обрыв
             фотографии. Размытая увеличенная копия того же кадра под ней
             (тот же приём, что в SiteBackground.jsx) убирает жёсткую границу.
+
+            background-attachment: fixed вместо <img>: с картинкой-тегом
+            полоса просто ехала вместе со страницей, как обычное фото в
+            потоке. Фон, зафиксированный к вьюпорту, стоит на месте, пока
+            полоса скроллится над ним, — тот же эффект, что у SiteBackground
+            в hero, только в рамках этой секции (overflow-hidden обрезает
+            его точно по границам полосы).
           */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={src}
-            alt=""
+          <div
             aria-hidden
-            className="absolute inset-0 h-full w-full scale-110 object-cover"
-            style={{ filter: 'blur(40px) saturate(0.78) brightness(0.7)' }}
+            className="absolute inset-0 scale-110"
+            style={{
+              backgroundImage: `url(${src})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundAttachment: 'fixed',
+              filter: 'blur(40px) saturate(0.78) brightness(0.7)',
+            }}
           />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={src}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover"
-            style={{ filter: 'saturate(0.78) brightness(0.8)' }}
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url(${src})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundAttachment: 'fixed',
+              filter: 'saturate(0.78) brightness(0.8)',
+            }}
           />
         </>
       )}
