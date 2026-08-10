@@ -1,4 +1,4 @@
-import CatRows from '@/components/CatRows'
+import CatsFilterList from '@/components/CatsFilterList'
 import { PageHead, Eyebrow, Btn, Contain } from '@/components/ui'
 import { getCats } from '@/lib/api'
 import { getCatsContent } from '@/lib/content'
@@ -19,36 +19,13 @@ export default async function CatsPage() {
   const dict = getDict()
   const [cats, d] = await Promise.all([getCats(), getCatsContent(locale)])
 
-  // кошек в питомнике заметно больше, чем котов, поэтому показываем их
-  // отдельными блоками, а не сваливаем в один список
-  const females = cats.filter((c) => c.sex === 'female')
-  const males = cats.filter((c) => c.sex === 'male')
-
   return (
     <>
       <PageHead num={d.heroEyebrow} title={d.heroTitle} lead={d.heroLead} />
 
       <div className="panel">
         <Contain>
-          {males.length > 0 && (
-            <>
-              <h2 className="px-6 pb-6 pt-14 font-display text-[26px] sm:px-[70px] sm:pt-20 sm:text-[34px]">
-                {dict.cats.filterMale}
-              </h2>
-              <CatRows cats={males} locale={locale} dict={dict} />
-            </>
-          )}
-
-          {females.length > 0 && (
-            <>
-              <h2 className="px-6 pb-6 pt-14 font-display text-[26px] sm:px-[70px] sm:pt-20 sm:text-[34px]">
-                {dict.cats.filterFemale}
-              </h2>
-              <CatRows cats={females} locale={locale} dict={dict} />
-            </>
-          )}
-
-          {cats.length === 0 && <CatRows cats={[]} locale={locale} dict={dict} />}
+          <CatsFilterList cats={cats} locale={locale} dict={dict} />
 
           <section className="px-6 py-[70px] text-center sm:px-[70px] sm:py-[110px]">
             <Eyebrow>{d.docsEyebrow}</Eyebrow>

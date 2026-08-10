@@ -5,7 +5,7 @@ import { getKitten } from '@/lib/api'
 import { getLocale, getDict, hreflangAlternates } from '@/lib/i18n'
 import { withLocale } from '@/lib/locale'
 import { urlForImageCrop } from '@/sanity/image'
-import { pick, sexLabel, kindLabel, statusMap, dateLocale } from '@/lib/dict'
+import { pick, sexLabel, kindLabel, kittenStatusLabel, dateLocale } from '@/lib/dict'
 
 export async function generateMetadata({ params }) {
   const locale = getLocale()
@@ -30,7 +30,7 @@ export default async function KittenPage({ params }) {
   const name = pick(locale, k.name, k.nameEn)
   const color = pick(locale, k.color, k.colorEn)
   const description = pick(locale, k.description, k.descriptionEn)
-  const s = statusMap[locale][k.status] || statusMap[locale].available
+  const s = kittenStatusLabel(locale, k.status, k.born)
   const images = (k.images || []).map((img) => urlForImageCrop(img, 1000, 1000)).filter(Boolean)
   const born = k.born
     ? new Date(k.born).toLocaleDateString(dateLocale[locale], { day: 'numeric', month: 'long', year: 'numeric' })

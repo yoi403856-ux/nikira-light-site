@@ -1,4 +1,4 @@
-import LitterStrips from '@/components/LitterStrips'
+import KittensFilterList from '@/components/KittensFilterList'
 import { PageHead, Eyebrow, Btn, Contain } from '@/components/ui'
 import { getKittens } from '@/lib/api'
 import { getKittensContent } from '@/lib/content'
@@ -30,7 +30,7 @@ export default async function KittensPage() {
 
       <div className="panel">
         <Contain>
-          <LitterStrips kittens={kittens} locale={locale} dict={dict} />
+          <KittensFilterList kittens={kittens} locale={locale} dict={dict} />
 
           <section
             className={`border-ink/[0.14] px-6 text-center sm:px-[70px] ${

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { urlForImageCrop } from '@/sanity/image'
-import { pick, sexLabel, statusMap, dateLocale } from '@/lib/dict'
+import { pick, sexLabel, kittenStatusLabel, freeOf, dateLocale } from '@/lib/dict'
 import { withLocale } from '@/lib/locale'
 
 /*
@@ -49,7 +49,7 @@ export default function LitterStrips({ kittens, locale, dict }) {
                 {[
                   born && `${dict.common.born.toLowerCase()} ${born}`,
                   parents,
-                  free ? dict.common.freeOf(free, list.length) : dict.common.allPlaced,
+                  free ? freeOf(locale, free, list.length) : dict.common.allPlaced,
                 ]
                   .filter(Boolean)
                   .join(' · ')}
@@ -59,7 +59,7 @@ export default function LitterStrips({ kittens, locale, dict }) {
             <div className="strip flex gap-5 overflow-x-auto pb-9">
               {list.map((k) => {
                 const src = k.images?.[0] ? urlForImageCrop(k.images[0], 612, 816) : null
-                const s = statusMap[locale][k.status] || statusMap[locale].available
+                const s = kittenStatusLabel(locale, k.status, k.born)
                 const name = pick(locale, k.name, k.nameEn)
                 const color = pick(locale, k.color, k.colorEn) || k.ems
                 return (
