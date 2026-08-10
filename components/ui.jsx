@@ -70,7 +70,7 @@ export function SectionHead({ num, children, aside }) {
 // работает не как фон, а как самостоятельный кадр.
 export function QuoteBand({ src, eyebrow, children }) {
   return (
-    <section className="relative flex h-[56vh] items-center justify-center overflow-hidden text-center sm:h-[68vh]">
+    <section className="relative flex h-[38vh] items-center justify-center overflow-hidden text-center sm:h-[46vh]">
       {src && (
         <>
           {/*
