@@ -73,8 +73,12 @@ export default function Masthead({ links, locale, city, phone, tel }) {
       if (!target) return
       e.preventDefault()
       e.stopPropagation()
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      // history.pushState ДО scrollIntoView, не после: next/link подменяет
+      // window.history.pushState глобально, и его перехватчик синхронно
+      // вмешивается в скролл при вызове — если пушить адрес уже ПОСЛЕ
+      // старта плавной анимации, она обрывается мгновенным скачком.
       history.pushState(null, '', url.hash)
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
     document.addEventListener('click', onClick, true)
     return () => document.removeEventListener('click', onClick, true)
@@ -146,7 +150,7 @@ export default function Masthead({ links, locale, city, phone, tel }) {
         SiteBackground.jsx — размытие теперь в самом фото), альфа поднята с
         0.46 до 0.72, чтобы плашка не читалась слишком прозрачной без него.
       */}
-      <nav className="sticky top-0 z-40 hidden border-y border-glow/20 bg-[rgba(44,36,26,0.72)] px-[70px] py-4 sm:flex sm:items-center sm:justify-between">
+      <nav className="sticky top-0 z-40 hidden border-y border-glow/20 bg-[rgba(44,36,26,0.94)] px-[70px] py-4 sm:flex sm:items-center sm:justify-between">
         {links.map((l) => {
           const on = l.href === '/' ? bare === '/' : bare.startsWith(l.href)
           return (
@@ -172,7 +176,7 @@ export default function Masthead({ links, locale, city, phone, tel }) {
         мимо кнопки. top-full всегда находит полосу там, где она есть на
         самом деле, прилипла она или нет.
       */}
-      <div className="sticky top-0 z-40 flex items-center justify-between border-y border-glow/20 bg-[rgba(44,36,26,0.72)] px-6 py-3.5 sm:hidden">
+      <div className="sticky top-0 z-40 flex items-center justify-between border-y border-glow/20 bg-[rgba(44,36,26,0.94)] px-6 py-3.5 sm:hidden">
         <LangToggle onPhoto />
         <button
           type="button"
