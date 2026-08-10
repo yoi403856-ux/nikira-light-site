@@ -42,6 +42,45 @@ export default function Masthead({ links, locale, city, phone, tel }) {
   useEffect(() => setOpen(false), [pathname])
 
   /*
+    Плавность к якорям (#footer, #after-hero) добавлена точечно, не через
+    глобальный scroll-behavior:smooth — тот дёргает колесо мыши, каждый
+    щелчок запускает свою анимацию, и они дерутся между собой (см.
+    globals.css). Слушатель повешен один раз здесь, в единственном клиентском
+    компоненте, который есть на каждой странице, а не в каждой ссылке
+    отдельно.
+
+    Слушатель на ФАЗЕ ПЕРЕХВАТА (capture), а не всплытия, и с
+    stopPropagation — принципиально. У next/link для чисто хэшевого href
+    ("#footer") свой обработчик клика, который резолвит адрес не от текущей
+    страницы, а от корня сайта, и уводит на главную с хэшем вместо прокрутки
+    на месте. Проверено эмпирически: без stopPropagation клик со страницы
+    /kittens по "Контакты" улетал на "/#footer". Перехват на capture-фазе
+    срабатывает раньше делегированного обработчика next/link (тот висит на
+    фазе всплытия), так что до него событие просто не доходит.
+  */
+  useEffect(() => {
+    const onClick = (e) => {
+      const anchor = e.target.closest('a[href*="#"]')
+      if (!anchor) return
+      let url
+      try {
+        url = new URL(anchor.href)
+      } catch {
+        return
+      }
+      if (url.pathname !== window.location.pathname || !url.hash) return
+      const target = document.getElementById(url.hash.slice(1))
+      if (!target) return
+      e.preventDefault()
+      e.stopPropagation()
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      history.pushState(null, '', url.hash)
+    }
+    document.addEventListener('click', onClick, true)
+    return () => document.removeEventListener('click', onClick, true)
+  }, [])
+
+  /*
     Пока меню открыто, фон не должен прокручиваться: панель приклеена к
     липкой полосе, и если страница под ней едет, раскрытое меню висит
     сверху и накрывает контент.
