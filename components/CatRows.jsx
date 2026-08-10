@@ -4,7 +4,7 @@ import { pick, sexLabel } from '@/lib/dict'
 import { withLocale } from '@/lib/locale'
 
 /*
-  Коты списком строк, а не плиткой карточек: номер, крупная кличка, окрас и
+  Коты списком строк, а не плиткой карточек: крупная кличка, окрас и
   маленький кадр справа, который расцветает при наведении. Плитка — то, чем
   устроен соседний сайт, и по ней родство считывается мгновенно.
 */
@@ -17,7 +17,7 @@ export default function CatRows({ cats, locale, dict, hrefBase = '/cats' }) {
 
   return (
     <section className="border-t border-ink/[0.14]">
-      {cats.map((c, i) => {
+      {cats.map((c) => {
         const src = c.images?.[0] ? urlForImageCrop(c.images[0], 300, 300) : null
         const call = pick(locale, c.call, c.callEn) || c.name
         const color = pick(locale, c.color, c.colorEn)
@@ -26,11 +26,8 @@ export default function CatRows({ cats, locale, dict, hrefBase = '/cats' }) {
           <Link
             key={c._id}
             href={withLocale(`${hrefBase}/${c.slug}`, locale)}
-            className="group grid grid-cols-[1fr_84px] items-center gap-4 border-b border-ink/[0.14] px-6 py-5 transition-colors duration-300 hover:bg-linen/85 sm:grid-cols-[70px_1fr_260px_150px] sm:gap-8 sm:px-[70px] sm:py-6"
+            className="group grid grid-cols-[1fr_84px] items-center gap-4 border-b border-ink/[0.14] px-6 py-5 transition-colors duration-300 hover:bg-linen/85 sm:grid-cols-[1fr_260px_150px] sm:gap-8 sm:px-[70px] sm:py-6"
           >
-            <span className="hidden font-caps text-[11px] tracking-[0.2em] text-sand sm:block">
-              {String(i + 1).padStart(2, '0')}
-            </span>
             <span className="font-display text-[24px] leading-[1.1] sm:text-[40px]">{call}</span>
             <span className="hidden font-sans text-[14px] font-light text-soft sm:block">{facts}</span>
             <span className="h-16 overflow-hidden sm:h-[88px]">
