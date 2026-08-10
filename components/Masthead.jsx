@@ -57,8 +57,29 @@ export default function Masthead({ links, locale, city, phone, tel }) {
     /kittens по "Контакты" улетал на "/#footer". Перехват на capture-фазе
     срабатывает раньше делегированного обработчика next/link (тот висит на
     фазе всплытия), так что до него событие просто не доходит.
+
+    Прокрутка — своим requestAnimationFrame-циклом, а не нативным
+    scrollIntoView({behavior:'smooth'}). На практике нативный smooth-scroll
+    оказался ненадёжным: часть браузеров тихо откатывается на мгновенный
+    прыжок (зависит от системных настроек анимации ОС, которые из кода не
+    проверить и не обойти). Свой цикл анимирует всегда одинаково, независимо
+    от того, что решит браузер.
   */
   useEffect(() => {
+    const animateScrollTo = (targetY, duration = 650) => {
+      const startY = window.scrollY
+      const diff = targetY - startY
+      if (Math.abs(diff) < 1) return
+      const startTime = performance.now()
+      const easeInOutQuad = (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2)
+      const step = (now) => {
+        const t = Math.min((now - startTime) / duration, 1)
+        window.scrollTo(0, startY + diff * easeInOutQuad(t))
+        if (t < 1) requestAnimationFrame(step)
+      }
+      requestAnimationFrame(step)
+    }
+
     const onClick = (e) => {
       const anchor = e.target.closest('a[href*="#"]')
       if (!anchor) return
@@ -73,12 +94,9 @@ export default function Masthead({ links, locale, city, phone, tel }) {
       if (!target) return
       e.preventDefault()
       e.stopPropagation()
-      // history.pushState ДО scrollIntoView, не после: next/link подменяет
-      // window.history.pushState глобально, и его перехватчик синхронно
-      // вмешивается в скролл при вызове — если пушить адрес уже ПОСЛЕ
-      // старта плавной анимации, она обрывается мгновенным скачком.
       history.pushState(null, '', url.hash)
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      const targetY = target.getBoundingClientRect().top + window.scrollY
+      animateScrollTo(targetY)
     }
     document.addEventListener('click', onClick, true)
     return () => document.removeEventListener('click', onClick, true)
