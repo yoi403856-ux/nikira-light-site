@@ -109,7 +109,7 @@ export default async function Home() {
 
       <div id="after-hero" className="panel scroll-mt-20">
         <Contain>
-          <SectionHead num={d.aboutEyebrow} aside={d.aside}>
+          <SectionHead num={d.aboutEyebrow}>
             {d.aboutH2a}
             <i className="not-italic text-ember">{d.aboutH2b}</i>.
           </SectionHead>
@@ -123,18 +123,29 @@ export default async function Home() {
               ))}
             </div>
 
-            <div className="grid grid-cols-2 gap-6 border-sand sm:flex sm:flex-col sm:gap-10 sm:border-l-2 sm:pl-6">
-              {[
-                [c.foundedYear, locale === 'en' ? 'founded' : 'год основания'],
-                [c.registry, locale === 'en' ? 'registration' : 'регистрация'],
-                [cats.length || '—', locale === 'en' ? 'cats' : 'кота и кошки'],
-                [freeKittens || '—', locale === 'en' ? 'kittens available' : 'котят свободно'],
-              ].map(([n, label]) => (
-                <div key={label}>
-                  <b className="block font-display text-[38px] font-normal leading-none sm:text-[44px]">{n}</b>
-                  <span className="eyebrow mt-3 block">{label}</span>
-                </div>
-              ))}
+            {/*
+              Цитата и статистика раньше жили в двух разных блоках с двумя
+              отдельными вертикальными линиями и разрывом между ними —
+              читалось как два случайно склеенных куска, а не одна колонка.
+              Одна общая рамка на весь блок вместо двух половинок.
+            */}
+            <div className="border-sand sm:border-l-2 sm:pl-6">
+              {d.aside && (
+                <p className="mb-8 font-sans text-[15px] font-light leading-[1.9] text-soft">{d.aside}</p>
+              )}
+              <div className="grid grid-cols-2 gap-x-6 gap-y-8 sm:flex sm:flex-col sm:gap-8">
+                {[
+                  [c.foundedYear, locale === 'en' ? 'founded' : 'год основания'],
+                  [c.registry, locale === 'en' ? 'registration' : 'регистрация'],
+                  [cats.length || '—', locale === 'en' ? 'cats' : 'кота и кошки'],
+                  [freeKittens || '—', locale === 'en' ? 'kittens available' : 'котят свободно'],
+                ].map(([n, label]) => (
+                  <div key={label}>
+                    <b className="block font-display text-[32px] font-normal leading-none sm:text-[36px]">{n}</b>
+                    <span className="eyebrow mt-2.5 block">{label}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
         </Contain>
