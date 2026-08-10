@@ -109,28 +109,28 @@ export default async function Home() {
           <i className="not-italic text-ember">{d.aboutH2b}</i>.
         </SectionHead>
 
-        <section className="max-w-[1020px] px-6 pb-[70px] sm:px-[70px] sm:pb-[120px]">
-          <div className="columns-1 gap-16 font-sans text-[16px] font-light leading-[2] text-soft sm:columns-2">
+        <section className="grid gap-10 px-6 pb-[70px] sm:grid-cols-[1fr_300px] sm:gap-16 sm:px-[70px] sm:pb-[120px]">
+          <div className="max-w-[820px] columns-1 gap-16 font-sans text-[16px] font-light leading-[2] text-soft sm:columns-2">
             {[d.p1, d.p2, d.p3, d.p4].filter(Boolean).map((p, i) => (
               <p key={i} className="mb-5 break-inside-avoid">
                 {p}
               </p>
             ))}
           </div>
-        </section>
 
-        <section className="flex flex-wrap gap-9 px-6 pb-[70px] sm:gap-[76px] sm:px-[70px] sm:pb-[120px]">
-          {[
-            [c.foundedYear, locale === 'en' ? 'founded' : 'год основания'],
-            [c.registry, locale === 'en' ? 'registration' : 'регистрация'],
-            [cats.length || '—', locale === 'en' ? 'cats' : 'кота и кошки'],
-            [freeKittens || '—', locale === 'en' ? 'kittens available' : 'котят свободно'],
-          ].map(([n, label]) => (
-            <div key={label}>
-              <b className="block font-display text-[38px] font-normal leading-none sm:text-[52px]">{n}</b>
-              <span className="eyebrow mt-3 block">{label}</span>
-            </div>
-          ))}
+          <div className="grid grid-cols-2 gap-6 border-sand sm:flex sm:flex-col sm:gap-10 sm:border-l-2 sm:pl-6">
+            {[
+              [c.foundedYear, locale === 'en' ? 'founded' : 'год основания'],
+              [c.registry, locale === 'en' ? 'registration' : 'регистрация'],
+              [cats.length || '—', locale === 'en' ? 'cats' : 'кота и кошки'],
+              [freeKittens || '—', locale === 'en' ? 'kittens available' : 'котят свободно'],
+            ].map(([n, label]) => (
+              <div key={label}>
+                <b className="block font-display text-[38px] font-normal leading-none sm:text-[44px]">{n}</b>
+                <span className="eyebrow mt-3 block">{label}</span>
+              </div>
+            ))}
+          </div>
         </section>
       </div>
 
