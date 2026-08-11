@@ -119,14 +119,18 @@ body {
   .text-balance { text-wrap: balance; }
   .hairline { border-color: rgba(46, 40, 32, 0.14); }
 
-  /* горизонтальная лента котят внутри помёта */
+  /*
+    Горизонтальная лента отзывов на главной. Скроллбар спрятан целиком, а
+    не просто утончён: у ленты уже есть свои стрелки для десктопа, и
+    системный скроллбар поверх них — лишняя, местами толстая и разная от
+    браузера к браузеру полоса снизу.
+  */
   .strip {
     scroll-snap-type: x mandatory;
-    scrollbar-width: thin;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
-  .strip::-webkit-scrollbar { height: 6px; }
-  .strip::-webkit-scrollbar-track { background: transparent; }
-  .strip::-webkit-scrollbar-thumb { background: rgba(46, 40, 32, 0.22); }
+  .strip::-webkit-scrollbar { display: none; }
 
   /*
     Высота под закреплённый фон, считается по САМОМУ БОЛЬШОМУ возможному

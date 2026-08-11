@@ -18,7 +18,7 @@ export default function CatRows({ cats, locale, dict, hrefBase = '/cats' }) {
   }
 
   return (
-    <section className="grid grid-cols-2 gap-5 px-6 pb-2 pt-8 sm:grid-cols-3 sm:gap-8 sm:px-[70px] sm:pt-10 lg:grid-cols-4">
+    <section className="grid grid-cols-2 gap-5 px-6 pb-10 pt-8 sm:grid-cols-3 sm:gap-8 sm:px-[70px] sm:pb-16 sm:pt-10 lg:grid-cols-4">
       {cats.map((c) => {
         const src = c.images?.[0] ? urlForImageCrop(c.images[0], 460, 613) : null
         const call = pick(locale, c.call, c.callEn) || c.name
