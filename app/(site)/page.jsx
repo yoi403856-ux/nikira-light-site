@@ -57,7 +57,7 @@ export default async function Home() {
         <Contain>
           <div
             className={`grid items-center gap-10 sm:gap-[70px] ${
-              heroCats.length > 1 ? 'sm:grid-cols-[0.85fr_1.15fr]' : 'sm:grid-cols-[1.05fr_0.95fr]'
+              heroCats.length > 1 ? 'sm:grid-cols-[0.7fr_1.3fr]' : 'sm:grid-cols-[1.05fr_0.95fr]'
             }`}
           >
             <div>
@@ -87,7 +87,7 @@ export default async function Home() {
               // тянуть по ширине): без ограничения по высоте оно раздувало весь
               // первый экран за пределы виду. Высота ограничена вьюпортом, ширина
               // подстраивается сама через object-contain.
-              <div className="relative flex h-[46vh] max-h-[440px] min-h-[280px] items-end justify-center sm:h-[52vh] sm:max-h-[560px]">
+              <div className="relative flex h-[54vh] max-h-[520px] min-h-[320px] items-end justify-center sm:h-[64vh] sm:max-h-[680px]">
                 <span
                   aria-hidden
                   className="absolute bottom-2.5 left-[16%] right-[16%] z-[1] h-8"
