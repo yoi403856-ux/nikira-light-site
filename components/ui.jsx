@@ -14,8 +14,12 @@ export function Contain({ children, className = '' }) {
 
 /*
   Заголовок внутренней страницы: крупное имя и подзаголовок, лежащие прямо
-  на фотографии. Прижат влево — центр не подошёл на живом фото с деревом
-  справа, текст оказывался поверх веток.
+  на фотографии. Прижат влево внутри Contain — центр по всей ширине фото не
+  подошёл на живом фото с деревом справа, текст оказывался поверх веток, но
+  на широких мониторах голый px-[70px] без потолка ширины прижимал блок к
+  самому краю экрана. Contain (max-w-[1160px]) подтягивает его ближе к
+  центру, как и остальные текстовые блоки на сайте, при этом текст внутри
+  остаётся выровнен по левому краю.
 
   Номер раздела ("01", "02"...) раньше показывался над заголовком — без
   подписи рядом голая цифра читалась как случайный обрывок текста, а не как
@@ -34,14 +38,16 @@ export function PageHead({ title, lead, className = '', compact = false }) {
     <section
       className={`px-6 pt-16 sm:px-[70px] sm:pt-28 ${compact ? 'pb-8 sm:pb-10' : 'pb-16 sm:pb-24'} ${className}`}
     >
-      <h1 className="max-w-[900px] font-display text-[36px] leading-[1.06] text-glow on-photo sm:text-[64px]">
-        {title}
-      </h1>
-      {lead && (
-        <p className="mt-6 max-w-[520px] font-sans text-[17px] font-extralight leading-[1.75] text-glow/90 on-photo-sm sm:text-[19px]">
-          {lead}
-        </p>
-      )}
+      <Contain>
+        <h1 className="max-w-[900px] font-display text-[36px] leading-[1.06] text-glow on-photo sm:text-[64px]">
+          {title}
+        </h1>
+        {lead && (
+          <p className="mt-6 max-w-[520px] font-sans text-[17px] font-extralight leading-[1.75] text-glow/90 on-photo-sm sm:text-[19px]">
+            {lead}
+          </p>
+        )}
+      </Contain>
     </section>
   )
 }
