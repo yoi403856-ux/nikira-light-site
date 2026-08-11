@@ -33,7 +33,7 @@ import { withLocale } from '@/lib/locale'
   названия на внутренних страницах считаются из адреса. Данные приходят
   готовыми пропсами, запросов отсюда нет.
 */
-export default function Masthead({ links, locale, city, phone, tel }) {
+export default function Masthead({ links, locale, city }) {
   const pathname = usePathname() || '/'
   const bare = pathname === '/en' ? '/' : pathname.startsWith('/en/') ? pathname.slice(3) : pathname
   const isHome = bare === '/'
@@ -226,12 +226,6 @@ export default function Masthead({ links, locale, city, phone, tel }) {
                 )
               })}
             </nav>
-            <a
-              href={tel}
-              className="block px-6 py-5 font-caps text-[13px] uppercase tracking-[0.2em] text-glow/80"
-            >
-              {phone}
-            </a>
           </div>
         )}
       </div>

@@ -48,7 +48,7 @@ export default async function SiteLayout({ children }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd(settings)) }}
       />
       <SiteBackground photoUrl={background} />
-      <Masthead links={links} locale={locale} city={c.city} phone={c.phone} tel={c.tel} />
+      <Masthead links={links} locale={locale} city={c.city} />
       <main>{children}</main>
       <Footer settings={settings} locale={locale} />
     </LocaleProvider>
