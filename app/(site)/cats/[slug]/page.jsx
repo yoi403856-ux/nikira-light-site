@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import { Check } from 'lucide-react'
 import { notFound } from 'next/navigation'
-import { PageHead, Eyebrow, Btn, Contain } from '@/components/ui'
+import { Eyebrow, Btn, Contain } from '@/components/ui'
 import CatRows from '@/components/CatRows'
+import PhotoGallery from '@/components/PhotoGallery'
 import { getCat, getKittensByParent } from '@/lib/api'
 import { getLocale, getDict, hreflangAlternates } from '@/lib/i18n'
 import { withLocale } from '@/lib/locale'
-import { urlForImage, urlForImageCrop, } from '@/sanity/image'
 import { pick, pickList, sexLabel, dateLocale } from '@/lib/dict'
 
 export async function generateMetadata({ params }) {
@@ -34,7 +34,6 @@ export default async function CatPage({ params }) {
   const titles = pick(locale, c.titles, c.titlesEn)
   const note = pick(locale, c.note, c.noteEn)
   const tests = pickList(locale, c.tests, c.testsEn)
-  const images = (c.images || []).map((img) => urlForImageCrop(img, 1000, 1000)).filter(Boolean)
   const born = c.born
     ? new Date(c.born).toLocaleDateString(dateLocale[locale], { day: 'numeric', month: 'long', year: 'numeric' })
     : null
@@ -50,40 +49,10 @@ export default async function CatPage({ params }) {
 
   return (
     <>
-      <PageHead
-        num={sexLabel(locale, c.sex)}
-        title={call}
-        lead={[color || c.ems, titles].filter(Boolean).join(' · ')}
-        className="pb-10 sm:pb-14"
-      />
-
       <div className="panel">
         <Contain>
           <div className="grid gap-10 px-6 py-12 sm:grid-cols-[1.15fr_0.85fr] sm:gap-[70px] sm:px-[70px] sm:py-20">
-            {/*
-              Одно крупное фото + мелкие миниатюры под ним, а не сетка 2×2
-              из одинаковых по размеру кадров: вторая-третья фотографии
-              обычно вспомогательные (другой ракурс, поза), раздувать их до
-              размера первой не нужно. sm:flex-1 на первой фигуре тянет её
-              на всю оставшуюся высоту колонки — раньше это же делало
-              h-full, теперь то же самое, просто в flex-раскладке.
-            */}
-            <div className="flex flex-col gap-3.5 sm:h-full">
-              <figure className="aspect-[4/3] overflow-hidden bg-linen sm:aspect-auto sm:flex-1">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={images[0]} alt={call} className="h-full w-full object-cover" />
-              </figure>
-              {images.length > 1 && (
-                <div className="grid grid-cols-4 gap-3.5">
-                  {images.slice(1).map((src) => (
-                    <figure key={src} className="aspect-square overflow-hidden bg-linen">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={src} alt={call} className="h-full w-full object-cover" />
-                    </figure>
-                  ))}
-                </div>
-              )}
-            </div>
+            <PhotoGallery images={c.images} alt={call} />
 
             <div>
               <p className="font-caps text-[11px] uppercase tracking-[0.22em] text-soft">{c.name}</p>

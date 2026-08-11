@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation'
-import { PageHead, Btn, Contain } from '@/components/ui'
+import { Btn, Contain } from '@/components/ui'
+import PhotoGallery from '@/components/PhotoGallery'
 import { getKitten } from '@/lib/api'
 import { getLocale, getDict, hreflangAlternates } from '@/lib/i18n'
-import { urlForImageCrop } from '@/sanity/image'
 import { pick, sexLabel, kindLabel, kittenStatusLabel, dateLocale } from '@/lib/dict'
 
 export async function generateMetadata({ params }) {
@@ -29,7 +29,6 @@ export default async function KittenPage({ params }) {
   const color = pick(locale, k.color, k.colorEn)
   const description = pick(locale, k.description, k.descriptionEn)
   const s = kittenStatusLabel(locale, k.status, k.born)
-  const images = (k.images || []).map((img) => urlForImageCrop(img, 1000, 1000)).filter(Boolean)
   const born = k.born
     ? new Date(k.born).toLocaleDateString(dateLocale[locale], { day: 'numeric', month: 'long', year: 'numeric' })
     : null
@@ -45,29 +44,10 @@ export default async function KittenPage({ params }) {
 
   return (
     <>
-      <PageHead num={k.litter ? `${dict.common.litter} ${k.litter}` : dict.nav.kittens} title={name} lead={description} className="pb-10 sm:pb-14" />
-
       <div className="panel">
         <Contain>
           <div className="grid gap-10 px-6 py-12 sm:grid-cols-[1.15fr_0.85fr] sm:gap-[70px] sm:px-[70px] sm:py-20">
-            {/* Одно крупное фото + мелкие миниатюры под ним — см. то же
-                решение и обоснование на /cats/[slug]. */}
-            <div className="flex flex-col gap-3.5 sm:h-full">
-              <figure className="aspect-[4/3] overflow-hidden bg-linen sm:aspect-auto sm:flex-1">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={images[0]} alt={name} className="h-full w-full object-cover" />
-              </figure>
-              {images.length > 1 && (
-                <div className="grid grid-cols-4 gap-3.5">
-                  {images.slice(1).map((src) => (
-                    <figure key={src} className="aspect-square overflow-hidden bg-linen">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={src} alt={name} className="h-full w-full object-cover" />
-                    </figure>
-                  ))}
-                </div>
-              )}
-            </div>
+            <PhotoGallery images={k.images} alt={name} />
 
             <div>
               <div className="flex flex-wrap items-center gap-2">
@@ -83,6 +63,14 @@ export default async function KittenPage({ params }) {
                 )}
               </div>
               <h2 className="mb-1.5 mt-4 font-display text-[36px] leading-[1.05] sm:text-[54px]">{name}</h2>
+              {/* Раньше это же описание было только в шапке-фото (PageHead
+                  lead), которую убрали как дублирующую кличку/факты ниже —
+                  чтобы не потерять уникальный текст (не факт, а описание
+                  характера), перенесли сюда, тем же приёмом, что и note у
+                  котов. */}
+              {description && (
+                <p className="mt-5 font-sans text-[16px] font-light leading-[1.95] text-soft">{description}</p>
+              )}
 
               <dl className="mt-8 border-t border-ink/[0.16]">
                 {rows.map(([kk, v], i) => (
