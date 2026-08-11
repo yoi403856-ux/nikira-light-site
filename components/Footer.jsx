@@ -70,14 +70,18 @@ export default function Footer({ settings, locale }) {
           {delivery && ` · ${delivery}`}
         </p>
 
-        <nav className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-caps text-[11px] uppercase tracking-[0.18em] text-glowdim/80">
-          {nav.map((n, i) => (
-            <span key={n.href} className="flex items-center gap-6">
-              {i > 0 && <span className="h-1 w-1 rounded-full bg-glow/20" />}
-              <Link href={withLocale(n.href, locale)} className="transition-colors hover:text-ember">
-                {n.label}
-              </Link>
-            </span>
+        {/*
+          Точки-разделители между пунктами убраны: при переносе на новую
+          строку точка визуально "прилипала" к следующему пункту (так она
+          и была сгруппирована в разметке), и в начале строки повисала
+          одинокая точка — читалось как опечатка. Простой отступ без
+          разделителей — тот же приём, что уже в шапке сайта.
+        */}
+        <nav className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 font-caps text-[11px] uppercase tracking-[0.18em] text-glowdim/80">
+          {nav.map((n) => (
+            <Link key={n.href} href={withLocale(n.href, locale)} className="transition-colors hover:text-ember">
+              {n.label}
+            </Link>
           ))}
         </nav>
 
