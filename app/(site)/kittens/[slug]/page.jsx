@@ -41,7 +41,6 @@ export default async function KittenPage({ params }) {
     [k.sex === 'male' ? dict.common.born : dict.common.bornF, born],
     [dict.common.litter, k.litter],
     ['', kindLabel(locale, k.kind)],
-    [dict.common.polydactyl, k.polydactyl ? (locale === 'en' ? 'yes' : 'да') : null],
   ].filter(([, v]) => v)
 
   return (
@@ -64,11 +63,18 @@ export default async function KittenPage({ params }) {
             </div>
 
             <div>
-              <span
-                className={`inline-block border px-3.5 py-2 font-caps text-[9.5px] uppercase tracking-[0.24em] ${s.cls}`}
-              >
-                {s.label}
-              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <span
+                  className={`inline-block border px-3.5 py-2 font-caps text-[9.5px] uppercase tracking-[0.24em] ${s.cls}`}
+                >
+                  {s.label}
+                </span>
+                {k.polydactyl && (
+                  <span className="inline-block border border-ember/50 px-3.5 py-2 font-caps text-[9.5px] uppercase tracking-[0.24em] text-ember">
+                    {dict.common.polydactyl}
+                  </span>
+                )}
+              </div>
               <h2 className="mb-1.5 mt-4 font-display text-[36px] leading-[1.05] sm:text-[54px]">{name}</h2>
 
               <dl className="mt-8 border-t border-ink/[0.16]">
@@ -78,7 +84,7 @@ export default async function KittenPage({ params }) {
                     className="grid grid-cols-[110px_1fr] gap-3 border-b border-ink/[0.12] py-4 sm:grid-cols-[150px_1fr] sm:gap-5"
                   >
                     <dt className="pt-1 font-caps text-[10px] uppercase tracking-[0.26em] text-sand">{kk}</dt>
-                    <dd className="font-display text-[17px] sm:text-[20px]">{v}</dd>
+                    <dd className="font-sans text-[17px] font-medium text-ink sm:text-[20px]">{v}</dd>
                   </div>
                 ))}
               </dl>

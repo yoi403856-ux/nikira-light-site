@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Check } from 'lucide-react'
 import { notFound } from 'next/navigation'
 import { PageHead, Eyebrow, Btn, Contain } from '@/components/ui'
 import CatRows from '@/components/CatRows'
@@ -45,7 +46,6 @@ export default async function CatPage({ params }) {
     [dict.common.weight, c.weight],
     [c.sex === 'male' ? dict.common.born : dict.common.bornF, born],
     [dict.common.titles, titles],
-    [dict.common.polydactyl, c.polydactyl ? (locale === 'en' ? 'yes' : 'да') : null],
   ].filter(([, v]) => v)
 
   return (
@@ -74,14 +74,27 @@ export default async function CatPage({ params }) {
 
             <div>
               <p className="font-caps text-[11px] uppercase tracking-[0.22em] text-soft">{c.name}</p>
-              <h2 className="mb-1.5 mt-3.5 font-display text-[36px] leading-[1.05] sm:text-[54px]">{call}</h2>
+              <div className="mb-1.5 mt-3.5 flex flex-wrap items-center gap-3">
+                <h2 className="font-display text-[36px] leading-[1.05] sm:text-[54px]">{call}</h2>
+                {c.polydactyl && (
+                  <span className="inline-block border border-ember/50 px-3 py-1.5 font-caps text-[10px] uppercase tracking-[0.2em] text-ember">
+                    {dict.common.polydactyl}
+                  </span>
+                )}
+              </div>
               {note && <p className="mt-5 font-sans text-[16px] font-light leading-[1.95] text-soft">{note}</p>}
 
+              {/*
+                Значения раньше шли тем же светлым display-шрифтом, что и
+                декоративные заголовки, — рядом с ember-подписями сверху они
+                читались блёкло. font-sans + font-medium держит контраст, не
+                споря с заголовком страницы за внимание.
+              */}
               <dl className="mt-9 border-t border-ink/[0.16]">
                 {rows.map(([k, v]) => (
                   <div key={k} className="grid grid-cols-[110px_1fr] gap-3 border-b border-ink/[0.12] py-4 sm:grid-cols-[150px_1fr] sm:gap-5">
                     <dt className="pt-1 font-caps text-[10px] uppercase tracking-[0.26em] text-sand">{k}</dt>
-                    <dd className="font-display text-[17px] sm:text-[20px]">{v}</dd>
+                    <dd className="font-sans text-[17px] font-medium text-ink sm:text-[20px]">{v}</dd>
                   </div>
                 ))}
               </dl>
@@ -89,9 +102,16 @@ export default async function CatPage({ params }) {
               {tests.length > 0 && (
                 <>
                   <p className="eyebrow mt-8">{dict.common.health}</p>
-                  <ul className="mt-4 flex flex-wrap gap-2">
+                  {/* Галочка + акцентная линия слева вместо голой рамки —
+                      плоский бордер-бокс с текстом внутри был один в один
+                      как у Summer Cherry. */}
+                  <ul className="mt-4 flex flex-wrap gap-3">
                     {tests.map((t) => (
-                      <li key={t} className="border border-ink/20 px-3.5 py-2 font-sans text-[12px] tracking-[0.02em] text-soft">
+                      <li
+                        key={t}
+                        className="flex items-center gap-2 border-l-2 border-ember bg-linen/50 py-2 pl-3 pr-4 font-sans text-[12px] tracking-[0.02em] text-ink"
+                      >
+                        <Check size={13} strokeWidth={2.5} className="shrink-0 text-ember" />
                         {t}
                       </li>
                     ))}
