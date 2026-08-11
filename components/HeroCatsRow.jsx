@@ -20,10 +20,13 @@ export default function HeroCatsRow({ images }) {
           key={src}
           src={src}
           alt=""
-          className={`relative w-auto max-w-full object-contain ${heights[i]} ${i > 0 ? '-ml-8 sm:-ml-12' : ''}`}
+          className={`relative w-auto max-w-full object-contain ${heights[i]} ${i > 0 ? '-ml-20 sm:-ml-32' : ''}`}
           style={{
             zIndex: z[i],
-            filter: 'drop-shadow(0 24px 34px rgba(30,22,14,0.42)) sepia(0.18) saturate(1.12) brightness(1.03) hue-rotate(-6deg)',
+            // тёплый закатный свет фона + сепия/оттенок гасят "студийную" подсветку
+            // исходных вырезок — без этого коты выглядят наклеенными поверх фото
+            filter:
+              'drop-shadow(0 24px 34px rgba(30,22,14,0.45)) sepia(0.26) saturate(1.18) brightness(0.96) contrast(1.05) hue-rotate(-9deg)',
           }}
         />
       ))}
