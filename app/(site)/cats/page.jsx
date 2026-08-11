@@ -1,5 +1,6 @@
 import CatsFilterList from '@/components/CatsFilterList'
 import { PageHead, Eyebrow, Btn, Contain } from '@/components/ui'
+import Reveal from '@/components/Reveal'
 import { getCats } from '@/lib/api'
 import { getCatsContent } from '@/lib/content'
 import { getLocale, getDict, hreflangAlternates } from '@/lib/i18n'
@@ -27,7 +28,7 @@ export default async function CatsPage() {
         <Contain>
           <CatsFilterList cats={cats} locale={locale} dict={dict} />
 
-          <section className="px-6 py-[70px] text-center sm:px-[70px] sm:py-[110px]">
+          <Reveal as="section" className="px-6 py-[70px] text-center sm:px-[70px] sm:py-[110px]">
             <Eyebrow>{d.docsEyebrow}</Eyebrow>
             <h2 className="mx-auto my-6 max-w-[760px] font-display text-[32px] leading-[1.1] sm:text-[56px]">
               {d.docsH2a}
@@ -37,7 +38,7 @@ export default async function CatsPage() {
             <Btn href="#footer" kind="line">
               {dict.common.write}
             </Btn>
-          </section>
+          </Reveal>
         </Contain>
       </div>
     </>

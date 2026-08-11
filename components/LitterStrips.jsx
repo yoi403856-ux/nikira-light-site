@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { urlForImageCrop } from '@/sanity/image'
 import { pick, sexLabel, kittenStatusLabel, freeOf, dateLocale } from '@/lib/dict'
 import { withLocale } from '@/lib/locale'
+import Reveal from '@/components/Reveal'
 
 /*
   Котята сгруппированы по помётам, внутри помёта — плиткой (тот же приём,
@@ -90,13 +91,19 @@ export default function LitterStrips({ kittens, locale, dict }) {
             </div>
 
             <div className="grid grid-cols-2 gap-5 pb-9 sm:grid-cols-3 sm:gap-8 lg:grid-cols-4">
-              {list.map((k) => {
+              {list.map((k, i) => {
                 const src = k.images?.[0] ? urlForImageCrop(k.images[0], 612, 816) : null
                 const s = kittenStatusLabel(locale, k.status, k.born)
                 const name = pick(locale, k.name, k.nameEn)
                 const color = pick(locale, k.color, k.colorEn) || k.ems
                 return (
-                  <Link key={k._id} href={withLocale(`/kittens/${k.slug}`, locale)} className="group">
+                  <Reveal
+                    key={k._id}
+                    as={Link}
+                    href={withLocale(`/kittens/${k.slug}`, locale)}
+                    className="group"
+                    delay={(i % 8) * 60}
+                  >
                     <div className="relative aspect-[3/4] overflow-hidden bg-linen">
                       {src && (
                         // eslint-disable-next-line @next/next/no-img-element
@@ -126,7 +133,7 @@ export default function LitterStrips({ kittens, locale, dict }) {
                         .filter(Boolean)
                         .join(' · ')}
                     </p>
-                  </Link>
+                  </Reveal>
                 )
               })}
             </div>

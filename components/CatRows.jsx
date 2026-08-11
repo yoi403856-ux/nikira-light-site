@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { urlForImageCrop } from '@/sanity/image'
 import { pick, sexLabel } from '@/lib/dict'
 import { withLocale } from '@/lib/locale'
+import Reveal from '@/components/Reveal'
 
 /*
   Плитка карточек — тот же приём, что у котят в LitterStrips: фото на всю
@@ -19,13 +20,13 @@ export default function CatRows({ cats, locale, dict, hrefBase = '/cats' }) {
 
   return (
     <section className="grid grid-cols-2 gap-5 px-6 pb-10 pt-8 sm:grid-cols-3 sm:gap-8 sm:px-[70px] sm:pb-16 sm:pt-10 lg:grid-cols-4">
-      {cats.map((c) => {
+      {cats.map((c, i) => {
         const src = c.images?.[0] ? urlForImageCrop(c.images[0], 460, 613) : null
         const call = pick(locale, c.call, c.callEn) || c.name
         const color = pick(locale, c.color, c.colorEn)
         const facts = [sexLabel(locale, c.sex), color || c.ems].filter(Boolean).join(' · ')
         return (
-          <Link key={c._id} href={withLocale(`${hrefBase}/${c.slug}`, locale)} className="group">
+          <Reveal key={c._id} as={Link} href={withLocale(`${hrefBase}/${c.slug}`, locale)} className="group" delay={(i % 8) * 60}>
             <div className="relative aspect-[3/4] overflow-hidden bg-linen">
               {src && (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -44,7 +45,7 @@ export default function CatRows({ cats, locale, dict, hrefBase = '/cats' }) {
               </span>
             </div>
             <p className="mt-3.5 font-sans text-[13px] font-light text-soft">{facts}</p>
-          </Link>
+          </Reveal>
         )
       })}
     </section>

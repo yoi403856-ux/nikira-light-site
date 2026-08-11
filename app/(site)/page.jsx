@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { ChevronDown } from 'lucide-react'
 import CatRows from '@/components/CatRows'
 import ReviewsStrip from '@/components/ReviewsStrip'
+import Reveal from '@/components/Reveal'
 import { Eyebrow, Btn, SectionHead, QuoteBand, Contain } from '@/components/ui'
 import { getCats, getKittens, getReviews, getSettings } from '@/lib/api'
 import { getHomeContent } from '@/lib/content'
@@ -113,19 +114,21 @@ export default async function Home() {
 
       <div id="after-hero" className="panel scroll-mt-20">
         <Contain>
-          <SectionHead num={d.aboutEyebrow}>
-            {d.aboutH2a}
-            <i className="not-italic text-ember">{d.aboutH2b}</i>.
-          </SectionHead>
+          <Reveal>
+            <SectionHead num={d.aboutEyebrow}>
+              {d.aboutH2a}
+              <i className="not-italic text-ember">{d.aboutH2b}</i>.
+            </SectionHead>
+          </Reveal>
 
           <section className="grid gap-10 px-6 pb-12 sm:grid-cols-[1fr_260px] sm:gap-16 sm:px-[70px] sm:pb-16">
-            <div className="max-w-[640px] font-sans text-[16px] font-light leading-[2] text-soft">
+            <Reveal delay={80} className="max-w-[640px] font-sans text-[16px] font-light leading-[2] text-soft">
               {[d.p1, d.p2, d.p3, d.p4].filter(Boolean).map((p, i) => (
                 <p key={i} className="mb-5 break-inside-avoid">
                   {p}
                 </p>
               ))}
-            </div>
+            </Reveal>
 
             {/*
               Цитата и статистика раньше жили в двух разных блоках с двумя
@@ -133,7 +136,7 @@ export default async function Home() {
               читалось как два случайно склеенных куска, а не одна колонка.
               Одна общая рамка на весь блок вместо двух половинок.
             */}
-            <div className="border-sand sm:border-l-2 sm:pl-6">
+            <Reveal delay={160} as="div" className="border-sand sm:border-l-2 sm:pl-6">
               {d.aside && (
                 <p className="mb-8 font-sans text-[15px] font-light leading-[1.9] text-soft">{d.aside}</p>
               )}
@@ -150,14 +153,14 @@ export default async function Home() {
                   </div>
                 ))}
               </div>
-            </div>
+            </Reveal>
           </section>
         </Contain>
       </div>
 
       <div className="panel">
         <Contain>
-          <div className="flex flex-col items-start justify-between gap-4 px-6 pb-10 pt-16 sm:flex-row sm:items-end sm:px-[70px] sm:pt-24">
+          <Reveal className="flex flex-col items-start justify-between gap-4 px-6 pb-10 pt-16 sm:flex-row sm:items-end sm:px-[70px] sm:pt-24">
             <div>
               <Eyebrow>{d.catsEyebrow}</Eyebrow>
               <h2 className="mt-4 font-display text-[30px] sm:text-[46px]">{d.catsH2}</h2>
@@ -168,7 +171,7 @@ export default async function Home() {
             >
               {dict.common.more} →
             </Link>
-          </div>
+          </Reveal>
           <CatRows cats={cats.slice(0, 4)} locale={locale} dict={dict} />
         </Contain>
       </div>
@@ -180,7 +183,7 @@ export default async function Home() {
       {reviews.length > 0 && (
         <div id="reviews" className="panel scroll-mt-20">
           <Contain>
-            <div className="flex flex-col items-start justify-between gap-4 px-6 pb-10 pt-16 sm:flex-row sm:items-end sm:px-[70px] sm:pt-24">
+            <Reveal className="flex flex-col items-start justify-between gap-4 px-6 pb-10 pt-16 sm:flex-row sm:items-end sm:px-[70px] sm:pt-24">
               <div>
                 <Eyebrow>{d.reviewsEyebrow}</Eyebrow>
                 <h2 className="mt-4 font-display text-[30px] sm:text-[46px]">{d.reviewsH2}</h2>
@@ -191,7 +194,7 @@ export default async function Home() {
               >
                 {dict.common.more} →
               </Link>
-            </div>
+            </Reveal>
             <ReviewsStrip reviews={reviews} locale={locale} dict={dict} />
           </Contain>
         </div>
@@ -199,7 +202,7 @@ export default async function Home() {
 
       <div className="panel">
         <Contain>
-          <section className="px-6 py-[70px] text-center sm:px-[70px] sm:py-[110px]">
+          <Reveal as="section" className="px-6 py-[70px] text-center sm:px-[70px] sm:py-[110px]">
             <Eyebrow>{d.ctaEyebrow}</Eyebrow>
             <h2 className="mx-auto my-6 max-w-[760px] font-display text-[32px] leading-[1.1] sm:text-[56px]">
               {d.ctaH2a}
@@ -212,7 +215,7 @@ export default async function Home() {
                 {dict.common.write}
               </Btn>
             </div>
-          </section>
+          </Reveal>
         </Contain>
       </div>
     </>

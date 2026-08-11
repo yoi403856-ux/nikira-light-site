@@ -5,6 +5,7 @@ import { Play } from 'lucide-react'
 import { urlForImage } from '@/sanity/image'
 import { pick, dateLocale } from '@/lib/dict'
 import Lightbox from './Lightbox'
+import Reveal from './Reveal'
 
 /*
   Masonry-галерея на /reviews. Клик по скриншоту открывает его во весь
@@ -42,8 +43,13 @@ export default function ReviewsGrid({ reviews, locale, dict }) {
   return (
     <>
       <section className="px-6 pt-8 sm:columns-2 sm:gap-6 sm:px-[70px] sm:pt-10 lg:columns-4">
-        {items.map((r) => (
-          <figure key={r._id} className="mb-6 break-inside-avoid border border-ink/10 bg-linen/40 p-3">
+        {items.map((r, i) => (
+          <Reveal
+            key={r._id}
+            as="figure"
+            delay={(i % 8) * 60}
+            className="mb-6 break-inside-avoid border border-ink/10 bg-linen/40 p-3"
+          >
             {r.kind === 'video' && r.video ? (
               <a
                 href={r.video}
@@ -69,7 +75,7 @@ export default function ReviewsGrid({ reviews, locale, dict }) {
                 {r.caption}
               </figcaption>
             )}
-          </figure>
+          </Reveal>
         ))}
       </section>
 

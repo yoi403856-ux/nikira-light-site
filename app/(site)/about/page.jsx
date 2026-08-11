@@ -1,4 +1,5 @@
 import { PageHead, SectionHead, QuoteBand, Btn, Eyebrow, Contain } from '@/components/ui'
+import Reveal from '@/components/Reveal'
 import { getSettings, getCats } from '@/lib/api'
 import { getAboutContent } from '@/lib/content'
 import { getLocale, getDict, hreflangAlternates } from '@/lib/i18n'
@@ -49,30 +50,32 @@ export default async function AboutPage() {
 
       <div className="panel">
         <Contain>
-          <SectionHead num={d.storyEyebrow} aside={d.aside}>
-            {d.storyH2a}
-            <i className="not-italic text-ember">{d.storyH2b}</i>.
-          </SectionHead>
+          <Reveal>
+            <SectionHead num={d.storyEyebrow} aside={d.aside}>
+              {d.storyH2a}
+              <i className="not-italic text-ember">{d.storyH2b}</i>.
+            </SectionHead>
+          </Reveal>
 
           <section className="px-6 pb-[70px] sm:px-[70px] sm:pb-[120px]">
             <div className="grid gap-10 sm:grid-cols-[1fr_380px] sm:items-start sm:gap-16">
-              <div className="max-w-[620px] font-sans text-[16px] font-light leading-[2] text-soft">
+              <Reveal delay={80} className="max-w-[620px] font-sans text-[16px] font-light leading-[2] text-soft">
                 {[d.p1, d.p2, d.p3, d.p4].filter(Boolean).map((p, i) => (
                   <p key={i} className="mb-5">
                     {p}
                   </p>
                 ))}
-              </div>
+              </Reveal>
               {storyPhoto && (
-                <div className="aspect-[3/4] overflow-hidden bg-linen">
+                <Reveal delay={160} className="aspect-[3/4] overflow-hidden bg-linen">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={storyPhoto} alt="" className="h-full w-full object-cover" />
-                </div>
+                </Reveal>
               )}
             </div>
           </section>
 
-          <section className="px-6 pb-[70px] sm:px-[70px] sm:pb-[120px]">
+          <Reveal as="section" className="px-6 pb-[70px] sm:px-[70px] sm:pb-[120px]">
             <Eyebrow>{d.featuresEyebrow}</Eyebrow>
             <div className="mt-8 grid gap-px border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-4">
               {d.features.map((v, i) => (
@@ -82,9 +85,9 @@ export default async function AboutPage() {
                 </div>
               ))}
             </div>
-          </section>
+          </Reveal>
 
-          <section className="flex flex-wrap gap-9 px-6 pb-12 sm:gap-[76px] sm:px-[70px] sm:pb-16">
+          <Reveal as="section" className="flex flex-wrap gap-9 px-6 pb-12 sm:gap-[76px] sm:px-[70px] sm:pb-16">
             {[
               [c.foundedYear, locale === 'en' ? 'founded' : 'год основания'],
               [c.registry, locale === 'en' ? 'registration' : 'регистрация'],
@@ -98,7 +101,7 @@ export default async function AboutPage() {
                   <span className="eyebrow mt-3 block">{label}</span>
                 </div>
               ))}
-          </section>
+          </Reveal>
         </Contain>
       </div>
 
