@@ -3,7 +3,7 @@ import { ChevronDown } from 'lucide-react'
 import CatRows from '@/components/CatRows'
 import ReviewsStrip from '@/components/ReviewsStrip'
 import Reveal from '@/components/Reveal'
-import HeroCarousel from '@/components/HeroCarousel'
+import HeroCatsRow from '@/components/HeroCatsRow'
 import { Eyebrow, Btn, SectionHead, QuoteBand, Contain } from '@/components/ui'
 import { getCats, getKittens, getReviews, getSettings } from '@/lib/api'
 import { getHomeContent } from '@/lib/content'
@@ -55,7 +55,11 @@ export default async function Home() {
           чтобы на низких экранах блок не растянуло выше контента. */}
       <section className="relative flex min-h-0 flex-col justify-center px-6 pb-[60px] pt-10 sm:min-h-[calc(100vh-240px)] sm:px-[70px] sm:pb-20 sm:pt-16">
         <Contain>
-          <div className="grid items-center gap-10 sm:grid-cols-[1.05fr_0.95fr] sm:gap-[70px]">
+          <div
+            className={`grid items-center gap-10 sm:gap-[70px] ${
+              heroCats.length > 1 ? 'sm:grid-cols-[0.85fr_1.15fr]' : 'sm:grid-cols-[1.05fr_0.95fr]'
+            }`}
+          >
             <div>
               <Eyebrow onPhoto>{d.eyebrow}</Eyebrow>
               <h1 className="mt-6 font-display text-[42px] leading-[1.05] text-glow on-photo sm:text-[60px]">
@@ -89,7 +93,7 @@ export default async function Home() {
                   className="absolute bottom-2.5 left-[16%] right-[16%] z-[1] h-8"
                   style={{ background: 'radial-gradient(ellipse at center,rgba(30,22,14,0.42) 0%,rgba(30,22,14,0) 70%)' }}
                 />
-                <HeroCarousel images={heroCats} />
+                <HeroCatsRow images={heroCats} />
               </div>
             )}
           </div>
