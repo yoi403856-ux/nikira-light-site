@@ -14,10 +14,7 @@ const NAV = [
   { href: '/about', key: 'about', settingsKey: 'navAbout' },
   { href: '/kittens', key: 'kittens', settingsKey: 'navKittens' },
   { href: '/cats', key: 'cats', settingsKey: 'navCats' },
-  // якорь на карусель отзывов на главной, а не на /reviews: отзывов мало,
-  // отдельная страница ради них избыточна. Страница /reviews при этом не
-  // удалена и остаётся доступна по прямой ссылке — просто больше не в меню.
-  { href: '/#reviews', key: 'reviews', settingsKey: 'navReviews' },
+  { href: '/reviews', key: 'reviews', settingsKey: 'navReviews' },
   // якорь на подвал, а не отдельная страница — подвал есть на каждой
   // странице, так что ссылка работает откуда угодно без перехода
   { href: '#footer', key: 'contacts', settingsKey: 'navContacts' },

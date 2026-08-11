@@ -28,13 +28,12 @@ export default function Footer({ settings, locale }) {
     c.instagram && { icon: Instagram, label: 'Instagram', href: c.instagram },
   ].filter(Boolean)
 
-  // без "Контакты" (вела бы из подвала в самого себя) и без "Отзывы" —
-  // это теперь якорь на карусель на главной, а не отдельная страница, и в
-  // подвале других страниц вести на неё смысла нет так же, как и в меню
+  // без "Контакты" — ссылка на неё вела бы из подвала в самого себя
   const nav = [
     { href: '/about', label: dict.nav.about },
     { href: '/kittens', label: dict.nav.kittens },
     { href: '/cats', label: dict.nav.cats },
+    { href: '/reviews', label: dict.nav.reviews },
   ]
 
   return (

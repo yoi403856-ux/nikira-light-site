@@ -21,10 +21,19 @@ export function Contain({ children, className = '' }) {
   подписи рядом голая цифра читалась как случайный обрывок текста, а не как
   осознанный элемент разметки. Проп num оставлен у вызовов (heroEyebrow),
   просто больше не выводится.
+
+  compact — меньше нижний отступ. На /reviews стандартная высота вместе с
+  шапкой сайта обрезала первый ряд карточек почти пополам при открытии
+  страницы: до содержимого нужно было долистать на полкарточки. Отдельный
+  проп вместо правки отступа глобально — на кот/котёнке и остальных
+  страницах стандартная высота уместна, там под шапкой нет сетки, которую
+  важно сразу увидеть целиком.
 */
-export function PageHead({ title, lead, className = '' }) {
+export function PageHead({ title, lead, className = '', compact = false }) {
   return (
-    <section className={`px-6 pb-16 pt-16 sm:px-[70px] sm:pb-24 sm:pt-28 ${className}`}>
+    <section
+      className={`px-6 pt-16 sm:px-[70px] sm:pt-28 ${compact ? 'pb-8 sm:pb-10' : 'pb-16 sm:pb-24'} ${className}`}
+    >
       <h1 className="max-w-[900px] font-display text-[36px] leading-[1.06] text-glow on-photo sm:text-[64px]">
         {title}
       </h1>
