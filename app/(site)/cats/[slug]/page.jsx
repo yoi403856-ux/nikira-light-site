@@ -85,16 +85,15 @@ export default async function CatPage({ params }) {
               {note && <p className="mt-5 font-sans text-[16px] font-light leading-[1.95] text-soft">{note}</p>}
 
               {/*
-                Значения раньше шли тем же светлым display-шрифтом, что и
-                декоративные заголовки, — рядом с ember-подписями сверху они
-                читались блёкло. font-sans + font-medium держит контраст, не
-                споря с заголовком страницы за внимание.
+                Подписи слева были text-sand — светлый бежевый почти сливался
+                с бумажным фоном. text-ember — тот же акцент, что у "eyebrow"
+                по всему сайту, читается заметно лучше.
               */}
               <dl className="mt-9 border-t border-ink/[0.16]">
                 {rows.map(([k, v]) => (
                   <div key={k} className="grid grid-cols-[110px_1fr] gap-3 border-b border-ink/[0.12] py-4 sm:grid-cols-[150px_1fr] sm:gap-5">
-                    <dt className="pt-1 font-caps text-[10px] uppercase tracking-[0.26em] text-sand">{k}</dt>
-                    <dd className="font-sans text-[17px] font-medium text-ink sm:text-[20px]">{v}</dd>
+                    <dt className="pt-1 font-caps text-[10px] uppercase tracking-[0.26em] text-ember">{k}</dt>
+                    <dd className="font-display text-[17px] sm:text-[20px]">{v}</dd>
                   </div>
                 ))}
               </dl>
