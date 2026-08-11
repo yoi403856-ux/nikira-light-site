@@ -60,11 +60,24 @@ export default async function CatPage({ params }) {
       <div className="panel">
         <Contain>
           <div className="grid gap-10 px-6 py-12 sm:grid-cols-[1.15fr_0.85fr] sm:gap-[70px] sm:px-[70px] sm:py-20">
-            <div className="grid grid-cols-2 gap-3.5">
+            {/*
+              Одно фото раньше вставало в аспект 4:3 и повисало в верхней
+              части колонки — справа текста заметно больше, и снизу
+              оставалась пустая полоса. h-full на сетке + h-full на самой
+              фигуре (без фиксированного аспекта) растягивает единственное
+              фото на всю высоту строки, вровень с текстовой колонкой.
+            */}
+            <div className={`grid gap-3.5 ${images.length > 1 ? 'grid-cols-2' : 'sm:h-full'}`}>
               {images.map((src, i) => (
                 <figure
                   key={src}
-                  className={`overflow-hidden bg-linen ${i === 0 ? 'col-span-2 aspect-[4/3]' : 'aspect-square'}`}
+                  className={`overflow-hidden bg-linen ${
+                    images.length === 1
+                      ? 'aspect-[4/3] sm:aspect-auto sm:h-full'
+                      : i === 0
+                        ? 'col-span-2 aspect-[4/3]'
+                        : 'aspect-square'
+                  }`}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={src} alt={call} className="h-full w-full object-cover" />

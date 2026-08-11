@@ -50,11 +50,19 @@ export default async function KittenPage({ params }) {
       <div className="panel">
         <Contain>
           <div className="grid gap-10 px-6 py-12 sm:grid-cols-[1.15fr_0.85fr] sm:gap-[70px] sm:px-[70px] sm:py-20">
-            <div className="grid grid-cols-2 gap-3.5">
+            {/* Одно фото раньше вставало в 4:3 и оставляло пустоту снизу
+                колонки, где текста заметно больше — см. то же на /cats/[slug]. */}
+            <div className={`grid gap-3.5 ${images.length > 1 ? 'grid-cols-2' : 'sm:h-full'}`}>
               {images.map((src, i) => (
                 <figure
                   key={src}
-                  className={`overflow-hidden bg-linen ${i === 0 ? 'col-span-2 aspect-[4/3]' : 'aspect-square'}`}
+                  className={`overflow-hidden bg-linen ${
+                    images.length === 1
+                      ? 'aspect-[4/3] sm:aspect-auto sm:h-full'
+                      : i === 0
+                        ? 'col-span-2 aspect-[4/3]'
+                        : 'aspect-square'
+                  }`}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={src} alt={name} className="h-full w-full object-cover" />
