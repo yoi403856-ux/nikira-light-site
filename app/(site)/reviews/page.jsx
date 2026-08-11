@@ -34,7 +34,7 @@ export default async function ReviewsPage() {
       <div className="panel">
         <Contain>
           {reviews.length > 0 && (
-            <section className="px-6 pt-8 sm:columns-2 sm:gap-6 sm:px-[70px] sm:pt-10 lg:columns-3">
+            <section className="px-6 pt-8 sm:columns-2 sm:gap-6 sm:px-[70px] sm:pt-10 lg:columns-4">
               {reviews.map((r) => {
                 const text = pick(locale, r.text, r.textEn)
                 const src = r.image ? urlForImage(r.image, 900) : null
