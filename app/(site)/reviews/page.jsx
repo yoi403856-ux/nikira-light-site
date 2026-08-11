@@ -1,10 +1,8 @@
-import { Play } from 'lucide-react'
+import ReviewsGrid from '@/components/ReviewsGrid'
 import { PageHead, Eyebrow, Btn, Contain } from '@/components/ui'
 import { getReviews } from '@/lib/api'
 import { getReviewsContent } from '@/lib/content'
 import { getLocale, getDict, hreflangAlternates } from '@/lib/i18n'
-import { urlForImage } from '@/sanity/image'
-import { pick, dateLocale } from '@/lib/dict'
 
 export async function generateMetadata() {
   const locale = getLocale()
@@ -33,46 +31,7 @@ export default async function ReviewsPage() {
 
       <div className="panel">
         <Contain>
-          {reviews.length > 0 && (
-            <section className="px-6 pt-8 sm:columns-2 sm:gap-6 sm:px-[70px] sm:pt-10 lg:columns-4">
-              {reviews.map((r) => {
-                const text = pick(locale, r.text, r.textEn)
-                const src = r.image ? urlForImage(r.image, 900) : null
-                const when = r.date
-                  ? new Date(r.date).toLocaleDateString(dateLocale[locale], { month: 'long', year: 'numeric' })
-                  : null
-                const caption = [r.author, when].filter(Boolean).join(' · ')
-
-                return (
-                  <figure key={r._id} className="mb-6 break-inside-avoid border border-ink/10 bg-linen/40 p-3">
-                    {r.kind === 'video' && r.video ? (
-                      <a
-                        href={r.video}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="group/video relative flex aspect-video items-center justify-center overflow-hidden bg-ink"
-                      >
-                        <span className="grain pointer-events-none absolute inset-0 opacity-40" />
-                        <span className="relative z-[1] flex h-14 w-14 items-center justify-center rounded-full bg-glow/90 text-ink transition-transform duration-300 group-hover/video:scale-110">
-                          <Play size={22} fill="currentColor" strokeWidth={0} className="ml-0.5" />
-                        </span>
-                      </a>
-                    ) : src ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={src} alt={caption || ''} className="w-full" />
-                    ) : (
-                      <blockquote className="px-4 py-6 font-display text-[19px] leading-[1.5]">{text}</blockquote>
-                    )}
-                    {caption && (
-                      <figcaption className="px-1 pb-1 pt-3 font-caps text-[10px] uppercase tracking-[0.22em] text-soft">
-                        {caption}
-                      </figcaption>
-                    )}
-                  </figure>
-                )
-              })}
-            </section>
-          )}
+          <ReviewsGrid reviews={reviews} locale={locale} dict={dict} />
 
           <section
             className={`border-ink/[0.14] px-6 text-center sm:px-[70px] ${
