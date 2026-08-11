@@ -46,7 +46,7 @@ export default async function KittenPage({ params }) {
     <>
       <div className="panel">
         <Contain>
-          <div className="grid gap-10 px-6 py-12 sm:grid-cols-[1.15fr_0.85fr] sm:gap-[70px] sm:px-[70px] sm:py-20">
+          <div className="grid gap-10 px-6 py-8 sm:grid-cols-[1.15fr_0.85fr] sm:gap-[70px] sm:px-[70px] sm:py-12">
             <PhotoGallery images={k.images} alt={name} />
 
             <div>

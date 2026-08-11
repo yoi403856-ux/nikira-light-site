@@ -64,23 +64,23 @@ export default function LitterStrips({ kittens, locale, dict }) {
               {parents.length > 0 && (
                 <div className="flex flex-wrap gap-3">
                   {parents.map(({ role, p }) => {
-                    const pSrc = p.images?.[0] ? urlForImageCrop(p.images[0], 160, 160) : null
+                    const pSrc = p.images?.[0] ? urlForImageCrop(p.images[0], 280, 280) : null
                     const pName = pick(locale, p.call, p.callEn) || p.name
                     return (
                       <Link
                         key={p._id}
                         href={withLocale(`/cats/${p.slug}`, locale)}
-                        className="group flex items-center gap-3 border border-ink/10 bg-linen/40 p-3 transition-colors hover:border-ember/40"
+                        className="group flex items-center gap-4 border border-ink/10 bg-linen/40 p-4 transition-colors hover:border-ember/40"
                       >
-                        <span className="h-14 w-14 shrink-0 overflow-hidden sm:h-16 sm:w-16">
+                        <span className="h-20 w-20 shrink-0 overflow-hidden sm:h-24 sm:w-24">
                           {pSrc && (
                             // eslint-disable-next-line @next/next/no-img-element
                             <img src={pSrc} alt={pName} className="h-full w-full object-cover" />
                           )}
                         </span>
                         <span>
-                          <span className="eyebrow block text-[9px]">{role}</span>
-                          <span className="mt-0.5 block font-display text-[17px] sm:text-[19px]">{pName}</span>
+                          <span className="eyebrow block">{role}</span>
+                          <span className="mt-1 block font-display text-[22px] sm:text-[26px]">{pName}</span>
                         </span>
                       </Link>
                     )
