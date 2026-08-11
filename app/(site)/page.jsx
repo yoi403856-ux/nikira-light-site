@@ -3,6 +3,7 @@ import { ChevronDown } from 'lucide-react'
 import CatRows from '@/components/CatRows'
 import ReviewsStrip from '@/components/ReviewsStrip'
 import Reveal from '@/components/Reveal'
+import HeroCarousel from '@/components/HeroCarousel'
 import { Eyebrow, Btn, SectionHead, QuoteBand, Contain } from '@/components/ui'
 import { getCats, getKittens, getReviews, getSettings } from '@/lib/api'
 import { getHomeContent } from '@/lib/content'
@@ -37,7 +38,7 @@ export default async function Home() {
     getHomeContent(locale),
   ])
   const c = resolveContacts(settings, locale)
-  const heroCat = settings?.heroCat ? urlForImage(settings.heroCat, 900) : null
+  const heroCats = (settings?.heroCats || []).map((img) => urlForImage(img, 900))
   const bandPhoto = settings?.background
     ? urlForImageCrop(settings.background, 1600, 1000)
     : cats[0]?.images?.[0]
@@ -77,7 +78,7 @@ export default async function Home() {
               </div>
             </div>
 
-            {heroCat && (
+            {heroCats.length > 0 && (
               // фото кота портретное (шире, чем колонка на широких экранах, если
               // тянуть по ширине): без ограничения по высоте оно раздувало весь
               // первый экран за пределы виду. Высота ограничена вьюпортом, ширина
@@ -88,16 +89,7 @@ export default async function Home() {
                   className="absolute bottom-2.5 left-[16%] right-[16%] z-[1] h-8"
                   style={{ background: 'radial-gradient(ellipse at center,rgba(30,22,14,0.42) 0%,rgba(30,22,14,0) 70%)' }}
                 />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={heroCat}
-                  alt=""
-                  className="relative z-[2] h-full w-auto max-w-full object-contain"
-                  style={{
-                    filter:
-                      'drop-shadow(0 24px 34px rgba(30,22,14,0.42)) sepia(0.18) saturate(1.12) brightness(1.03) hue-rotate(-6deg)',
-                  }}
-                />
+                <HeroCarousel images={heroCats} />
               </div>
             )}
           </div>

@@ -57,12 +57,14 @@ export const siteSettings = {
       description: 'Горизонтальная фотография, лучше от 2400 пикселей по ширине. Слева должно быть пусто — там ляжет заголовок',
     },
     {
-      name: 'heroCat',
-      title: 'Вырезанный кот на первый экран',
-      type: 'image',
-      options: { hotspot: true },
+      name: 'heroCats',
+      title: 'Вырезанные коты на первый экран',
+      type: 'array',
+      of: [{ type: 'image', options: { hotspot: true } }],
+      validation: (Rule) => Rule.max(3),
       group: 'photos',
-      description: 'Фотография с прозрачным фоном (PNG или WebP). Кот должен сидеть на полу, а не на когтеточке — иначе она вырежется вместе с ним',
+      description:
+        'От 1 до 3 фотографий с прозрачным фоном (PNG или WebP) — на экране они сменяют друг друга. Кот должен сидеть на полу, а не на когтеточке — иначе она вырежется вместе с ним',
     },
     {
       name: 'aboutPhoto',
