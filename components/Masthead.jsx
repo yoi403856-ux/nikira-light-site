@@ -204,9 +204,12 @@ export default function Masthead({ links, locale, city, phone, tel }) {
         </button>
 
         {open && (
-          // h-screen, а не max-h: панель должна доставать до низа экрана,
-          // иначе снизу остаётся щель и в неё видно контент страницы
-          <div className="absolute inset-x-0 top-full z-30 h-screen overflow-y-auto bg-[rgba(30,24,17,0.97)]">
+          // h-screen-stable, а не голый h-screen: обычный 100vh на мобильном
+          // Chrome/Safari считается то с адресной строкой, то без — панель
+          // заканчивалась раньше низа экрана, и в щель было видно контент
+          // страницы под ней. h-screen-stable (100lvh, см. globals.css —
+          // тот же фикс, что уже стоит в SiteBackground.jsx) не скачет.
+          <div className="h-screen-stable absolute inset-x-0 top-full z-30 overflow-y-auto bg-[rgba(30,24,17,0.97)]">
             <nav className="flex flex-col px-6 py-4">
               {links.map((l) => {
                 const on = l.href === '/' ? bare === '/' : bare.startsWith(l.href)
