@@ -84,7 +84,7 @@ export default async function KittenPage({ params }) {
                     className="grid grid-cols-[110px_1fr] gap-3 border-b border-ink/[0.12] py-4 sm:grid-cols-[150px_1fr] sm:gap-5"
                   >
                     <dt className="pt-1 font-caps text-[10px] uppercase tracking-[0.26em] text-ember">{kk}</dt>
-                    <dd className="font-display text-[17px] sm:text-[20px]">{v}</dd>
+                    <dd className="font-display text-[15px] sm:text-[18px]">{v}</dd>
                   </div>
                 ))}
               </dl>
