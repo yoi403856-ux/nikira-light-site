@@ -88,15 +88,19 @@ export default async function AboutPage() {
           </Reveal>
 
           {/*
-            Раньше был flex-wrap: у "Доставка по всему миру" текст длиннее
-            остальных, и он не помещался в ряд из трёх коротких значений —
-            переносился один на новую строку и повисал отдельно, с большим
-            зазором сверху. Grid с фиксированным числом колонок распределяет
-            все карточки поровну независимо от длины текста в каждой.
+            Раньше был flex-wrap: "Доставка по всему миру" длиннее остальных
+            значений, переносилась одна на новую строку и повисала отдельно.
+            Четыре РАВНЫЕ колонки (grid-cols-4) это чинили, но сами стали
+            новой проблемой: колонку под самый длинный текст ужимало наравне
+            с короткими "WCF"/"2021", и три строки "Доставка по всему миру"
+            лепились почти вплотную к "Новороссийск" — просвета между ними
+            почти не было. auto-cols-max — колонки шириной по своему
+            содержимому, а не поровну, так что у длинного текста есть куда
+            переноситься, а у соседей остаётся честный отступ.
           */}
           <Reveal
             as="section"
-            className="grid grid-cols-2 gap-x-9 gap-y-8 px-6 pb-12 sm:grid-cols-4 sm:gap-x-[76px] sm:px-[70px] sm:pb-16"
+            className="grid grid-cols-2 gap-x-9 gap-y-8 px-6 pb-12 sm:grid-flow-col sm:auto-cols-max sm:gap-x-16 sm:px-[70px] sm:pb-16"
           >
             {[
               [c.foundedYear, locale === 'en' ? 'founded' : 'год основания'],
@@ -106,7 +110,7 @@ export default async function AboutPage() {
             ]
               .filter(([n]) => n)
               .map(([n, label]) => (
-                <div key={label} className="max-w-[260px]">
+                <div key={label} className="max-w-[220px] sm:max-w-[320px]">
                   <b className="block font-display text-[26px] font-normal leading-tight sm:text-[34px]">{n}</b>
                   <span className="eyebrow mt-3 block">{label}</span>
                 </div>
