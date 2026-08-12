@@ -220,7 +220,7 @@ export default async function Home() {
                 href={withLocale('/reviews', locale)}
                 className="font-caps text-[11px] uppercase tracking-[0.2em] text-soft transition-colors hover:text-ember"
               >
-                {dict.common.more} →
+                {dict.common.moreReviews} →
               </Link>
             </Reveal>
             <ReviewsStrip reviews={reviews} locale={locale} dict={dict} />
