@@ -83,11 +83,17 @@ export default async function Home() {
             </div>
 
             {heroCats.length > 0 && (
-              // фото кота портретное (шире, чем колонка на широких экранах, если
-              // тянуть по ширине): без ограничения по высоте оно раздувало весь
-              // первый экран за пределы виду. Высота ограничена вьюпортом, ширина
-              // подстраивается сама через object-contain.
-              <div className="relative flex h-[36vh] max-h-[340px] min-h-[280px] items-end justify-center sm:h-[70vh] sm:max-h-[740px]">
+              // sm:invisible, а не sm:hidden: этой ячейке нужно остаться в
+              // потоке, просто не рисоваться — Contain использует mx-auto
+              // (авто-отступы съедают свободное место, а не растягивают
+              // блок), поэтому его ширина считается по содержимому грида;
+              // display:none тут убирает содержимое ИЗ подсчёта, и Contain
+              // на sm+ схлопывался до ширины одного текста, утаскивая его
+              // от исходного места. invisible остаётся в потоке с тем же
+              // размером, что и раньше, — Contain по-прежнему выходит на
+              // те же 1160px, а сам кот просто не виден (десктопная версия
+              // крупнее — отдельным блоком ниже, вне Contain/грида).
+              <div className="relative flex h-[36vh] max-h-[340px] min-h-[280px] items-end justify-center sm:invisible sm:h-[70vh] sm:max-h-[740px]">
                 <span
                   aria-hidden
                   className="absolute bottom-2.5 left-[16%] right-[16%] z-[1] h-8"
@@ -98,6 +104,26 @@ export default async function Home() {
             )}
           </div>
         </Contain>
+
+        {heroCats.length > 0 && (
+          // Абсолютный блок ВНЕ Contain/грида намеренно: если положить его
+          // внутрь (как flex-item с абсолютным потомком шириной в vw),
+          // Contain почему-то сжимается до ~900px вместо 1160 — абсолютный
+          // потомок с шириной в vw аномально влияет на auto-ширину
+          // flex-item предка (проверено эмпирически, воспроизводится
+          // стабильно). Вынесенный наружу siblings с Contain, он больше не
+          // его потомок, и текстовая колонка в гриде рендерится как обычно.
+          // Привязан к правому краю СЕКЦИИ (не Contain) — так может расти
+          // вширь без потолка в 1160px.
+          <div className="pointer-events-none absolute bottom-10 right-0 hidden h-[92vh] max-h-[960px] w-[52vw] max-w-[1020px] items-end justify-end sm:flex">
+            <span
+              aria-hidden
+              className="absolute bottom-2.5 left-[16%] right-[16%] z-[1] h-8"
+              style={{ background: 'radial-gradient(ellipse at center,rgba(30,22,14,0.42) 0%,rgba(30,22,14,0) 70%)' }}
+            />
+            <HeroCatsRow images={heroCats} />
+          </div>
+        )}
 
         <a
           href="#after-hero"
