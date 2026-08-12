@@ -54,17 +54,12 @@ export default async function Home() {
           типичных ноутбучных высотах (900-1080px). max-h страхует от того,
           чтобы на низких экранах блок не растянуло выше контента. */}
       <section className="relative flex min-h-0 flex-col justify-center px-6 pb-[60px] pt-10 sm:min-h-[calc(100vh-240px)] sm:px-[70px] sm:pb-20 sm:pt-16">
-        {/*
-          Без Contain: у остальных секций потолок ширины держит текст
-          читаемым, но здесь под несколько котов в ряд нужна вся ширина
-          экрана, а не 1160px по центру — на широких мониторах именно
-          Contain не давал им подрасти, хотя высоты уже хватало с запасом.
-        */}
-        <div
-          className={`grid items-center gap-10 sm:gap-[70px] ${
-            heroCats.length > 1 ? 'sm:grid-cols-[0.55fr_1.45fr]' : 'sm:grid-cols-[1.05fr_0.95fr]'
-          }`}
-        >
+        <Contain>
+          <div
+            className={`grid items-center gap-10 sm:gap-[70px] ${
+              heroCats.length > 1 ? 'sm:grid-cols-[0.7fr_1.3fr]' : 'sm:grid-cols-[1.05fr_0.95fr]'
+            }`}
+          >
             <div>
               <Eyebrow onPhoto>{d.eyebrow}</Eyebrow>
               <h1 className="mt-6 font-display text-[42px] leading-[1.05] text-glow on-photo sm:text-[60px]">
@@ -92,7 +87,7 @@ export default async function Home() {
               // тянуть по ширине): без ограничения по высоте оно раздувало весь
               // первый экран за пределы виду. Высота ограничена вьюпортом, ширина
               // подстраивается сама через object-contain.
-              <div className="relative flex h-[36vh] max-h-[340px] min-h-[280px] items-end justify-center sm:h-[84vh] sm:max-h-[900px]">
+              <div className="relative flex h-[36vh] max-h-[340px] min-h-[280px] items-end justify-center sm:h-[70vh] sm:max-h-[740px]">
                 <span
                   aria-hidden
                   className="absolute bottom-2.5 left-[16%] right-[16%] z-[1] h-8"
@@ -102,6 +97,7 @@ export default async function Home() {
               </div>
             )}
           </div>
+        </Contain>
 
         <a
           href="#after-hero"

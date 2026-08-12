@@ -21,7 +21,7 @@ import { useEffect, useRef, useState } from 'react'
   ряда не помещается в контейнер — всё трио масштабируется вниз целиком.
 */
 const HEIGHT_SCALE = { 1: [1], 2: [0.86, 0.86], 3: [0.8, 1, 0.8] }
-const OVERLAP_SCALE = { 1: 0, 2: 0.16, 3: 0.16 }
+const OVERLAP_SCALE = { 1: 0, 2: 0.16, 3: 0.3 }
 const Z = { 1: [2], 2: [1, 1], 3: [1, 2, 1] }
 
 export default function HeroCatsRow({ images }) {
