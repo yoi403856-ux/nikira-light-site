@@ -87,7 +87,17 @@ export default async function AboutPage() {
             </div>
           </Reveal>
 
-          <Reveal as="section" className="flex flex-wrap gap-9 px-6 pb-12 sm:gap-[76px] sm:px-[70px] sm:pb-16">
+          {/*
+            Раньше был flex-wrap: у "Доставка по всему миру" текст длиннее
+            остальных, и он не помещался в ряд из трёх коротких значений —
+            переносился один на новую строку и повисал отдельно, с большим
+            зазором сверху. Grid с фиксированным числом колонок распределяет
+            все карточки поровну независимо от длины текста в каждой.
+          */}
+          <Reveal
+            as="section"
+            className="grid grid-cols-2 gap-x-9 gap-y-8 px-6 pb-12 sm:grid-cols-4 sm:gap-x-[76px] sm:px-[70px] sm:pb-16"
+          >
             {[
               [c.foundedYear, locale === 'en' ? 'founded' : 'год основания'],
               [c.registry, locale === 'en' ? 'registration' : 'регистрация'],
