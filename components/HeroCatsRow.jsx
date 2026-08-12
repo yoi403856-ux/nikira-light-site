@@ -20,8 +20,8 @@ import { useEffect, useRef, useState } from 'react'
   всегда, а не только когда повезёт с пропорциями. Если итоговая ширина
   ряда не помещается в контейнер — всё трио масштабируется вниз целиком.
 */
-const HEIGHT_SCALE = { 1: [1], 2: [0.86, 0.86], 3: [0.62, 1, 0.62] }
-const OVERLAP_SCALE = { 1: 0, 2: 0.16, 3: 0.22 }
+const HEIGHT_SCALE = { 1: [1], 2: [0.86, 0.86], 3: [0.8, 1, 0.8] }
+const OVERLAP_SCALE = { 1: 0, 2: 0.16, 3: 0.16 }
 const Z = { 1: [2], 2: [1, 1], 3: [1, 2, 1] }
 
 export default function HeroCatsRow({ images }) {
