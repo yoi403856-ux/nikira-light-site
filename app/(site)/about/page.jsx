@@ -46,7 +46,7 @@ export default async function AboutPage() {
 
   return (
     <>
-      <PageHead num={d.heroEyebrow} title={d.heroTitle} lead={d.heroLead} />
+      <PageHead title={d.heroTitle} lead={d.heroLead} />
 
       <div className="panel">
         <Contain>

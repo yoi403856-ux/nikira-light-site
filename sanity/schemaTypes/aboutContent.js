@@ -8,14 +8,13 @@ const bilingual = (name, title, type = 'string', extra = {}) => [
 // схема была унаследована от старой версии страницы и разошлась с кодом:
 // студия показывала поля вроде heroTitleLine1/2, philEyebrow, paragraphs,
 // pathEyebrow/pathH2, timeline, которых страница не читает вообще, а
-// реально используемые поля (heroEyebrow, heroTitle, storyEyebrow, aside,
+// реально используемые поля (heroTitle, storyEyebrow, aside,
 // featuresEyebrow) отредактировать было просто негде.
 export const aboutContent = {
   name: 'aboutContent',
   title: 'Тексты: О нас',
   type: 'document',
   fields: [
-    ...bilingual('heroEyebrow', 'Надпись над заголовком'),
     ...bilingual('heroTitle', 'Заголовок страницы'),
     ...bilingual('heroLead', 'Подзаголовок под названием', 'text', { rows: 2 }),
 

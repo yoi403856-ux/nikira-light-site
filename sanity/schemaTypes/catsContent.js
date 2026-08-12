@@ -8,7 +8,6 @@ export const catsContent = {
   title: 'Тексты: Наши коты',
   type: 'document',
   fields: [
-    ...bilingual('heroEyebrow', 'Надпись над заголовком'),
     ...bilingual('heroTitle', 'Заголовок страницы'),
     ...bilingual('heroLead', 'Подзаголовок', 'text', { rows: 2 }),
 

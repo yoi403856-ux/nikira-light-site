@@ -27,7 +27,7 @@ export default async function ReviewsPage() {
 
   return (
     <>
-      <PageHead num={d.heroEyebrow} title={d.heroTitle} lead={d.heroLead} compact />
+      <PageHead title={d.heroTitle} lead={d.heroLead} compact />
 
       <div className="panel">
         <Contain>

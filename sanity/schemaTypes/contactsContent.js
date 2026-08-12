@@ -8,7 +8,6 @@ export const contactsContent = {
   title: 'Тексты: Контакты',
   type: 'document',
   fields: [
-    ...bilingual('heroEyebrow', 'Надпись над заголовком'),
     ...bilingual('heroTitle', 'Заголовок страницы'),
     ...bilingual('heroLead', 'Подзаголовок', 'text', { rows: 2 }),
 

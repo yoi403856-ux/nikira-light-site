@@ -73,8 +73,6 @@ const docs = {
     ctaH2bEn: 'our kittens',
   },
   aboutContent: {
-    heroEyebrow: '01',
-    heroEyebrowEn: '01',
     heroTitle: 'Питомник на берегу',
     heroTitleEn: 'A cattery on the coast',
     heroLead: 'Мы живём в Новороссийске, у моря, и наши коты растут здесь же — в доме, а не в отдельном помещении для животных.',
@@ -109,8 +107,6 @@ const docs = {
     quoteEn: 'A kitten leaves when the kitten is ready, not when it suits us.',
   },
   catsContent: {
-    heroEyebrow: '03',
-    heroEyebrowEn: '03',
     heroTitle: 'Наши коты',
     heroTitleEn: 'Our cats',
     heroLead: 'Все проверены по здоровью, зарегистрированы в WCF и живут дома, а не в клетках.',
@@ -125,8 +121,6 @@ const docs = {
     docsTextEn: 'Ask us anything: registrations, screening results, photos of the parents. We have nothing to hide.',
   },
   reviewsContent: {
-    heroEyebrow: '04',
-    heroEyebrowEn: '04',
     heroTitle: 'Отзывы',
     heroTitleEn: 'Reviews',
     heroLead: 'Что пишут те, к кому уехали наши котята.',
@@ -139,8 +133,6 @@ const docs = {
     ctaH2bEn: 'your cat is doing',
   },
   kittensContent: {
-    heroEyebrow: '02',
-    heroEyebrowEn: '02',
     heroTitle: 'Котята',
     heroTitleEn: 'Kittens',
     heroLead: 'Уезжают не раньше трёх месяцев: привитые, с документами, приучённые к лотку и когтеточке.',

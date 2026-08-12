@@ -26,7 +26,7 @@ export default async function KittensPage() {
 
   return (
     <>
-      <PageHead num={d.heroEyebrow} title={d.heroTitle} lead={d.heroLead} />
+      <PageHead title={d.heroTitle} lead={d.heroLead} />
 
       <div className="panel">
         <Contain>
