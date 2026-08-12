@@ -121,7 +121,7 @@ export default async function Home() {
           // его потомок, и текстовая колонка в гриде рендерится как обычно.
           // Привязан к правому краю СЕКЦИИ (не Contain) — так может расти
           // вширь без потолка в 1160px.
-          <div className="pointer-events-none absolute bottom-24 right-[110px] hidden h-[92vh] max-h-[960px] w-[52vw] max-w-[1020px] items-end justify-end sm:flex">
+          <div className="pointer-events-none absolute bottom-10 right-[110px] hidden h-[78vh] max-h-[820px] w-[48vw] max-w-[940px] items-end justify-end sm:flex">
             <span
               aria-hidden
               className="absolute bottom-2.5 left-[16%] right-[16%] z-[1] h-8"
