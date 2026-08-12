@@ -76,7 +76,7 @@ export function SectionHead({ num, children, aside }) {
   return (
     <div className="mb-10 grid items-end gap-8 px-6 pt-16 sm:mb-13 sm:grid-cols-[1fr_300px] sm:gap-16 sm:px-[70px] sm:pt-24">
       <div>
-        {num && <span className="font-display text-[15px] text-sand">{num}</span>}
+        {num && <span className="font-display text-[15px] text-ember">{num}</span>}
         <h2 className="mt-6 font-display text-[30px] leading-[1.22] sm:text-[50px]">{children}</h2>
       </div>
       {aside && (
