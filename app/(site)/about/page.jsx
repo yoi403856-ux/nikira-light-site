@@ -121,12 +121,20 @@ export default async function AboutPage() {
 
       <div className="panel">
         <Contain>
-          <section className="flex flex-col items-center justify-center gap-3.5 px-6 py-[70px] sm:flex-row sm:px-[70px] sm:py-[110px]">
-            <Btn href={withLocale('/cats', locale)}>{dict.nav.cats}</Btn>
-            <Btn href={withLocale('/kittens', locale)} kind="line">
-              {dict.nav.kittens}
-            </Btn>
-          </section>
+          <Reveal as="section" className="px-6 py-[70px] text-center sm:px-[70px] sm:py-[110px]">
+            <Eyebrow>{d.ctaEyebrow}</Eyebrow>
+            <h2 className="mx-auto my-6 max-w-[760px] font-display text-[32px] leading-[1.1] sm:text-[56px]">
+              {d.ctaH2a}
+              <i className="not-italic text-ember">{d.ctaH2b}</i>
+              {d.ctaH2c}
+            </h2>
+            <div className="flex flex-col items-center gap-3.5 sm:flex-row sm:justify-center">
+              <Btn href={withLocale('/cats', locale)}>{dict.nav.cats}</Btn>
+              <Btn href={withLocale('/kittens', locale)} kind="line">
+                {dict.nav.kittens}
+              </Btn>
+            </div>
+          </Reveal>
         </Contain>
       </div>
     </>

@@ -46,6 +46,11 @@ export const aboutContent = {
 
     ...bilingual('quoteEyebrow', 'Цитата на фото — надпись'),
     ...bilingual('quote', 'Цитата на фото — текст', 'text', { rows: 2 }),
+
+    ...bilingual('ctaEyebrow', 'Кнопки внизу страницы — номер раздела'),
+    ...bilingual('ctaH2a', 'Кнопки внизу страницы — заголовок, часть 1'),
+    ...bilingual('ctaH2b', 'Кнопки внизу страницы — заголовок, курсив'),
+    ...bilingual('ctaH2c', 'Кнопки внизу страницы — заголовок, часть 3'),
   ],
   preview: { prepare: () => ({ title: 'Тексты: О нас' }) },
 }
