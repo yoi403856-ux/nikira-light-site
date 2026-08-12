@@ -53,7 +53,7 @@ export default async function Home() {
           чтобы под ним не проглядывала бумажная панель следующей секции на
           типичных ноутбучных высотах (900-1080px). max-h страхует от того,
           чтобы на низких экранах блок не растянуло выше контента. */}
-      <section className="relative flex min-h-0 flex-col justify-center px-6 pb-[60px] pt-10 sm:min-h-[calc(100vh-264px)] sm:px-[70px] sm:pb-20 sm:pt-16">
+      <section className="relative flex min-h-0 flex-col justify-center px-6 pb-[60px] pt-10 sm:min-h-[calc(100vh-249px)] sm:px-[70px] sm:pb-20 sm:pt-16">
         <Contain>
           <div
             className={`grid items-center gap-10 sm:gap-[70px] ${
