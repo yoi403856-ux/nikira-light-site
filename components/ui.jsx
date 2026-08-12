@@ -54,7 +54,7 @@ export function PageHead({ title, lead, className = '', compact = false }) {
 
 export function Btn({ href, children, kind = 'solid', onPhoto = false, className = '' }) {
   const base =
-    'inline-block px-8 py-4 font-caps text-[11.5px] uppercase tracking-[0.2em] transition-colors duration-300'
+    'inline-block whitespace-nowrap px-8 py-4 font-caps text-[11.5px] uppercase tracking-[0.2em] transition-colors duration-300'
   const styles = onPhoto
     ? {
         solid: 'bg-glow text-ink hover:bg-glowdim',

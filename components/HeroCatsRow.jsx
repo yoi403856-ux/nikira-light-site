@@ -57,7 +57,7 @@ export default function HeroCatsRow({ images }) {
       let baseH = ch
       let heights = scale.map((s) => baseH * s)
       let widths = heights.map((h, i) => h * ratios[i])
-      const overlapH = baseH * (OVERLAP_SCALE[images.length] || 0)
+      let overlapH = baseH * (OVERLAP_SCALE[images.length] || 0)
       const totalW = widths.reduce((a, b) => a + b, 0) - overlapH * (images.length - 1)
 
       if (totalW > cw) {
@@ -65,9 +65,24 @@ export default function HeroCatsRow({ images }) {
         baseH *= k
         heights = heights.map((h) => h * k)
         widths = widths.map((w) => w * k)
+        overlapH *= k
       }
 
-      setLayout({ heights, widths, overlapH: baseH * (OVERLAP_SCALE[images.length] || 0) })
+      // Центрируем не по краям общей "коробки", а по самому крупному коту:
+      // у боковых фото разная собственная ширина (зависит от пропорций
+      // конкретной вырезки), так что при центрировании по краям бокс мог
+      // формально влезать в контейнер ровно, но визуально центр тяжести
+      // (широкий средний кот) съезжал в сторону того бока, чей сосед уже —
+      // проверено на реальных цифрах на мобильном, композиция читалась
+      // сдвинутой вправо. Здесь середина САМОГО крупного кота ставится в
+      // середину контейнера, а соседи цепляются от него внахлёст.
+      const centerI = scale.indexOf(Math.max(...scale))
+      const lefts = new Array(images.length)
+      lefts[centerI] = (cw - widths[centerI]) / 2
+      for (let i = centerI - 1; i >= 0; i--) lefts[i] = lefts[i + 1] - widths[i] + overlapH
+      for (let i = centerI + 1; i < images.length; i++) lefts[i] = lefts[i - 1] + widths[i - 1] - overlapH
+
+      setLayout({ heights, widths, lefts })
     }
 
     compute()
@@ -78,7 +93,7 @@ export default function HeroCatsRow({ images }) {
   const z = Z[images.length]
 
   return (
-    <div ref={containerRef} className="flex h-full w-full items-end justify-center">
+    <div ref={containerRef} className="relative h-full w-full">
       {images.map((src, i) => (
         // eslint-disable-next-line @next/next/no-img-element
         <img
@@ -87,12 +102,12 @@ export default function HeroCatsRow({ images }) {
           src={src}
           alt=""
           onLoad={handleLoad(i)}
-          className="relative transition-opacity duration-500"
+          className="absolute bottom-0 transition-opacity duration-500"
           style={{
+            left: layout ? `${layout.lefts[i]}px` : '50%',
             width: layout ? `${layout.widths[i]}px` : 'auto',
             height: layout ? `${layout.heights[i]}px` : 'auto',
             maxHeight: layout ? undefined : '70%',
-            marginLeft: i > 0 && layout ? `${-layout.overlapH}px` : 0,
             opacity: layout ? 1 : 0,
             zIndex: z[i],
             // тёплый закатный свет фона + сепия/оттенок гасят "студийную" подсветку
