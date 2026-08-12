@@ -87,7 +87,7 @@ export default async function Home() {
               // тянуть по ширине): без ограничения по высоте оно раздувало весь
               // первый экран за пределы виду. Высота ограничена вьюпортом, ширина
               // подстраивается сама через object-contain.
-              <div className="relative flex h-[54vh] max-h-[520px] min-h-[320px] items-end justify-center sm:h-[64vh] sm:max-h-[680px]">
+              <div className="relative flex h-[30vh] max-h-[280px] min-h-[250px] items-end justify-center sm:h-[64vh] sm:max-h-[680px]">
                 <span
                   aria-hidden
                   className="absolute bottom-2.5 left-[16%] right-[16%] z-[1] h-8"
