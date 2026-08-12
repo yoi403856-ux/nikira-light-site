@@ -53,7 +53,7 @@ export default async function Home() {
           чтобы под ним не проглядывала бумажная панель следующей секции на
           типичных ноутбучных высотах (900-1080px). max-h страхует от того,
           чтобы на низких экранах блок не растянуло выше контента. */}
-      <section className="relative flex min-h-0 flex-col justify-center px-6 pb-[60px] pt-10 sm:min-h-[calc(100vh-240px)] sm:px-[70px] sm:pb-20 sm:pt-16">
+      <section className="relative flex min-h-0 flex-col justify-center px-6 pb-[60px] pt-10 sm:min-h-[calc(100vh-264px)] sm:px-[70px] sm:pb-20 sm:pt-16">
         <Contain>
           <div
             className={`grid items-center gap-10 sm:gap-[70px] ${
@@ -93,7 +93,13 @@ export default async function Home() {
               // размером, что и раньше, — Contain по-прежнему выходит на
               // те же 1160px, а сам кот просто не виден (десктопная версия
               // крупнее — отдельным блоком ниже, вне Contain/грида).
-              <div className="relative flex h-[36vh] max-h-[340px] min-h-[280px] items-end justify-center sm:invisible sm:h-[70vh] sm:max-h-[740px]">
+              // sm:min-w-[740px] держит Contain ровно на 1160px (текстовая
+              // колонка 0.7fr + gap 70 + эта = 1160 при клампе на max-w) —
+              // именно этой ширины не хватало 480px-варианту, отчего
+              // Contain сжимался и утаскивал текст. Явное число вместо
+              // "пусть JS посчитает по вырезкам" — надёжнее, не зависит от
+              // высоты/пропорций конкретных фото котов.
+              <div className="relative flex h-[36vh] max-h-[340px] min-h-[280px] items-end justify-center sm:invisible sm:h-[1px] sm:max-h-[1px] sm:min-h-0 sm:min-w-[740px]">
                 <span
                   aria-hidden
                   className="absolute bottom-2.5 left-[16%] right-[16%] z-[1] h-8"
@@ -115,7 +121,7 @@ export default async function Home() {
           // его потомок, и текстовая колонка в гриде рендерится как обычно.
           // Привязан к правому краю СЕКЦИИ (не Contain) — так может расти
           // вширь без потолка в 1160px.
-          <div className="pointer-events-none absolute bottom-10 right-0 hidden h-[92vh] max-h-[960px] w-[52vw] max-w-[1020px] items-end justify-end sm:flex">
+          <div className="pointer-events-none absolute bottom-24 right-[110px] hidden h-[92vh] max-h-[960px] w-[52vw] max-w-[1020px] items-end justify-end sm:flex">
             <span
               aria-hidden
               className="absolute bottom-2.5 left-[16%] right-[16%] z-[1] h-8"
