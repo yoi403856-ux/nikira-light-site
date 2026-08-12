@@ -110,7 +110,7 @@ export default async function AboutPage() {
             ]
               .filter(([n]) => n)
               .map(([n, label]) => (
-                <div key={label} className="max-w-[220px] sm:max-w-[320px]">
+                <div key={label} className="max-w-[220px] text-center sm:max-w-[320px]">
                   <b className="block font-display text-[26px] font-normal leading-tight sm:text-[34px]">{n}</b>
                   <span className="eyebrow mt-3 block">{label}</span>
                 </div>
