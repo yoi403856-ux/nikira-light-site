@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Phone, Instagram } from 'lucide-react'
+import { Phone, Instagram, Facebook } from 'lucide-react'
 import { WhatsApp } from './icons'
 import { pick } from '@/lib/dict'
 import { resolveContacts } from '@/lib/contacts'
@@ -26,6 +26,7 @@ export default function Footer({ settings, locale }) {
     { icon: Phone, label: c.phone, href: c.tel },
     c.whatsapp && { icon: WhatsApp, label: 'WhatsApp', href: c.whatsapp },
     c.instagram && { icon: Instagram, label: 'Instagram', href: c.instagram },
+    c.facebook && { icon: Facebook, label: 'Facebook', href: c.facebook },
   ].filter(Boolean)
 
   // без "Контакты" — ссылка на неё вела бы из подвала в самого себя

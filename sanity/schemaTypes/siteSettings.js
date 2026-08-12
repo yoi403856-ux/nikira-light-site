@@ -19,6 +19,7 @@ export const siteSettings = {
     { name: 'whatsapp', title: 'WhatsApp (ссылка)', type: 'url', group: 'contacts', description: 'Вида https://wa.me/79180509509' },
     { name: 'telegram', title: 'Telegram (ссылка)', type: 'url', group: 'contacts' },
     { name: 'instagram', title: 'Instagram (ссылка)', type: 'url', group: 'contacts' },
+    { name: 'facebook', title: 'Facebook (ссылка)', type: 'url', group: 'contacts' },
     { name: 'vk', title: 'ВКонтакте (ссылка)', type: 'url', group: 'contacts' },
     { name: 'email', title: 'E-mail', type: 'string', group: 'contacts' },
     ...bilingual('city', 'Город', 'string', { group: 'contacts' }),
