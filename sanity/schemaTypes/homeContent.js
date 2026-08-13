@@ -16,6 +16,9 @@ export const homeContent = {
   type: 'document',
   fields: [
     ...bilingual('eyebrow', 'Надпись над заголовком (hero)'),
+    ...bilingual('titleLine1', 'Заголовок (hero) — строка 1'),
+    ...bilingual('titleLine2', 'Заголовок (hero) — строка 2'),
+    ...bilingual('titleLine3', 'Заголовок (hero) — строка 3'),
     ...bilingual('lead', 'Подзаголовок (под названием)', 'text', { rows: 2 }),
 
     ...bilingual('aboutEyebrow', 'Манифест — номер раздела'),

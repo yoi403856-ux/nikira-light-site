@@ -63,7 +63,7 @@ export default async function Home() {
             <div>
               <Eyebrow onPhoto>{d.eyebrow}</Eyebrow>
               <h1 className="mt-6 font-display text-[42px] leading-[1.05] text-glow on-photo sm:text-[60px]">
-                {d.title.map((line) => (
+                {[d.titleLine1, d.titleLine2, d.titleLine3].filter(Boolean).map((line) => (
                   <span key={line} className="block">
                     {line}
                   </span>
