@@ -5,3 +5,11 @@ export function WhatsApp({ size = 18, className = '' }) {
     </svg>
   )
 }
+
+export function Telegram({ size = 18, className = '' }) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor" className={className} aria-hidden="true">
+      <path d="M23.91 3.79 20.3 20.84c-.27 1.21-.98 1.51-1.99.94l-5.5-4.06-2.65 2.55c-.29.29-.54.54-1.1.54l.39-5.61L19.78 6.16c.46-.4-.1-.63-.72-.23L7.75 13.4l-5.44-1.7c-1.18-.37-1.2-1.18.25-1.75L22.36 2.5c.98-.37 1.84.24 1.55 1.29Z" />
+    </svg>
+  )
+}

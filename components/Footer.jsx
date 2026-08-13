@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Phone, Instagram, Facebook } from 'lucide-react'
-import { WhatsApp } from './icons'
+import { WhatsApp, Telegram } from './icons'
 import { pick } from '@/lib/dict'
 import { resolveContacts } from '@/lib/contacts'
 import { withLocale } from '@/lib/locale'
@@ -25,6 +25,7 @@ export default function Footer({ settings, locale }) {
   const socials = [
     { icon: Phone, label: c.phone, href: c.tel },
     c.whatsapp && { icon: WhatsApp, label: 'WhatsApp', href: c.whatsapp },
+    c.telegram && { icon: Telegram, label: 'Telegram', href: c.telegram },
     c.instagram && { icon: Instagram, label: 'Instagram', href: c.instagram },
     c.facebook && { icon: Facebook, label: 'Facebook', href: c.facebook },
   ].filter(Boolean)
